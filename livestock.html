@@ -454,6 +454,31 @@
             border-color: rgba(255,255,255,0.2);
         }
 
+        /* ===== SECTION FEATURED VIDEO ===== */
+        .section-video {
+            max-width: 640px;
+            margin: 0 auto 36px;
+        }
+        .section-video:empty {
+            display: none;
+        }
+        .section-video .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .section-video .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         /* ===== EMPTY STATE ===== */
         .empty-state {
             text-align: center;
@@ -621,6 +646,7 @@
 
         <!-- Beetle Jelly -->
         <div class="tab-content" id="tab-jelly">
+            <div class="section-video" id="video-jelly"></div>
             <div class="search-box">
                 <input type="text" placeholder="Search products..." data-search="jelly">
             </div>
@@ -631,6 +657,7 @@
 
         <!-- Equipment -->
         <div class="tab-content" id="tab-equipment">
+            <div class="section-video" id="video-equipment"></div>
             <div class="search-box">
                 <input type="text" placeholder="Search equipment..." data-search="equipment">
             </div>

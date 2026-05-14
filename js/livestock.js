@@ -170,11 +170,30 @@
         grid.innerHTML = sorted.map(renderer).join('');
     }
 
+    /**
+     * Render a featured section video from the first non-empty videoUrl in items.
+     */
+    function renderSectionVideo(containerId, items) {
+        var container = document.getElementById(containerId);
+        if (!container) return;
+        // Find first item with a videoUrl
+        var videoItem = null;
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].videoUrl) { videoItem = items[i]; break; }
+        }
+        if (!videoItem) { container.innerHTML = ''; return; }
+        container.innerHTML = renderVideo(videoItem.videoUrl);
+    }
+
     function renderAll(data) {
         renderGrid('grid-adults', data.adults || [], renderAdultCard);
         renderGrid('grid-larvae', data.larvae || [], renderLarvaCard);
         renderGrid('grid-jelly', data.jelly || [], renderProductCard);
         renderGrid('grid-equipment', data.equipment || [], renderProductCard);
+
+        // Section featured videos
+        renderSectionVideo('video-jelly', data.jelly || []);
+        renderSectionVideo('video-equipment', data.equipment || []);
 
         // Last updated
         const el = document.getElementById('lastUpdated');
