@@ -456,27 +456,43 @@
 
         /* ===== SECTION FEATURED VIDEO ===== */
         .section-video {
-            max-width: 640px;
-            margin: 0 auto 36px;
+            max-width: 800px;
+            margin: 0 auto 48px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius);
+            overflow: hidden;
         }
         .section-video:empty {
             display: none;
         }
-        .section-video .video-container {
+        .section-video__player {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%;
-            border-radius: var(--radius);
-            overflow: hidden;
             background: #000;
-            border: 1px solid rgba(255,255,255,0.08);
         }
-        .section-video .video-container iframe {
+        .section-video__player iframe {
             position: absolute;
             top: 0; left: 0;
             width: 100%;
             height: 100%;
             border: none;
+        }
+        .section-video__info {
+            padding: 24px 28px;
+        }
+        .section-video__title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .section-video__desc {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.7;
         }
 
         /* ===== EMPTY STATE ===== */

@@ -171,7 +171,8 @@
     }
 
     /**
-     * Render a featured section video from the first non-empty videoUrl in items.
+     * Render a featured section video with embedded player + description.
+     * Uses the first item that has a videoUrl.
      */
     function renderSectionVideo(containerId, items) {
         var container = document.getElementById(containerId);
@@ -182,7 +183,22 @@
             if (items[i].videoUrl) { videoItem = items[i]; break; }
         }
         if (!videoItem) { container.innerHTML = ''; return; }
-        container.innerHTML = renderVideo(videoItem.videoUrl);
+
+        var ytId = getYouTubeId(videoItem.videoUrl);
+        if (!ytId) { container.innerHTML = ''; return; }
+
+        container.innerHTML = `
+            <div class="section-video__player">
+                <iframe src="https://www.youtube-nocookie.com/embed/${ytId}"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy"
+                        title="${escapeHtml(videoItem.name || 'Product video')}"></iframe>
+            </div>
+            <div class="section-video__info">
+                <div class="section-video__title">${escapeHtml(videoItem.name || '')}</div>
+                <div class="section-video__desc">${escapeHtml(videoItem.description || '')}</div>
+            </div>`;
     }
 
     function renderAll(data) {
