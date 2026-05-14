@@ -44,19 +44,80 @@
         .knowledge-hero p {
             color: #8888a0;
             font-size: 1.05rem;
-            max-width: 600px;
+            max-width: 640px;
             margin: 0 auto;
         }
 
-        .guides-section {
+        /* ===== CATEGORY SECTION ===== */
+        .category-section {
             position: relative;
             z-index: 1;
-            padding: 60px 0 100px;
+            padding: 48px 0;
         }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+        .category-number {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 2rem;
+            color: rgba(218,165,32,0.2);
+            line-height: 1;
+        }
+        .category-title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #e8e8f0;
+        }
+        .category-desc {
+            color: #8888a0;
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+        .category-level {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+        .level-beginner {
+            background: rgba(39,174,96,0.15);
+            color: #2ecc71;
+            border: 1px solid rgba(39,174,96,0.25);
+        }
+        .level-advanced {
+            background: rgba(142,68,173,0.15);
+            color: #bb6bd9;
+            border: 1px solid rgba(142,68,173,0.25);
+        }
+        .level-guide {
+            background: rgba(218,165,32,0.15);
+            color: #daa520;
+            border: 1px solid rgba(218,165,32,0.25);
+        }
+
+        .category-divider {
+            border: none;
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 0;
+        }
+
+        /* ===== GUIDE CARDS ===== */
         .guides-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
         .guide-card {
             background: #12121a;
@@ -72,17 +133,17 @@
             transform: translateY(-4px);
         }
         .guide-card-header {
-            padding: 32px 28px 20px;
+            padding: 28px 24px 16px;
             position: relative;
         }
         .guide-card-icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
+            font-size: 2.5rem;
+            margin-bottom: 12px;
             display: block;
         }
         .guide-card h3 {
             font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: #e8e8f0;
             margin-bottom: 4px;
@@ -90,39 +151,39 @@
         .guide-card .scientific {
             font-style: italic;
             color: #8888a0;
-            font-size: 0.85rem;
-            margin-bottom: 12px;
+            font-size: 0.82rem;
+            margin-bottom: 8px;
             display: block;
         }
         .guide-card p {
             color: #8888a0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.7;
-            padding: 0 28px 12px;
+            padding: 0 24px 12px;
         }
         .guide-card-topics {
-            padding: 0 28px 24px;
+            padding: 0 24px 20px;
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
         }
         .topic-chip {
-            padding: 4px 10px;
+            padding: 3px 10px;
             background: rgba(255,255,255,0.05);
             border-radius: 12px;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: #8888a0;
             letter-spacing: 0.3px;
         }
         .guide-card-footer {
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-top: 1px solid rgba(255,255,255,0.04);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .guide-status {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -136,7 +197,7 @@
         }
         .guide-card:hover .guide-arrow { transform: translateX(4px); }
 
-        /* Color Guide highlight card */
+        /* Color Guide highlight */
         .guide-card-highlight {
             background: linear-gradient(135deg, rgba(192,57,43,0.05), rgba(39,174,96,0.05), rgba(142,68,173,0.05));
             border-color: rgba(218,165,32,0.15);
@@ -145,7 +206,19 @@
             border-color: rgba(218,165,32,0.3);
         }
 
-        /* Contact Section */
+        /* Coming soon */
+        .guide-card.coming-soon {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .guide-card.coming-soon .guide-card-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10,10,15,0.3);
+        }
+
+        /* ===== CONTACT ===== */
         .contact-section {
             position: relative;
             z-index: 1;
@@ -190,16 +263,14 @@
         .social-btn--yt { background: #FF0000; }
         .social-btn--yt:hover { box-shadow: 0 8px 25px rgba(255,0,0,0.35); }
 
-        /* Coming soon overlay */
-        .guide-card.coming-soon {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        .guide-card.coming-soon .guide-card-header::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(10,10,15,0.3);
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .guides-grid {
+                grid-template-columns: 1fr;
+            }
+            .category-title {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -226,49 +297,72 @@
 
     <section class="knowledge-hero">
         <h1>&#128218; Knowledge Base</h1>
-        <p>Complete breeding guides and care instructions for popular beetle species. From beginner basics to advanced techniques.</p>
+        <p>Everything you need to know about keeping, breeding, and developing beetle color variations — from beginner basics to advanced techniques.</p>
     </section>
 
-    <section class="guides-section">
+    <!-- ==============================
+         CATEGORY 1: Keeping Beetles (Beginner)
+         ============================== -->
+    <section class="category-section">
         <div class="container">
+            <span class="category-level level-beginner">Beginner</span>
+            <div class="category-header">
+                <span class="category-number">01</span>
+                <h2 class="category-title">Keeping Beetles</h2>
+            </div>
+            <p class="category-desc">The essentials for getting started — how to keep adult beetles healthy, breed them successfully, and raise larvae from egg to adult.</p>
+
             <div class="guides-grid">
 
-                <!-- Rainbow Stag Color Guide (READY) -->
-                <a href="color-guide.html" class="guide-card guide-card-highlight">
-                    <div class="guide-card-header">
-                        <span class="guide-card-icon">&#127752;</span>
-                        <h3>Rainbow Stag Beetle — Color Guide</h3>
-                        <span class="scientific">Phalacrognathus muelleri</span>
-                    </div>
-                    <p>The definitive guide to breeding color variations — Red Line, Green Line, Purple Line, Blue Crest, Aurora, Pikal, eye variants, and breeding strategy.</p>
-                    <div class="guide-card-topics">
-                        <span class="topic-chip">Color Lines</span>
-                        <span class="topic-chip">Evolution Tree</span>
-                        <span class="topic-chip">Eye Variants</span>
-                        <span class="topic-chip">Pikal</span>
-                        <span class="topic-chip">Breeding Strategy</span>
-                        <span class="topic-chip">Thick Horn</span>
-                    </div>
-                    <div class="guide-card-footer">
-                        <span class="guide-status status-ready">&#9679; Available</span>
-                        <span class="guide-arrow">&rarr;</span>
-                    </div>
-                </a>
-
-                <!-- Stag Beetle Guide (COMING SOON) -->
                 <div class="guide-card coming-soon">
                     <div class="guide-card-header">
                         <span class="guide-card-icon">&#129438;</span>
-                        <h3>Stag Beetle Care &amp; Breeding</h3>
-                        <span class="scientific">Lucanidae family</span>
+                        <h3>How to Keep Adult Beetles</h3>
                     </div>
-                    <p>Complete guide to keeping and breeding stag beetles — habitat setup, substrate recipes, larval care, temperature control, and pairing techniques.</p>
+                    <p>Housing, temperature, humidity, substrate, feeding (beetle jelly), and daily care for keeping adult beetles alive and healthy.</p>
                     <div class="guide-card-topics">
-                        <span class="topic-chip">Habitat Setup</span>
-                        <span class="topic-chip">Substrate</span>
-                        <span class="topic-chip">Larval Care</span>
+                        <span class="topic-chip">Housing</span>
                         <span class="topic-chip">Temperature</span>
+                        <span class="topic-chip">Humidity</span>
+                        <span class="topic-chip">Feeding</span>
+                        <span class="topic-chip">Substrate</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-coming">&#9679; Coming Soon</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </div>
+
+                <div class="guide-card coming-soon">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#10084;&#65039;</span>
+                        <h3>How to Breed Beetles</h3>
+                    </div>
+                    <p>Pairing males and females, mating behavior, egg laying setup, how to collect eggs, and managing breeding containers.</p>
+                    <div class="guide-card-topics">
                         <span class="topic-chip">Pairing</span>
+                        <span class="topic-chip">Mating</span>
+                        <span class="topic-chip">Egg Laying</span>
+                        <span class="topic-chip">Collecting Eggs</span>
+                        <span class="topic-chip">Containers</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-coming">&#9679; Coming Soon</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </div>
+
+                <div class="guide-card coming-soon">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#129451;</span>
+                        <h3>How to Raise Larvae</h3>
+                    </div>
+                    <p>Larval stages (L1, L2, L3), substrate recipes, feeding schedule, container size, temperature control, and pupation chamber setup.</p>
+                    <div class="guide-card-topics">
+                        <span class="topic-chip">L1 / L2 / L3</span>
+                        <span class="topic-chip">Substrate</span>
+                        <span class="topic-chip">Feeding</span>
+                        <span class="topic-chip">Temperature</span>
                         <span class="topic-chip">Pupation</span>
                     </div>
                     <div class="guide-card-footer">
@@ -277,21 +371,38 @@
                     </div>
                 </div>
 
-                <!-- Rhino Beetle Guide (COMING SOON) -->
+            </div>
+        </div>
+    </section>
+
+    <div class="container"><hr class="category-divider"></div>
+
+    <!-- ==============================
+         CATEGORY 2: Breeding & Developing (Advanced)
+         ============================== -->
+    <section class="category-section">
+        <div class="container">
+            <span class="category-level level-advanced">Advanced</span>
+            <div class="category-header">
+                <span class="category-number">02</span>
+                <h2 class="category-title">Breeding &amp; Developing</h2>
+            </div>
+            <p class="category-desc">For experienced breeders who want to develop their own strain, produce new color variations, and push beetle genetics to the next level.</p>
+
+            <div class="guides-grid">
+
                 <div class="guide-card coming-soon">
                     <div class="guide-card-header">
-                        <span class="guide-card-icon">&#129410;</span>
-                        <h3>Rhino Beetle Care &amp; Breeding</h3>
-                        <span class="scientific">Dynastinae subfamily</span>
+                        <span class="guide-card-icon">&#129516;</span>
+                        <h3>Selective Breeding</h3>
                     </div>
-                    <p>Everything about rhinoceros beetles — from Dynastes hercules to Chalcosoma. Substrate mixing, larval feeding, horn development, and breeding cycles.</p>
+                    <p>How to select breeding pairs for specific traits — color, size, horn thickness. Same-line breeding vs cross-line breeding, F-generation tracking.</p>
                     <div class="guide-card-topics">
-                        <span class="topic-chip">Species Guide</span>
-                        <span class="topic-chip">Substrate Mix</span>
-                        <span class="topic-chip">Larval Feeding</span>
-                        <span class="topic-chip">Horn Growth</span>
-                        <span class="topic-chip">Breeding</span>
-                        <span class="topic-chip">Pupation Chamber</span>
+                        <span class="topic-chip">Pair Selection</span>
+                        <span class="topic-chip">Same Line</span>
+                        <span class="topic-chip">Cross Line</span>
+                        <span class="topic-chip">F-Generations</span>
+                        <span class="topic-chip">Trait Tracking</span>
                     </div>
                     <div class="guide-card-footer">
                         <span class="guide-status status-coming">&#9679; Coming Soon</span>
@@ -299,20 +410,116 @@
                     </div>
                 </div>
 
-                <!-- Flower Beetle Guide (COMING SOON) -->
+                <div class="guide-card coming-soon">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#127793;</span>
+                        <h3>Developing New Variations</h3>
+                    </div>
+                    <p>Strategies for creating new color morphs — bloodline management, stabilization over generations, combining traits like Pikal + eye colors.</p>
+                    <div class="guide-card-topics">
+                        <span class="topic-chip">Bloodline</span>
+                        <span class="topic-chip">Stabilization</span>
+                        <span class="topic-chip">Color Mixing</span>
+                        <span class="topic-chip">CBF Tracking</span>
+                        <span class="topic-chip">Multi-trait</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-coming">&#9679; Coming Soon</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </div>
+
+                <div class="guide-card coming-soon">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#127777;&#65039;</span>
+                        <h3>Environment &amp; Color</h3>
+                    </div>
+                    <p>How temperature, humidity, and substrate affect structural color development. Optimizing conditions to bring out the best color in your beetles.</p>
+                    <div class="guide-card-topics">
+                        <span class="topic-chip">Temperature</span>
+                        <span class="topic-chip">Humidity</span>
+                        <span class="topic-chip">Substrate</span>
+                        <span class="topic-chip">Structural Color</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-coming">&#9679; Coming Soon</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="container"><hr class="category-divider"></div>
+
+    <!-- ==============================
+         CATEGORY 3: Color Variations (Species Guides)
+         ============================== -->
+    <section class="category-section">
+        <div class="container">
+            <span class="category-level level-guide">Color Guide</span>
+            <div class="category-header">
+                <span class="category-number">03</span>
+                <h2 class="category-title">Color Variations</h2>
+            </div>
+            <p class="category-desc">In-depth color variation guides for specific species — every morph, breeding line, and how to develop them.</p>
+
+            <div class="guides-grid">
+
+                <!-- Rainbow Stag — READY -->
+                <a href="color-guide.html" class="guide-card guide-card-highlight">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#127752;</span>
+                        <h3>Rainbow Stag Beetle</h3>
+                        <span class="scientific">Phalacrognathus muelleri</span>
+                    </div>
+                    <p>The definitive color guide — Red Line, Green Line, Purple Line, Blue Crest, Aurora, Pikal, eye variants, and complete breeding strategy.</p>
+                    <div class="guide-card-topics">
+                        <span class="topic-chip">Color Lines</span>
+                        <span class="topic-chip">Evolution Tree</span>
+                        <span class="topic-chip">Eye Variants</span>
+                        <span class="topic-chip">Pikal</span>
+                        <span class="topic-chip">Aurora</span>
+                        <span class="topic-chip">Blue Crest</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-ready">&#9679; Available</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Ugandis Flower Beetle — COMING SOON -->
                 <div class="guide-card coming-soon">
                     <div class="guide-card-header">
                         <span class="guide-card-icon">&#127804;</span>
-                        <h3>Flower Beetle Care &amp; Breeding</h3>
-                        <span class="scientific">Cetoniinae subfamily</span>
+                        <h3>Ugandis Flower Beetle</h3>
+                        <span class="scientific">Mecynorrhina ugandensis</span>
                     </div>
-                    <p>Guide to keeping flower beetles (fruit beetles) — easy species for beginners, colorful varieties, communal setups, and simple breeding methods.</p>
+                    <p>Color variation guide for one of the most colorful flower beetles — green, blue, purple, and mixed color morphs.</p>
                     <div class="guide-card-topics">
-                        <span class="topic-chip">Beginner Friendly</span>
-                        <span class="topic-chip">Communal Setup</span>
-                        <span class="topic-chip">Diet</span>
-                        <span class="topic-chip">Substrate</span>
+                        <span class="topic-chip">Color Morphs</span>
                         <span class="topic-chip">Breeding</span>
+                        <span class="topic-chip">Variations</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-coming">&#9679; Coming Soon</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Lamprima adolphinae — COMING SOON -->
+                <div class="guide-card coming-soon">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#129430;</span>
+                        <h3>Lamprima Stag Beetle</h3>
+                        <span class="scientific">Lamprima adolphinae</span>
+                    </div>
+                    <p>Color variation guide for the shiny metallic stag beetle — gold, green, blue, purple, and bicolor forms.</p>
+                    <div class="guide-card-topics">
+                        <span class="topic-chip">Metallic Colors</span>
+                        <span class="topic-chip">Breeding</span>
+                        <span class="topic-chip">Variations</span>
                     </div>
                     <div class="guide-card-footer">
                         <span class="guide-status status-coming">&#9679; Coming Soon</span>
