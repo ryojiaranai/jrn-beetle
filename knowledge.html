@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRN BEETLE — Knowledge Base</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .knowledge-hero {
+            position: relative;
+            z-index: 1;
+            padding: 140px 24px 60px;
+            text-align: center;
+        }
+        .knowledge-hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 16px;
+        }
+        .knowledge-hero p {
+            color: #8888a0;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .guides-section {
+            position: relative;
+            z-index: 1;
+            padding: 60px 0 100px;
+        }
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .guide-card {
+            background: #12121a;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+        .guide-card:hover {
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-4px);
+        }
+        .guide-card-header {
+            padding: 32px 28px 20px;
+            position: relative;
+        }
+        .guide-card-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .guide-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e8e8f0;
+            margin-bottom: 4px;
+        }
+        .guide-card .scientific {
+            font-style: italic;
+            color: #8888a0;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .guide-card p {
+            color: #8888a0;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            padding: 0 28px 12px;
+        }
+        .guide-card-topics {
+            padding: 0 28px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .topic-chip {
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            font-size: 0.72rem;
+            color: #8888a0;
+            letter-spacing: 0.3px;
+        }
+        .guide-card-footer {
+            padding: 14px 28px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .guide-status {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .status-ready { color: #27ae60; }
+        .status-coming { color: #daa520; }
+        .guide-arrow {
+            color: #daa520;
+            font-size: 0.85rem;
+            transition: transform 0.3s;
+        }
+        .guide-card:hover .guide-arrow { transform: translateX(4px); }
+
+        /* Color Guide highlight card */
+        .guide-card-highlight {
+            background: linear-gradient(135deg, rgba(192,57,43,0.05), rgba(39,174,96,0.05), rgba(142,68,173,0.05));
+            border-color: rgba(218,165,32,0.15);
+        }
+        .guide-card-highlight:hover {
+            border-color: rgba(218,165,32,0.3);
+        }
+
+        /* Coming soon overlay */
+        .guide-card.coming-soon {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .guide-card.coming-soon .guide-card-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10,10,15,0.3);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-jrn">JRN</span>
+                <span class="logo-beetle">BEETLE</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="livestock.html">Livestock</a></li>
+                <li><a href="knowledge.html" class="active">Knowledge</a></li>
+                <li><a href="color-guide.html">Color Guide</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="knowledge-hero">
+        <h1>&#128218; Knowledge Base</h1>
+        <p>Complete breeding guides and care instructions for popular beetle species. From beginner basics to advanced techniques.</p>
+    </section>
+
+    <section class="guides-section">
+        <div class="container">
+            <div class="guides-grid">
+
+                <!-- Rainbow Stag Color Guide (READY) -->
+                <a href="color-guide.html" class="guide-card guide-card-highlight">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#127752;</span>
+                        <h3>Rainbow Stag Beetle — Color Guide</h3>
+                        <span class="scientific">Phalacrognathus muelleri</span>
+                    </div>
+                    <p>The definitive guide to breeding color variations — Red Line, Green Line, Purple Line, Blue Crest, Aurora, Pikal, eye variants, and breeding strategy.</p>
+                    <div class="guide-card-topics">
+                        <span class="topic-chip">Color Lines</span>
+                        <span class="topic-chip">Evolution Tree</span>
+                        <span class="topic-chip">Eye Variants</span>
+                        <span class="topic-chip">Pikal</span>
+                        <span class="topic-chip">Breeding Strategy</span>
+                        <span class="topic-chip">Thick Horn</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-ready">&#9679; Available</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Stag Beetle Guide (COMING SOON) -->
+                <div class="guide-card coming-soon">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#129438;</span>
+                        <h3>Stag Beetle Care &amp; Breeding</h3>
+                        <span class="scientific">Lucanidae family</span>
+                    </div>
+                    <p>Complete guide to keeping and breeding stag beetles — habitat setup, substrate recipes, larval care, temperature control, and pairing techniques.</p>
+                    <div class="guide-card-topics">
+                        <span class="topic-chip">Habitat Setup</span>
+                        <span class="topic-chip">Substrate</span>
+                        <span class="topic-chip">Larval Care</span>
+                        <span class="topic-chip">Temperature</span>
+                        <span class="topic-chip">Pairing</span>
+                        <span class="topic-chip">Pupation</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-coming">&#9679; Coming Soon</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Rhino Beetle Guide (COMING SOON) -->
+                <div class="guide-card coming-soon">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#129410;</span>
+                        <h3>Rhino Beetle Care &amp; Breeding</h3>
+                        <span class="scientific">Dynastinae subfamily</span>
+                    </div>
+                    <p>Everything about rhinoceros beetles — from Dynastes hercules to Chalcosoma. Substrate mixing, larval feeding, horn development, and breeding cycles.</p>
+                    <div class="guide-card-topics">
+                        <span class="topic-chip">Species Guide</span>
+                        <span class="topic-chip">Substrate Mix</span>
+                        <span class="topic-chip">Larval Feeding</span>
+                        <span class="topic-chip">Horn Growth</span>
+                        <span class="topic-chip">Breeding</span>
+                        <span class="topic-chip">Pupation Chamber</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-coming">&#9679; Coming Soon</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Flower Beetle Guide (COMING SOON) -->
+                <div class="guide-card coming-soon">
+                    <div class="guide-card-header">
+                        <span class="guide-card-icon">&#127804;</span>
+                        <h3>Flower Beetle Care &amp; Breeding</h3>
+                        <span class="scientific">Cetoniinae subfamily</span>
+                    </div>
+                    <p>Guide to keeping flower beetles (fruit beetles) — easy species for beginners, colorful varieties, communal setups, and simple breeding methods.</p>
+                    <div class="guide-card-topics">
+                        <span class="topic-chip">Beginner Friendly</span>
+                        <span class="topic-chip">Communal Setup</span>
+                        <span class="topic-chip">Diet</span>
+                        <span class="topic-chip">Substrate</span>
+                        <span class="topic-chip">Breeding</span>
+                    </div>
+                    <div class="guide-card-footer">
+                        <span class="guide-status status-coming">&#9679; Coming Soon</span>
+                        <span class="guide-arrow">&rarr;</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <span class="logo-jrn">JRN</span>
+                <span class="logo-beetle">BEETLE</span>
+            </div>
+            <p class="footer-text">
+                Beetle Breeder &amp; Supplies<br>
+                Quality beetles, jelly, and equipment for the breeder community
+            </p>
+            <p class="footer-copy">&copy; 2026 JRN BEETLE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

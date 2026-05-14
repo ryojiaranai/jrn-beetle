@@ -1,0 +1,854 @@
+/* ============================================================
+   JRN BEETLE — Shared Stylesheet
+   Dark-themed beetle breeder website
+   Fonts: Orbitron (headings/logo) · Inter (body)
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. DESIGN TOKENS
+   ---------------------------------------------------------- */
+:root {
+  --bg-dark: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a28;
+  --text: #e8e8f0;
+  --text-dim: #8888a0;
+  --accent-red: #c0392b;
+  --accent-green: #27ae60;
+  --accent-blue: #1a3a6b;
+  --accent-purple: #8e44ad;
+  --accent-gold: #daa520;
+  --radius: 16px;
+  --radius-sm: 8px;
+}
+
+/* ----------------------------------------------------------
+   2. RESET & BASE
+   ---------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* ----------------------------------------------------------
+   3. NAVIGATION
+   ---------------------------------------------------------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+/* Logo */
+.nav-logo {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.logo-jrn {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, var(--accent-gold), #f5d76e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-beetle {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  transition: color 0.25s;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.nav-links a.active {
+  color: var(--text);
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-gold);
+  border-radius: 1px;
+}
+
+/* Hamburger Toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-dim);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 64px;
+    right: 0;
+    width: 260px;
+    height: calc(100vh - 64px);
+    background: rgba(10, 10, 15, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 28px;
+    gap: 24px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+  }
+
+  .nav-links a.active::after {
+    bottom: -6px;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex !important;
+  }
+
+  .nav-toggle {
+    display: none !important;
+  }
+}
+
+/* ----------------------------------------------------------
+   4. CONTAINER
+   ---------------------------------------------------------- */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ----------------------------------------------------------
+   5. HERO SECTION
+   ---------------------------------------------------------- */
+.page-hero {
+  padding-top: 120px;
+  padding-bottom: 60px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--accent-gold), #f5d76e, var(--accent-gold));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.page-hero-subtitle {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ----------------------------------------------------------
+   6. SECTION
+   ---------------------------------------------------------- */
+.section {
+  padding: 80px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.section-intro {
+  color: var(--text-dim);
+  max-width: 700px;
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+/* ----------------------------------------------------------
+   7. CARDS
+   ---------------------------------------------------------- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------------------
+   8. GRID LAYOUTS
+   ---------------------------------------------------------- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ----------------------------------------------------------
+   9. BUTTONS
+   ---------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.15s;
+  cursor: pointer;
+  border: 2px solid transparent;
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--accent-gold);
+  color: #0a0a0f;
+  border-color: var(--accent-gold);
+}
+
+.btn-primary:hover {
+  background: #c4961a;
+  border-color: #c4961a;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-outline:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.btn-sm {
+  padding: 6px 16px;
+  font-size: 0.8rem;
+}
+
+/* ----------------------------------------------------------
+   10. BADGES
+   ---------------------------------------------------------- */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 40px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-red {
+  background: rgba(192, 57, 43, 0.18);
+  color: var(--accent-red);
+}
+
+.badge-green {
+  background: rgba(39, 174, 96, 0.18);
+  color: var(--accent-green);
+}
+
+.badge-purple {
+  background: rgba(142, 68, 173, 0.18);
+  color: var(--accent-purple);
+}
+
+.badge-blue {
+  background: rgba(26, 58, 107, 0.25);
+  color: #4a8fd4;
+}
+
+.badge-gold {
+  background: rgba(218, 165, 32, 0.18);
+  color: var(--accent-gold);
+}
+
+/* ----------------------------------------------------------
+   11. FOOTER
+   ---------------------------------------------------------- */
+#footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 60px 0 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-brand {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--accent-gold), #f5d76e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.footer-text {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto 20px;
+}
+
+.footer-copy {
+  color: rgba(136, 136, 160, 0.5);
+  font-size: 0.75rem;
+}
+
+/* ----------------------------------------------------------
+   12. PARTICLE CANVAS
+   ---------------------------------------------------------- */
+#particles,
+.particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------
+   13. IMAGE STYLES
+   ---------------------------------------------------------- */
+.img-cover {
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.img-hover-zoom {
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.img-hover-zoom img {
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.img-hover-zoom:hover img {
+  transform: scale(1.06);
+}
+
+/* ----------------------------------------------------------
+   14. TABS
+   ---------------------------------------------------------- */
+.tabs {
+  margin-bottom: 32px;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  color: var(--text);
+  border-bottom-color: var(--accent-gold);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ----------------------------------------------------------
+   15. VIDEO EMBED
+   ---------------------------------------------------------- */
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.video-container iframe,
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ----------------------------------------------------------
+   16. FORM STYLES
+   ---------------------------------------------------------- */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: #1a1a28;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 0.9rem;
+  transition: border-color 0.25s;
+  outline: none;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--accent-gold);
+}
+
+.form-input::placeholder {
+  color: rgba(136, 136, 160, 0.5);
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888a0' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------
+   17. TABLE
+   ---------------------------------------------------------- */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.data-table td {
+  padding: 12px;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.data-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ----------------------------------------------------------
+   18. MODAL
+   ---------------------------------------------------------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 32px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+/* ----------------------------------------------------------
+   19. STATUS INDICATORS
+   ---------------------------------------------------------- */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-available {
+  color: var(--accent-green);
+}
+
+.status-available::before {
+  background: var(--accent-green);
+  box-shadow: 0 0 6px rgba(39, 174, 96, 0.4);
+}
+
+.status-sold {
+  color: var(--accent-red);
+}
+
+.status-sold::before {
+  background: var(--accent-red);
+}
+
+.status-breeding {
+  color: var(--accent-purple);
+}
+
+.status-breeding::before {
+  background: var(--accent-purple);
+}
+
+.status-reserved {
+  color: var(--accent-gold);
+}
+
+.status-reserved::before {
+  background: var(--accent-gold);
+}
+
+/* ----------------------------------------------------------
+   20. PRICE DISPLAY
+   ---------------------------------------------------------- */
+.price {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+/* ----------------------------------------------------------
+   21. UTILITY CLASSES
+   ---------------------------------------------------------- */
+.text-center { text-align: center; }
+.text-dim    { color: var(--text-dim); }
+
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gap-1 { gap: 8px; }
+.gap-2 { gap: 16px; }
+
+/* ----------------------------------------------------------
+   22. RESPONSIVE FINE-TUNING
+   ---------------------------------------------------------- */
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 0;
+  }
+
+  .page-hero {
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .modal-content {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .nav-container {
+    padding: 0 16px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
+}

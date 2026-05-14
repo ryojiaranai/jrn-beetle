@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRN BEETLE — Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ===== ADMIN LAYOUT OVERRIDES ===== */
+        body {
+            background: #0a0a0f;
+            min-height: 100vh;
+            padding-top: 64px;
+        }
+
+        /* Hide main-site elements that aren't needed */
+        #particleCanvas, #navbar { display: none; }
+
+        /* ===== ADMIN NAVBAR ===== */
+        .admin-navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(218, 165, 32, 0.15);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .admin-navbar-left {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+        }
+
+        .admin-logo {
+            text-decoration: none;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .admin-logo .logo-jrn {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #daa520, #f1c40f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .admin-logo .logo-beetle {
+            font-family: 'Orbitron', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #8888a0;
+            letter-spacing: 3px;
+        }
+
+        .admin-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #daa520;
+            background: rgba(218, 165, 32, 0.1);
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            padding: 4px 12px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .admin-navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #daa520, #b8860b);
+            color: #0a0a0f;
+        }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #e8e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+
+        .btn-danger {
+            background: rgba(192, 57, 43, 0.15);
+            color: #e74c3c;
+            border: 1px solid rgba(192, 57, 43, 0.2);
+        }
+        .btn-danger:hover { background: rgba(192, 57, 43, 0.25); }
+
+        .btn-sm {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .btn-icon.edit { color: #3498db; }
+        .btn-icon.edit:hover { background: rgba(52, 152, 219, 0.15); }
+        .btn-icon.delete { color: #e74c3c; }
+        .btn-icon.delete:hover { background: rgba(231, 76, 60, 0.15); }
+
+        /* ===== TAB BAR ===== */
+        .tab-bar {
+            max-width: 1200px;
+            margin: 24px auto 0;
+            padding: 0 24px;
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .tab-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: none;
+            border: none;
+            color: #8888a0;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover { color: #e8e8f0; }
+
+        .tab-btn.active {
+            color: #daa520;
+            border-bottom-color: #daa520;
+        }
+
+        .tab-count {
+            font-size: 0.7rem;
+            background: rgba(255, 255, 255, 0.08);
+            color: #8888a0;
+            padding: 1px 7px;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .tab-btn.active .tab-count {
+            background: rgba(218, 165, 32, 0.15);
+            color: #daa520;
+        }
+
+        /* ===== TAB CONTENT ===== */
+        .tab-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e8e8f0;
+        }
+
+        /* ===== DATA TABLE ===== */
+        .data-table-wrap {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .data-table thead {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .data-table th {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: #8888a0;
+            text-align: left;
+            padding: 12px 16px;
+            white-space: nowrap;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .data-table td {
+            padding: 12px 16px;
+            color: #e8e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            white-space: nowrap;
+        }
+
+        .data-table tbody tr {
+            transition: background 0.15s;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .data-table tbody tr.dimmed {
+            opacity: 0.4;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #8888a0;
+        }
+
+        .empty-state-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+        }
+
+        /* ===== STATUS BADGES ===== */
+        .status-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-available {
+            background: rgba(39, 174, 96, 0.15);
+            color: #2ecc71;
+        }
+
+        .status-sold {
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+        }
+
+        .status-breeding {
+            background: rgba(142, 68, 173, 0.15);
+            color: #9b59b6;
+        }
+
+        .status-reserved {
+            background: rgba(218, 165, 32, 0.15);
+            color: #daa520;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            background: #12121a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 540px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .modal-header h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e8e8f0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #8888a0;
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+        }
+        .modal-close:hover { color: #e8e8f0; }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #8888a0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px 14px;
+            color: #e8e8f0;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(218, 165, 32, 0.4);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238888a0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* ===== IMPORT INPUT (hidden) ===== */
+        #importFile {
+            display: none;
+        }
+
+        /* ===== VIDEO LINK ===== */
+        .video-link {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        .video-link:hover { text-decoration: underline; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .admin-navbar {
+                padding: 0 16px;
+            }
+            .admin-label { display: none; }
+            .tab-bar {
+                overflow-x: auto;
+                padding: 0 16px;
+            }
+            .tab-btn {
+                padding: 10px 14px;
+                font-size: 0.8rem;
+            }
+            .tab-content {
+                padding: 16px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .panel-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Admin Navbar -->
+    <nav class="admin-navbar">
+        <div class="admin-navbar-left">
+            <a href="index.html" class="admin-logo">
+                <span class="logo-jrn">JRN</span>
+                <span class="logo-beetle">BEETLE</span>
+            </a>
+            <span class="admin-label">Admin Panel</span>
+        </div>
+        <div class="admin-navbar-right">
+            <input type="file" id="importFile" accept=".json">
+            <button class="btn btn-secondary btn-sm" onclick="importData()">Import</button>
+            <button class="btn btn-primary btn-sm" onclick="downloadData()">Download Data</button>
+        </div>
+    </nav>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="adultBeetles">
+            Adult Beetles <span class="tab-count" id="count-adultBeetles">0</span>
+        </button>
+        <button class="tab-btn" data-tab="larvae">
+            Larvae <span class="tab-count" id="count-larvae">0</span>
+        </button>
+        <button class="tab-btn" data-tab="beetleJelly">
+            Beetle Jelly <span class="tab-count" id="count-beetleJelly">0</span>
+        </button>
+        <button class="tab-btn" data-tab="equipment">
+            Equipment <span class="tab-count" id="count-equipment">0</span>
+        </button>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+
+        <!-- Adult Beetles Panel -->
+        <div class="tab-panel active" id="panel-adultBeetles">
+            <div class="panel-header">
+                <h2 class="panel-title">Adult Beetles</h2>
+                <button class="btn btn-primary" onclick="openAddModal('adultBeetles')">+ Add New</button>
+            </div>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Species</th>
+                            <th>Common Name</th>
+                            <th>Variation</th>
+                            <th>Sex</th>
+                            <th>Qty</th>
+                            <th>Price (THB)</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-adultBeetles"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Larvae Panel -->
+        <div class="tab-panel" id="panel-larvae">
+            <div class="panel-header">
+                <h2 class="panel-title">Larvae</h2>
+                <button class="btn btn-primary" onclick="openAddModal('larvae')">+ Add New</button>
+            </div>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Species</th>
+                            <th>Common Name</th>
+                            <th>Variation</th>
+                            <th>Qty</th>
+                            <th>Price (THB)</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-larvae"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Beetle Jelly Panel -->
+        <div class="tab-panel" id="panel-beetleJelly">
+            <div class="panel-header">
+                <h2 class="panel-title">Beetle Jelly</h2>
+                <button class="btn btn-primary" onclick="openAddModal('beetleJelly')">+ Add New</button>
+            </div>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Price (THB)</th>
+                            <th>Video</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-beetleJelly"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Equipment Panel -->
+        <div class="tab-panel" id="panel-equipment">
+            <div class="panel-header">
+                <h2 class="panel-title">Equipment</h2>
+                <button class="btn btn-primary" onclick="openAddModal('equipment')">+ Add New</button>
+            </div>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Price (THB)</th>
+                            <th>Video</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-equipment"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Item</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="itemForm" onsubmit="saveItem(event)">
+
+                    <!-- Fields for beetles/larvae: species, commonName, variation -->
+                    <div id="fields-species">
+                        <div class="form-group">
+                            <label for="f-species">Species *</label>
+                            <input type="text" id="f-species" placeholder="e.g. Phalacrognathus muelleri">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="f-commonName">Common Name</label>
+                                <input type="text" id="f-commonName" placeholder="e.g. Rainbow Stag">
+                            </div>
+                            <div class="form-group">
+                                <label for="f-variation">Variation</label>
+                                <input type="text" id="f-variation" placeholder="e.g. Navy Blue Purple">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fields for jelly/equipment: name, description -->
+                    <div id="fields-product" style="display:none;">
+                        <div class="form-group">
+                            <label for="f-name">Name *</label>
+                            <input type="text" id="f-name" placeholder="e.g. Premium Beetle Jelly">
+                        </div>
+                        <div class="form-group">
+                            <label for="f-description">Description</label>
+                            <textarea id="f-description" placeholder="Describe the product..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Sex field (adult beetles only) -->
+                    <div id="fields-sex" class="form-group">
+                        <label for="f-sex">Sex</label>
+                        <select id="f-sex">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Pair">Pair</option>
+                        </select>
+                    </div>
+
+                    <!-- Shared: quantity & price -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="f-quantity">Quantity</label>
+                            <input type="number" id="f-quantity" min="0" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="f-price">Price (THB) *</label>
+                            <input type="number" id="f-price" min="0" step="1" placeholder="0">
+                        </div>
+                    </div>
+
+                    <!-- Status (beetles/larvae only) -->
+                    <div id="fields-status" class="form-group">
+                        <label for="f-status">Status</label>
+                        <select id="f-status">
+                            <option value="available">Available</option>
+                            <option value="sold">Sold</option>
+                            <option value="breeding">Breeding</option>
+                            <option value="reserved">Reserved</option>
+                        </select>
+                    </div>
+
+                    <!-- Video URL (jelly/equipment only) -->
+                    <div id="fields-video" class="form-group" style="display:none;">
+                        <label for="f-videoUrl">Video URL</label>
+                        <input type="url" id="f-videoUrl" placeholder="https://youtube.com/watch?v=...">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveItem(event)">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

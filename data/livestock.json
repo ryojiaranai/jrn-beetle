@@ -1,0 +1,151 @@
+{
+  "lastUpdated": "2026-05-14",
+  "adults": [
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Aurora Pink Eyes",
+      "sex": "pair",
+      "quantity": 2,
+      "price": 15000,
+      "status": "available"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Navy Blue Purple Pikal",
+      "sex": "male",
+      "quantity": 3,
+      "price": 8500,
+      "status": "available"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Super Green Red Eyes",
+      "sex": "female",
+      "quantity": 1,
+      "price": 6000,
+      "status": "available"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Blue Crest (Lapis)",
+      "sex": "male",
+      "quantity": 0,
+      "price": 12000,
+      "status": "sold"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Amber White Eyes",
+      "sex": "pair",
+      "quantity": 1,
+      "price": 9000,
+      "status": "reserved"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Purple Pikal",
+      "sex": "male",
+      "quantity": 2,
+      "price": 7500,
+      "status": "breeding"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Super Red",
+      "sex": "female",
+      "quantity": 4,
+      "price": 3500,
+      "status": "available"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Normal",
+      "sex": "pair",
+      "quantity": 5,
+      "price": 1500,
+      "status": "available"
+    }
+  ],
+  "larvae": [
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Aurora Line",
+      "stage": "L2",
+      "quantity": 10,
+      "price": 800,
+      "status": "available"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Navy Blue Purple Line",
+      "stage": "L3",
+      "quantity": 6,
+      "price": 600,
+      "status": "available"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Super Green Pikal Line",
+      "stage": "L1",
+      "quantity": 0,
+      "price": 500,
+      "status": "sold"
+    },
+    {
+      "species": "Phalacrognathus muelleri",
+      "commonName": "Rainbow Stag Beetle",
+      "variation": "Red Line",
+      "stage": "L2",
+      "quantity": 15,
+      "price": 350,
+      "status": "available"
+    }
+  ],
+  "jelly": [
+    {
+      "name": "JRN Premium Beetle Jelly — Protein Plus",
+      "description": "High-protein beetle jelly for breeding adults. Boosts egg production and longevity.",
+      "price": 250,
+      "quantity": 50,
+      "status": "available",
+      "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    {
+      "name": "JRN Beetle Jelly — Standard Mix",
+      "description": "Balanced nutrition jelly suitable for all life stages. Pack of 30 cups.",
+      "price": 150,
+      "quantity": 100,
+      "status": "available",
+      "videoUrl": ""
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Premium Flake Soil — 10L Bag",
+      "description": "Fermented oak flake soil ideal for Phalacrognathus muelleri larvae. Ready to use.",
+      "price": 350,
+      "quantity": 20,
+      "status": "available",
+      "videoUrl": ""
+    },
+    {
+      "name": "Breeding Container Set — Large",
+      "description": "Clear acrylic breeding container with ventilation. Includes substrate separator.",
+      "price": 450,
+      "quantity": 8,
+      "status": "available",
+      "videoUrl": "https://youtu.be/example123"
+    }
+  ]
+}

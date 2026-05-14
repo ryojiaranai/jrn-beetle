@@ -124,6 +124,37 @@ body {
     .nav-toggle { display: none !important; }
 }
 
+/* ===== COLOR GUIDE SUB-NAV ===== */
+.color-guide-subnav {
+    position: fixed;
+    top: 64px;
+    left: 0; right: 0;
+    z-index: 999;
+    background: rgba(18,18,26,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.color-guide-subnav .nav-container {
+    display: flex;
+    gap: 24px;
+    height: 40px;
+    align-items: center;
+    overflow-x: auto;
+}
+.color-guide-subnav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color 0.3s;
+    letter-spacing: 0.5px;
+}
+.color-guide-subnav a:hover { color: var(--text); }
+
+/* Offset hero for subnav */
+#hero { padding-top: 150px; }
+
 /* ===== CONTAINER ===== */
 .container {
     max-width: 1100px;
