@@ -276,7 +276,7 @@
             border-color: rgba(255,255,255,0.06);
         }
 
-        /* Status badge */
+        /* Status badge — floats top-left corner */
         .status-badge {
             display: inline-block;
             font-size: 0.65rem;
@@ -285,7 +285,10 @@
             letter-spacing: 1px;
             padding: 3px 10px;
             border-radius: 20px;
-            margin-bottom: 12px;
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 3;
         }
         .status-badge--available {
             background: rgba(39,174,96,0.15);
