@@ -88,11 +88,17 @@
 
     // ---------- Card Renderers ----------
 
+    function renderImage(imageUrl) {
+        if (!imageUrl) return '';
+        return `<div class="ls-card__img"><img src="${escapeHtml(imageUrl)}" alt="Product photo" loading="lazy"></div>`;
+    }
+
     function renderAdultCard(item) {
         const soldOut = isSoldOut(item);
         return `
         <div class="ls-card${soldOut ? ' sold-out' : ''}" data-searchable="${(item.species + ' ' + item.commonName + ' ' + (item.variation || '')).toLowerCase()}">
             <span class="status-badge ${statusClass(item.status)}">${statusLabel(item.status)}</span>
+            ${renderImage(item.image)}
             <div class="ls-card__species">${escapeHtml(item.species)}</div>
             <div class="ls-card__common">${escapeHtml(item.commonName)}</div>
             ${item.variation ? `<div class="variation-badge">${escapeHtml(item.variation)}</div>` : ''}
@@ -113,6 +119,7 @@
         return `
         <div class="ls-card${soldOut ? ' sold-out' : ''}" data-searchable="${(item.species + ' ' + item.commonName + ' ' + (item.variation || '')).toLowerCase()}">
             <span class="status-badge ${statusClass(item.status)}">${statusLabel(item.status)}</span>
+            ${renderImage(item.image)}
             ${item.stage ? `<span class="stage-badge">${escapeHtml(item.stage)}</span>` : ''}
             <div class="ls-card__species">${escapeHtml(item.species)}</div>
             <div class="ls-card__common">${escapeHtml(item.commonName)}</div>
@@ -131,6 +138,7 @@
         return `
         <div class="ls-card${soldOut ? ' sold-out' : ''}" data-searchable="${(item.name + ' ' + (item.description || '')).toLowerCase()}">
             <span class="status-badge ${statusClass(item.status)}">${statusLabel(item.status)}</span>
+            ${renderImage(item.image)}
             ${renderVideo(item.videoUrl)}
             <div class="ls-card__common">${escapeHtml(item.name)}</div>
             <div class="ls-card__desc">${escapeHtml(item.description || '')}</div>
@@ -294,7 +302,8 @@
             sex:        row.sex || '',
             quantity:   parseInt(row.quantity, 10) || 0,
             price:      parseInt(row.price, 10) || 0,
-            status:     normalizeStatus(row.status)
+            status:     normalizeStatus(row.status),
+            image:      row.image || ''
         };
     }
 
@@ -311,7 +320,8 @@
             stage:      row.stage || '',
             quantity:   parseInt(row.quantity, 10) || 0,
             price:      parseInt(row.price, 10) || 0,
-            status:     normalizeStatus(row.status)
+            status:     normalizeStatus(row.status),
+            image:      row.image || ''
         };
     }
 
@@ -336,7 +346,8 @@
             price:       parseInt(row.price, 10) || 0,
             quantity:    parseInt(row.quantity, 10) || 0,
             status:      normalizeStatus(row.status),
-            videoUrl:    row.videoUrl || ''
+            videoUrl:    row.videoUrl || '',
+            image:       row.image || ''
         };
     }
 
