@@ -456,8 +456,8 @@
 
         /* ===== SECTION FEATURED VIDEO ===== */
         .section-video {
-            max-width: 800px;
-            margin: 0 auto 48px;
+            max-width: 520px;
+            margin: 48px auto 0;
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: var(--radius);
@@ -665,6 +665,12 @@
 
         <!-- Beetle Jelly -->
         <div class="tab-content" id="tab-jelly">
+            <div class="search-box">
+                <input type="text" placeholder="Search products..." data-search="jelly">
+            </div>
+            <div class="card-grid card-grid--wide" id="grid-jelly">
+                <div class="loading-state"><div class="loading-spinner"></div><p>Loading products...</p></div>
+            </div>
             <div class="section-video">
                 <div class="section-video__player">
                     <video controls preload="metadata" poster="">
@@ -675,12 +681,6 @@
                     <div class="section-video__title">JRN Beetle Jelly</div>
                     <div class="section-video__desc">Premium beetle jelly for breeding adults — high protein formula boosts egg production and longevity.</div>
                 </div>
-            </div>
-            <div class="search-box">
-                <input type="text" placeholder="Search products..." data-search="jelly">
-            </div>
-            <div class="card-grid card-grid--wide" id="grid-jelly">
-                <div class="loading-state"><div class="loading-spinner"></div><p>Loading products...</p></div>
             </div>
         </div>
 
