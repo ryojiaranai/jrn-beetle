@@ -189,9 +189,206 @@
         });
     }
 
+    // ---------- CSV Parser ----------
+
+    /**
+     * Parse a CSV string into an array of objects using the first row as headers.
+     */
+    /**
+     * Normalize a header string to camelCase key.
+     * "Common Name" → "commonName", "Video URL" → "videoUrl", etc.
+     */
+    function normalizeHeader(h) {
+        var s = h.trim().toLowerCase();
+        // Convert spaces to camelCase: "common name" → "commonName"
+        return s.replace(/\s+(.)/g, function (_, ch) { return ch.toUpperCase(); });
+    }
+
+    function parseCSV(csvText) {
+        var lines = [];
+        var current = '';
+        var inQuotes = false;
+
+        // Split by lines, respecting quoted fields that contain newlines
+        for (var i = 0; i < csvText.length; i++) {
+            var ch = csvText[i];
+            if (ch === '"') {
+                inQuotes = !inQuotes;
+                current += ch;
+            } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+                if (current.trim()) lines.push(current);
+                current = '';
+                // Skip \r\n pair
+                if (ch === '\r' && csvText[i + 1] === '\n') i++;
+            } else {
+                current += ch;
+            }
+        }
+        if (current.trim()) lines.push(current);
+
+        if (lines.length < 2) return [];
+
+        var rawHeaders = splitCSVRow(lines[0]);
+        var headers = rawHeaders.map(normalizeHeader);
+        var results = [];
+        for (var j = 1; j < lines.length; j++) {
+            var values = splitCSVRow(lines[j]);
+            var obj = {};
+            var hasData = false;
+            for (var k = 0; k < headers.length; k++) {
+                if (!headers[k]) continue; // skip empty header columns
+                var val = (values[k] || '').trim();
+                if (val) hasData = true;
+                obj[headers[k]] = val;
+            }
+            // Skip completely empty rows
+            if (hasData) results.push(obj);
+        }
+        return results;
+    }
+
+    function splitCSVRow(line) {
+        var result = [];
+        var current = '';
+        var inQuotes = false;
+        for (var i = 0; i < line.length; i++) {
+            var ch = line[i];
+            if (ch === '"') {
+                if (inQuotes && line[i + 1] === '"') {
+                    current += '"';
+                    i++;
+                } else {
+                    inQuotes = !inQuotes;
+                }
+            } else if (ch === ',' && !inQuotes) {
+                result.push(current);
+                current = '';
+            } else {
+                current += ch;
+            }
+        }
+        result.push(current);
+        return result;
+    }
+
+    // ---------- Google Sheets → Data Conversion ----------
+
+    var SHEET_ID = '1REYfG_U7TUbmdtBeEBJw05DXxDqW49pYq1Roe4Ie4jY';
+
+    function sheetURL(tabName) {
+        return 'https://docs.google.com/spreadsheets/d/' + SHEET_ID +
+               '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(tabName);
+    }
+
+    /**
+     * Convert a row from the Adults sheet into the expected object.
+     * Expected columns: species, commonName, variation, sex, quantity, price, status
+     */
+    function parseAdult(row) {
+        // Skip rows with no species (empty template rows)
+        if (!row.species) return null;
+        return {
+            species:    row.species || '',
+            commonName: row.commonName || '',
+            variation:  row.variation || '',
+            sex:        row.sex || '',
+            quantity:   parseInt(row.quantity, 10) || 0,
+            price:      parseInt(row.price, 10) || 0,
+            status:     normalizeStatus(row.status)
+        };
+    }
+
+    /**
+     * Convert a row from the Larvae sheet.
+     * Expected columns: species, commonName, variation, stage, quantity, price, status
+     */
+    function parseLarva(row) {
+        if (!row.species) return null;
+        return {
+            species:    row.species || '',
+            commonName: row.commonName || '',
+            variation:  row.variation || '',
+            stage:      row.stage || '',
+            quantity:   parseInt(row.quantity, 10) || 0,
+            price:      parseInt(row.price, 10) || 0,
+            status:     normalizeStatus(row.status)
+        };
+    }
+
+    /**
+     * Convert a row from the Jelly / Equipment sheets.
+     * Expected columns: name, description, price, quantity, status, videoUrl
+     */
+    /**
+     * Normalize status strings: "out of stock" → "sold", etc.
+     */
+    function normalizeStatus(s) {
+        var st = (s || 'available').toLowerCase().trim();
+        if (st === 'out of stock' || st === 'sold out') return 'sold';
+        return st;
+    }
+
+    function parseProduct(row) {
+        if (!row.name) return null;
+        return {
+            name:        row.name || '',
+            description: row.description || '',
+            price:       parseInt(row.price, 10) || 0,
+            quantity:    parseInt(row.quantity, 10) || 0,
+            status:      normalizeStatus(row.status),
+            videoUrl:    row.videoUrl || ''
+        };
+    }
+
     // ---------- Data Fetching ----------
 
+    /**
+     * Fetch a single sheet tab as CSV → parsed objects.
+     * Returns a Promise that resolves to an array.
+     */
+    function fetchSheet(tabName, parser) {
+        return fetch(sheetURL(tabName))
+            .then(function (res) {
+                if (!res.ok) throw new Error('Sheet "' + tabName + '" not available');
+                return res.text();
+            })
+            .then(function (csv) {
+                return parseCSV(csv).map(parser).filter(Boolean);
+            });
+    }
+
+    /**
+     * Fetch all 4 sheets in parallel, assemble into the data object,
+     * then render. Falls back to local JSON if Sheets fails.
+     */
     function fetchData() {
+        Promise.all([
+            fetchSheet('Adult Beetles', parseAdult),
+            fetchSheet('Larvae', parseLarva),
+            fetchSheet('Beetle Jelly', parseProduct),
+            fetchSheet('Equipment', parseProduct)
+        ])
+        .then(function (results) {
+            var data = {
+                lastUpdated: new Date().toISOString().slice(0, 10),
+                adults:    results[0],
+                larvae:    results[1],
+                jelly:     results[2],
+                equipment: results[3]
+            };
+            livestockData = data;
+            renderAll(data);
+        })
+        .catch(function (err) {
+            console.warn('Google Sheets fetch failed, trying local JSON fallback…', err);
+            fetchLocalJSON();
+        });
+    }
+
+    /**
+     * Fallback: load from local data/livestock.json
+     */
+    function fetchLocalJSON() {
         fetch('data/livestock.json')
             .then(function (res) {
                 if (!res.ok) throw new Error('Could not load livestock data.');
