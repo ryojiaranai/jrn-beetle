@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRN BEETLE — Rainbow Stag Beetle Color Breeding Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-jrn">JRN</span>
+                <span class="logo-beetle">BEETLE</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#color-lines">Color Lines</a></li>
+                <li><a href="#evolution-tree">Evolution Tree</a></li>
+                <li><a href="#eye-variants">Eye Variants</a></li>
+                <li><a href="#special-forms">Special Forms</a></li>
+                <li><a href="#breeding-guide">Breeding Guide</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line title-line-1">Rainbow Stag Beetle</span>
+                <span class="title-line title-line-2">Color Breeding Guide</span>
+            </h1>
+            <p class="hero-subtitle">
+                <em>Phalacrognathus muelleri</em> — A comprehensive guide to breeding
+                and developing color variations by JRN BEETLE
+            </p>
+            <div class="hero-color-bar">
+                <div class="color-segment" style="--c: #c0392b" data-label="Red Line"></div>
+                <div class="color-segment" style="--c: #e67e22" data-label="Amber"></div>
+                <div class="color-segment" style="--c: #d4ac0d" data-label="Normal"></div>
+                <div class="color-segment" style="--c: #27ae60" data-label="Green Line"></div>
+                <div class="color-segment" style="--c: #2980b9" data-label="Blue Crest"></div>
+                <div class="color-segment" style="--c: #8e44ad" data-label="Purple Line"></div>
+                <div class="color-segment" style="--c: linear-gradient(90deg,#27ae60,#8e44ad,#2980b9)" data-label="Aurora"></div>
+            </div>
+            <a href="#color-lines" class="hero-cta">Explore Color Variations &#9662;</a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Normal (Origin) -->
+    <section id="color-lines" class="section">
+        <div class="container">
+            <h2 class="section-title">Color Morphs</h2>
+            <p class="section-intro">
+                All color lines originate from the <strong>Normal</strong> morph — the wild-type red-green
+                iridescent form. Through selective breeding over generations, breeders have developed
+                distinct color lines, each with their own progression path.
+            </p>
+
+            <!-- Normal Card -->
+            <div class="morph-card morph-origin" id="normal">
+                <div class="morph-card-glow" style="--glow1: #c0392b; --glow2: #27ae60"></div>
+                <div class="morph-card-inner">
+                    <div class="morph-visual">
+                        <div class="beetle-silhouette">
+                            <div class="beetle-body" style="background: linear-gradient(135deg, #c0392b 0%, #d4ac0d 30%, #27ae60 60%, #c0392b 100%); background-size: 200% 200%; animation: normalShift 4s ease-in-out infinite;"></div>
+                            <div class="beetle-chest" style="background: linear-gradient(135deg, #b8860b, #daa520);"></div>
+                        </div>
+                        <div class="morph-photo">
+                            <img src="images/normal white eyes.jpg" alt="Normal rainbow stag beetle with white eyes" loading="lazy">
+                            <span class="photo-caption">Normal (White Eyes specimen)</span>
+                        </div>
+                    </div>
+                    <div class="morph-info">
+                        <span class="morph-badge origin-badge">ORIGIN — ALL LINES START HERE</span>
+                        <h3>Normal</h3>
+                        <p>The wild-type coloration. Red and green iridescent colors appear simultaneously across the elytra in roughly equal proportion. This is the base form from which all selective color lines are developed.</p>
+                        <div class="morph-traits">
+                            <div class="trait"><span class="trait-label">Elytra</span> Red-green balanced mix</div>
+                            <div class="trait"><span class="trait-label">Chest</span> Golden</div>
+                            <div class="trait"><span class="trait-label">Trait Strength</span> Strongest — appears most when crossbreeding unknown lines</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Red Line -->
+    <section class="section section-red-line">
+        <div class="container">
+            <div class="line-header">
+                <div class="line-icon" style="background: linear-gradient(135deg, #c0392b, #8b0000);">&#128308;</div>
+                <div>
+                    <h2 class="line-title">Red Line</h2>
+                    <p class="line-subtitle">Normal &rarr; Red &rarr; Super Red &rarr; Amber</p>
+                    <p class="line-chest">Chest Color: <strong style="color: #daa520;">Golden</strong></p>
+                </div>
+            </div>
+
+            <div class="evolution-flow">
+                <!-- Red -->
+                <div class="morph-card" data-morph="red">
+                    <div class="morph-card-glow" style="--glow1: #c0392b; --glow2: #e74c3c"></div>
+                    <div class="morph-card-inner">
+                        <div class="morph-visual">
+                            <div class="beetle-silhouette">
+                                <div class="beetle-body" style="background: linear-gradient(135deg, #c0392b 0%, #e74c3c 40%, #27ae60 80%, #c0392b 100%); background-size: 200% 200%; animation: redShift 5s ease-in-out infinite;"></div>
+                                <div class="beetle-chest" style="background: linear-gradient(135deg, #b8860b, #daa520);"></div>
+                            </div>
+                            <div class="morph-photo">
+                                <img src="images/red.jpg" alt="Red rainbow stag beetle" loading="lazy">
+                                <span class="photo-caption">Red</span>
+                            </div>
+                        </div>
+                        <div class="morph-info">
+                            <span class="morph-badge red-badge">STAGE 1</span>
+                            <h3>Red</h3>
+                            <p>Like the Normal form but with red showing up more than green on the elytra. The first step in the red line development.</p>
+                            <div class="morph-traits">
+                                <div class="trait"><span class="trait-label">Elytra</span> Red dominant, green still visible</div>
+                                <div class="trait"><span class="trait-label">Chest</span> Golden</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow">
+                    <svg viewBox="0 0 40 80"><path d="M20 0 L20 60 L10 50 M20 60 L30 50" stroke="currentColor" fill="none" stroke-width="2"/></svg>
+                    <span>Selective Breeding</span>
+                </div>
+
+                <!-- Super Red -->
+                <div class="morph-card" data-morph="super-red">
+                    <div class="morph-card-glow" style="--glow1: #8b0000; --glow2: #c0392b"></div>
+                    <div class="morph-card-inner">
+                        <div class="morph-visual">
+                            <div class="beetle-silhouette">
+                                <div class="beetle-body" style="background: linear-gradient(135deg, #8b0000, #a00000, #c0392b); animation: deepPulse 3s ease-in-out infinite;"></div>
+                                <div class="beetle-chest" style="background: linear-gradient(135deg, #b8860b, #daa520);"></div>
+                            </div>
+                            <div class="morph-photo">
+                                <img src="images/supper red white eyes.jpg" alt="Super Red rainbow stag beetle with white eyes" loading="lazy">
+                                <span class="photo-caption">Super Red (White Eyes)</span>
+                            </div>
+                        </div>
+                        <div class="morph-info">
+                            <span class="morph-badge red-badge">STAGE 2</span>
+                            <h3>Super Red</h3>
+                            <p>Deep red color covers most of the body — including the head, rim of the chest, lower body, and legs. Very low amount of green remains anywhere on the body.</p>
+                            <div class="morph-traits">
+                                <div class="trait"><span class="trait-label">Elytra</span> Deep red, minimal green</div>
+                                <div class="trait"><span class="trait-label">Head</span> Red</div>
+                                <div class="trait"><span class="trait-label">Legs</span> Red</div>
+                                <div class="trait"><span class="trait-label">Chest Rim</span> Red</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow">
+                    <svg viewBox="0 0 40 80"><path d="M20 0 L20 60 L10 50 M20 60 L30 50" stroke="currentColor" fill="none" stroke-width="2"/></svg>
+                    <span>Further Selection</span>
+                </div>
+
+                <!-- Amber -->
+                <div class="morph-card" data-morph="amber">
+                    <div class="morph-card-glow" style="--glow1: #6b2c14; --glow2: #8b4513"></div>
+                    <div class="morph-card-inner">
+                        <div class="morph-visual">
+                            <div class="beetle-silhouette">
+                                <div class="beetle-body" style="background: linear-gradient(135deg, #6b2c14, #8b4513, #722f37); animation: amberPulse 4s ease-in-out infinite;"></div>
+                                <div class="beetle-chest" style="background: linear-gradient(135deg, #b8860b, #daa520);"></div>
+                            </div>
+                            <div class="morph-photo">
+                                <img src="images/amber white eyes.jpg" alt="Amber rainbow stag beetle with white eyes" loading="lazy">
+                                <span class="photo-caption">Amber (White Eyes)</span>
+                            </div>
+                        </div>
+                        <div class="morph-info">
+                            <span class="morph-badge red-badge">STAGE 3 — HIGHEST</span>
+                            <h3>Amber</h3>
+                            <p>Also called "Red Wine" or "Dark Red." The color shifts to a dark brown-red or red-brown tone, resembling the color of red wine. Appearance can vary between dark brown and red-brown tones.</p>
+                            <div class="morph-traits">
+                                <div class="trait"><span class="trait-label">Elytra</span> Dark red-brown / wine color</div>
+                                <div class="trait"><span class="trait-label">Also Known As</span> Red Wine, Dark Red</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Green Line -->
+    <section class="section section-green-line">
+        <div class="container">
+            <div class="line-header">
+                <div class="line-icon" style="background: linear-gradient(135deg, #27ae60, #1a7a3a);">&#128994;</div>
+                <div>
+                    <h2 class="line-title">Green Line</h2>
+                    <p class="line-subtitle">Normal &rarr; Green &rarr; Super Green &rarr; Special Green (Glaze)</p>
+                    <p class="line-chest">Chest Color: <strong style="color: #27ae60;">Green</strong></p>
+                </div>
+            </div>
+
+            <div class="evolution-flow">
+                <!-- Green -->
+                <div class="morph-card" data-morph="green">
+                    <div class="morph-card-glow" style="--glow1: #27ae60; --glow2: #2ecc71"></div>
+                    <div class="morph-card-inner">
+                        <div class="morph-visual">
+                            <div class="beetle-silhouette">
+                                <div class="beetle-body" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 40%, #c0392b 85%, #27ae60 100%); background-size: 200% 200%; animation: greenShift 5s ease-in-out infinite;"></div>
+                                <div class="beetle-chest" style="background: linear-gradient(135deg, #1e8449, #27ae60);"></div>
+                            </div>
+                        </div>
+                        <div class="morph-info">
+                            <span class="morph-badge green-badge">STAGE 1</span>
+                            <h3>Green</h3>
+                            <p>Like the Normal form but with green showing more than red on the elytra. The starting point for the green line.</p>
+                            <div class="morph-traits">
+                                <div class="trait"><span class="trait-label">Elytra</span> Green dominant, red still visible</div>
+                                <div class="trait"><span class="trait-label">Chest</span> Green</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow green-arrow">
+                    <svg viewBox="0 0 40 80"><path d="M20 0 L20 60 L10 50 M20 60 L30 50" stroke="currentColor" fill="none" stroke-width="2"/></svg>
+                    <span>Selective Breeding</span>
+                </div>
+
+                <!-- Super Green -->
+                <div class="morph-card" data-morph="super-green">
+                    <div class="morph-card-glow" style="--glow1: #1a7a3a; --glow2: #27ae60"></div>
+                    <div class="morph-card-inner">
+                        <div class="morph-visual">
+                            <div class="beetle-silhouette">
+                                <div class="beetle-body" style="background: linear-gradient(135deg, #1a7a3a, #27ae60, #2ecc71); animation: deepGreenPulse 3s ease-in-out infinite;"></div>
+                                <div class="beetle-chest" style="background: linear-gradient(135deg, #1e8449, #27ae60);"></div>
+                            </div>
+                            <div class="morph-photo">
+                                <img src="images/supper green red eyes.jpg" alt="Super Green rainbow stag beetle with red eyes" loading="lazy">
+                                <span class="photo-caption">Super Green (Red Eyes — by Takuma)</span>
+                            </div>
+                        </div>
+                        <div class="morph-info">
+                            <span class="morph-badge green-badge">STAGE 2</span>
+                            <h3>Super Green</h3>
+                            <p>Same concept as Super Red — green color dominates almost the entire body with very little red remaining. A key stepping stone toward the rarest green morphs.</p>
+                            <div class="morph-traits">
+                                <div class="trait"><span class="trait-label">Elytra</span> Deep green, minimal red</div>
+                                <div class="trait"><span class="trait-label">Full Body</span> Green dominant</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow green-arrow">
+                    <svg viewBox="0 0 40 80"><path d="M20 0 L20 60 L10 50 M20 60 L30 50" stroke="currentColor" fill="none" stroke-width="2"/></svg>
+                    <span>Further Selection</span>
+                </div>
+
+                <!-- Special Green -->
+                <div class="morph-card" data-morph="special-green">
+                    <div class="morph-card-glow" style="--glow1: #1abc9c; --glow2: #8e44ad"></div>
+                    <div class="morph-card-inner">
+                        <div class="morph-visual">
+                            <div class="beetle-silhouette">
+                                <div class="beetle-body" style="background: linear-gradient(135deg, #27ae60, #1abc9c, #3498db, #8e44ad); background-size: 300% 300%; animation: glazeShift 6s ease-in-out infinite;"></div>
+                                <div class="beetle-chest" style="background: linear-gradient(135deg, #1e8449, #27ae60);"></div>
+                            </div>
+                            <div class="morph-photo">
+                                <img src="images/glaze white eyes.jpg" alt="Glaze (Special Green) with white eyes" loading="lazy">
+                                <span class="photo-caption">Glaze (White Eyes)</span>
+                            </div>
+                        </div>
+                        <div class="morph-info">
+                            <span class="morph-badge green-badge">STAGE 3 — HIGHEST</span>
+                            <h3>Special Green <span class="aka">(Glaze)</span></h3>
+                            <p>The pinnacle of the green line comes in two styles:</p>
+                            <div class="special-variants">
+                                <div class="variant-chip" style="background: linear-gradient(135deg, #8e44ad, #27ae60);">
+                                    <strong>Purple-Green Mix</strong>
+                                </div>
+                                <div class="variant-chip" style="background: linear-gradient(135deg, #2980b9, #27ae60);">
+                                    <strong>Blue-Green Mix</strong>
+                                </div>
+                            </div>
+                            <div class="morph-traits">
+                                <div class="trait"><span class="trait-label">Taiwan Name</span> "Glaze"</div>
+                                <div class="trait"><span class="trait-label">Key Role</span> Parent stock for Aurora breeding</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purple Line -->
+    <section class="section section-purple-line">
+        <div class="container">
+            <div class="line-header">
+                <div class="line-icon" style="background: linear-gradient(135deg, #8e44ad, #4a0e6b);">&#128995;</div>
+                <div>
+                    <h2 class="line-title">Purple Line</h2>
+                    <p class="line-subtitle">Developed from Green Line &rarr; Purple &rarr; Navy Blue Purple</p>
+                    <p class="line-chest">Chest Color: <strong style="color: #555;">Black</strong> or <strong style="color: #1a5c2a;">Dark Green</strong></p>
+                </div>
+            </div>
+
+            <div class="evolution-flow">
+                <!-- Purple -->
+                <div class="morph-card" data-morph="purple">
+                    <div class="morph-card-glow" style="--glow1: #8e44ad; --glow2: #9b59b6"></div>
+                    <div class="morph-card-inner">
+                        <div class="morph-visual">
+                            <div class="beetle-silhouette">
+                                <div class="beetle-body" style="background: linear-gradient(135deg, #8e44ad, #9b59b6, #7d3c98); animation: purplePulse 3.5s ease-in-out infinite;"></div>
+                                <div class="beetle-chest" style="background: linear-gradient(135deg, #2c3e50, #1a3a2a);"></div>
+                            </div>
+                            <div class="morph-photo">
+                                <img src="images/purplr red eyes.jpg" alt="Purple rainbow stag beetle with red eyes" loading="lazy">
+                                <span class="photo-caption">Purple (Red Eyes)</span>
+                            </div>
+                        </div>
+                        <div class="morph-info">
+                            <span class="morph-badge purple-badge">STAGE 1</span>
+                            <h3>Purple</h3>
+                            <p>A single-color morph — the entire body displays purple coloration. Developed originally from the green line through selective breeding.</p>
+                            <div class="morph-traits">
+                                <div class="trait"><span class="trait-label">Elytra</span> Full purple, single color</div>
+                                <div class="trait"><span class="trait-label">Chest</span> Black or dark green</div>
+                                <div class="trait"><span class="trait-label">Origin</span> Developed from green line</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow purple-arrow">
+                    <svg viewBox="0 0 40 80"><path d="M20 0 L20 60 L10 50 M20 60 L30 50" stroke="currentColor" fill="none" stroke-width="2"/></svg>
+                    <span>Selective Breeding</span>
+                </div>
+
+                <!-- Navy Blue Purple -->
+                <div class="morph-card" data-morph="navy-purple">
+                    <div class="morph-card-glow" style="--glow1: #1a237e; --glow2: #8e44ad"></div>
+                    <div class="morph-card-inner">
+                        <div class="morph-visual">
+                            <div class="beetle-silhouette">
+                                <div class="beetle-body" style="background: linear-gradient(135deg, #1a237e, #4a148c, #283593, #6a1b9a); background-size: 200% 200%; animation: navyPurpleShift 5s ease-in-out infinite;"></div>
+                                <div class="beetle-chest" style="background: linear-gradient(135deg, #1a1a2e, #0d0d1a);"></div>
+                            </div>
+                            <div class="morph-photo">
+                                <img src="images/navy blue purple high grade but not highest.jpg" alt="Navy Blue Purple high grade" loading="lazy">
+                                <span class="photo-caption">Navy Blue Purple (High Grade)</span>
+                            </div>
+                        </div>
+                        <div class="morph-info">
+                            <span class="morph-badge purple-badge">STAGE 2 — HIGHEST</span>
+                            <h3>Navy Blue Purple</h3>
+                            <p>Both navy blue and purple appear on the head and body simultaneously. The higher the grade, the more navy blue covers the body. A key parent for Aurora breeding.</p>
+                            <div class="morph-traits">
+                                <div class="trait"><span class="trait-label">Elytra</span> Navy blue + purple mix</div>
+                                <div class="trait"><span class="trait-label">Grading</span> More navy = higher grade</div>
+                                <div class="trait"><span class="trait-label">Key Role</span> Parent stock for Aurora</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blue Crest -->
+    <section class="section section-blue-crest">
+        <div class="container">
+            <div class="line-header">
+                <div class="line-icon" style="background: linear-gradient(135deg, #1a3a6b, #0d1f3c);">&#128309;</div>
+                <div>
+                    <h2 class="line-title">Blue Crest</h2>
+                    <p class="line-subtitle">One of the longest development timelines</p>
+                    <p class="line-chest">Chest Color: <strong style="color: #b8860b;">Matte Golden</strong></p>
+                </div>
+            </div>
+
+            <div class="morph-card morph-special" data-morph="blue-crest">
+                <div class="morph-card-glow" style="--glow1: #0d1f3c; --glow2: #1a3a6b"></div>
+                <div class="morph-card-inner">
+                    <div class="morph-visual">
+                        <div class="beetle-silhouette">
+                            <div class="beetle-body" style="background: linear-gradient(135deg, #0d1f3c, #1a3a6b, #1a237e); animation: blueDeepPulse 4s ease-in-out infinite;"></div>
+                            <div class="beetle-chest" style="background: linear-gradient(135deg, #8b7355, #b8a07a); filter: saturate(0.6);"></div>
+                        </div>
+                        <div class="morph-photo">
+                            <img src="images/blue crest high grade.jpg" alt="Blue Crest high grade (Lapis)" loading="lazy">
+                            <span class="photo-caption">Blue Crest — High Grade (Lapis)</span>
+                        </div>
+                    </div>
+                    <div class="morph-info">
+                        <span class="morph-badge blue-badge">RARE — LONG DEVELOPMENT</span>
+                        <h3>Blue Crest <span class="aka">(Lapis)</span></h3>
+                        <p>A deep, dark blue coloration that takes one of the longest times to develop through selective breeding. Japanese breeders call the highest grade of this color <strong>"Lapis"</strong> — named after the precious stone lapis lazuli. Features a distinctive matte golden chest.</p>
+                        <div class="morph-traits">
+                            <div class="trait"><span class="trait-label">Elytra</span> Deep dark blue</div>
+                            <div class="trait"><span class="trait-label">Chest</span> Matte golden (not shiny)</div>
+                            <div class="trait"><span class="trait-label">Highest Grade</span> "Lapis" (JP breeders)</div>
+                            <div class="trait"><span class="trait-label">Difficulty</span> &#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blue Crest Half Color Form -->
+            <div class="morph-card" data-morph="blue-crest-half">
+                <div class="morph-card-glow" style="--glow1: #0d1f3c; --glow2: #27ae60"></div>
+                <div class="morph-card-inner">
+                    <div class="morph-visual">
+                        <div class="morph-photo">
+                            <img src="images/blue crest half color form.jpg" alt="Blue Crest half color form" loading="lazy">
+                            <span class="photo-caption">Blue Crest — Half Color Form</span>
+                        </div>
+                    </div>
+                    <div class="morph-info">
+                        <span class="morph-badge blue-badge">VARIANT</span>
+                        <h3>Blue Crest — Half Color Form</h3>
+                        <p>A variation of Blue Crest where the blue coloration is partially expressed, showing a transitional stage in color development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aurora -->
+    <section class="section section-aurora">
+        <div class="container">
+            <div class="line-header">
+                <div class="line-icon aurora-icon">&#10024;</div>
+                <div>
+                    <h2 class="line-title">Aurora</h2>
+                    <p class="line-subtitle">Cross: High-Grade Green (Glaze/Super Green) &times; Navy Blue Purple</p>
+                </div>
+            </div>
+
+            <div class="aurora-formula">
+                <div class="formula-parent">
+                    <div class="formula-beetle" style="background: linear-gradient(135deg, #27ae60, #1abc9c, #3498db);"></div>
+                    <span>Super Green / Glaze</span>
+                </div>
+                <div class="formula-cross">&times;</div>
+                <div class="formula-parent">
+                    <div class="formula-beetle" style="background: linear-gradient(135deg, #1a237e, #4a148c);"></div>
+                    <span>Navy Blue Purple</span>
+                </div>
+                <div class="formula-equals">=</div>
+                <div class="formula-result">
+                    <div class="formula-beetle aurora-gradient"></div>
+                    <span>Aurora</span>
+                </div>
+            </div>
+
+            <div class="morph-card morph-special morph-aurora" data-morph="aurora">
+                <div class="morph-card-glow aurora-glow"></div>
+                <div class="morph-card-inner">
+                    <div class="morph-visual">
+                        <div class="beetle-silhouette">
+                            <div class="beetle-body aurora-gradient" style="animation: auroraShift 6s ease-in-out infinite;"></div>
+                        </div>
+                        <div class="morph-photo">
+                            <img src="images/aurora pink eyes.jpg" alt="Aurora with pink eyes" loading="lazy">
+                            <span class="photo-caption">Aurora (Pink Eyes) — JRN BEETLE</span>
+                        </div>
+                    </div>
+                    <div class="morph-info">
+                        <span class="morph-badge aurora-badge">CROSS-BRED — 3 COLORS REQUIRED</span>
+                        <h3>Aurora</h3>
+                        <p>The Aurora must display <strong>three colors simultaneously</strong> on its body:</p>
+                        <div class="aurora-colors">
+                            <div class="aurora-color-chip" style="background: #27ae60;">Green</div>
+                            <div class="aurora-color-chip" style="background: #8e44ad;">Purple / Pink</div>
+                            <div class="aurora-color-chip" style="background: #1a237e;">Blue / Navy Blue</div>
+                        </div>
+                        <div class="morph-traits">
+                            <div class="trait"><span class="trait-label">Requirement</span> All 3 colors present on body</div>
+                            <div class="trait"><span class="trait-label">Parents</span> High-grade green &times; Navy blue purple</div>
+                            <div class="trait"><span class="trait-label">Stability Note</span> Even when stable, offspring may show ~3 variations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aurora close-ups -->
+            <div class="photo-row">
+                <div class="photo-row-item">
+                    <img src="images/aurora pink eyes male close up.jpg" alt="Aurora pink eyes male close up" loading="lazy">
+                    <span class="photo-caption">Aurora Pink Eyes &#9794; Close-up</span>
+                </div>
+                <div class="photo-row-item">
+                    <img src="images/aurora pink eyes female close up.jpg" alt="Aurora pink eyes female close up" loading="lazy">
+                    <span class="photo-caption">Aurora Pink Eyes &#9792; Close-up</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pikal -->
+    <section class="section section-pikal">
+        <div class="container">
+            <div class="line-header">
+                <div class="line-icon" style="background: linear-gradient(135deg, #f1c40f, #e67e22);">&#128142;</div>
+                <div>
+                    <h2 class="line-title">Pikal <span class="aka">(Shiny Chest)</span></h2>
+                    <p class="line-subtitle">First developed by Japanese breeder <strong>RTN</strong></p>
+                </div>
+            </div>
+
+            <p class="pikal-intro">
+                Pikal is a special trait — a <strong>shiny, metallic chest</strong> — that can be combined with almost any color line.
+                Named by their chest color, not their elytra color. Every color variation can potentially have the Pikal trait,
+                <strong>except Blue Crest</strong> which has not yet been observed with Pikal.
+            </p>
+
+            <h3 class="subsection-title">3 Basic Pikal Lines</h3>
+            <div class="pikal-grid">
+                <div class="pikal-card">
+                    <div class="pikal-chest-preview" style="background: linear-gradient(135deg, #f1c40f, #daa520, #f39c12); box-shadow: 0 0 30px rgba(241,196,15,0.4);"></div>
+                    <h4>Gold Pikal</h4>
+                    <p>Normal or red color pattern body with a shiny golden chest</p>
+                    <span class="breeder-tag">Developed by RTN &#127471;&#127477;</span>
+                </div>
+                <div class="pikal-card">
+                    <div class="pikal-chest-preview" style="background: linear-gradient(135deg, #2ecc71, #27ae60, #1abc9c); box-shadow: 0 0 30px rgba(46,204,113,0.4);"></div>
+                    <h4>Green Pikal</h4>
+                    <p>Green line body with a shiny green chest</p>
+                    <span class="breeder-tag">Developed by RTN &#127471;&#127477;</span>
+                </div>
+                <div class="pikal-card">
+                    <div class="pikal-chest-preview" style="background: linear-gradient(135deg, #9b59b6, #8e44ad, #7d3c98); box-shadow: 0 0 30px rgba(155,89,182,0.4);"></div>
+                    <h4>Purple Pikal</h4>
+                    <p>Purple line body with a shiny purple chest</p>
+                    <span class="breeder-tag">Developed by Takuma &#127471;&#127477;</span>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Pikal in Other Color Lines</h3>
+            <p class="pikal-intro">Pikal can appear in any color variation through selective breeding. Here are some examples:</p>
+            <div class="pikal-grid">
+                <div class="pikal-card">
+                    <div class="morph-photo pikal-photo">
+                        <img src="images/navy blue purplr pikal.jpg" alt="Navy Blue Purple Pikal" loading="lazy">
+                    </div>
+                    <h4>Navy Blue Purple Pikal</h4>
+                </div>
+                <div class="pikal-card">
+                    <div class="morph-photo pikal-photo">
+                        <img src="images/supper green pikal.jpg" alt="Super Green Pikal" loading="lazy">
+                    </div>
+                    <h4>Super Green Pikal</h4>
+                </div>
+                <div class="pikal-card">
+                    <div class="morph-photo pikal-photo">
+                        <img src="images/aurora pikal.jpg" alt="Aurora Pikal" loading="lazy">
+                    </div>
+                    <h4>Aurora Pikal</h4>
+                </div>
+                <div class="pikal-card">
+                    <div class="morph-photo pikal-photo">
+                        <img src="images/red pikal white eyes female.jpg" alt="Red Pikal White Eyes Female" loading="lazy">
+                    </div>
+                    <h4>Red Pikal (White Eyes &#9792;)</h4>
+                </div>
+                <div class="pikal-card">
+                    <div class="morph-photo pikal-photo">
+                        <img src="images/navy blue purple pikal white eyes.jpg" alt="Navy Blue Purple Pikal White Eyes" loading="lazy">
+                    </div>
+                    <h4>Navy Blue Purple Pikal (White Eyes)</h4>
+                </div>
+            </div>
+
+            <div class="pikal-note">
+                <strong>&#9888; Note:</strong> Blue Crest Pikal has <strong>not appeared yet</strong> in any known breeding line. It remains one of the undiscovered combinations.
+            </div>
+        </div>
+    </section>
+
+    <!-- Eye Variants -->
+    <section id="eye-variants" class="section section-eyes">
+        <div class="container">
+            <h2 class="section-title">Special Eye Colors</h2>
+            <p class="section-intro">
+                Rare genetic abnormalities can produce special eye colors. These traits are extremely rare
+                and highly valued, especially when combined with rare body colors.
+            </p>
+
+            <div class="eyes-grid">
+                <!-- White Eyes -->
+                <div class="eye-card">
+                    <div class="eye-preview">
+                        <div class="eye-orb" style="background: radial-gradient(circle, #ffffff 40%, #e0e0e0 70%, #bbb 100%); box-shadow: 0 0 20px rgba(255,255,255,0.6);"></div>
+                    </div>
+                    <h3>White Eyes</h3>
+                    <div class="rarity-bar">
+                        <span>Rarity</span>
+                        <div class="rarity-fill" style="width: 60%; background: linear-gradient(90deg, #bbb, #fff);"></div>
+                    </div>
+                    <p>The least rare of the special eye colors, but still uncommon. Value increases dramatically when combined with rare body colors — for example, a white-eyed highest-grade Blue Crest (Lapis) would be extremely difficult to find.</p>
+                    <div class="eye-photo-examples">
+                        <img src="images/normal white eyes.jpg" alt="Normal White Eyes" loading="lazy" title="Normal + White Eyes">
+                        <img src="images/glaze white eyes.jpg" alt="Glaze White Eyes" loading="lazy" title="Glaze + White Eyes">
+                        <img src="images/supper red white eyes.jpg" alt="Super Red White Eyes" loading="lazy" title="Super Red + White Eyes">
+                    </div>
+                </div>
+
+                <!-- Pink Eyes -->
+                <div class="eye-card">
+                    <div class="eye-preview">
+                        <div class="eye-orb" style="background: radial-gradient(circle, #ffb6c1 40%, #ff69b4 70%, #ff1493 100%); box-shadow: 0 0 20px rgba(255,105,180,0.6);"></div>
+                    </div>
+                    <h3>Pink Eyes</h3>
+                    <div class="rarity-bar">
+                        <span>Rarity</span>
+                        <div class="rarity-fill" style="width: 95%; background: linear-gradient(90deg, #ff69b4, #ff1493);"></div>
+                    </div>
+                    <p>The <strong>most rare</strong> eye color for rainbow stag beetles. Breeding methods include crossing white eyes &times; red eyes, or long-term inbreeding of white eye lines.</p>
+                    <div class="known-combos">
+                        <span class="combo-label">Known color combinations:</span>
+                        <span class="combo-chip" style="border-color: #1a237e;">Navy Blue Purple</span>
+                        <span class="combo-chip" style="border-color: #722f37;">Amber</span>
+                        <span class="combo-chip aurora-chip">Aurora &#11088; (Rarest!)</span>
+                    </div>
+                    <div class="eye-photo-examples">
+                        <img src="images/aurora pink eyes.jpg" alt="Aurora Pink Eyes" loading="lazy" title="Aurora + Pink Eyes (JRN BEETLE)">
+                    </div>
+                    <div class="owner-note">JRN BEETLE has the Aurora + Pink Eyes — one of the rarest combinations in existence!</div>
+                </div>
+
+                <!-- Red Eyes -->
+                <div class="eye-card">
+                    <div class="eye-preview">
+                        <div class="eye-orb" style="background: radial-gradient(circle, #e74c3c 40%, #c0392b 70%, #8b0000 100%); box-shadow: 0 0 20px rgba(231,76,60,0.6);"></div>
+                    </div>
+                    <h3>Red Eyes</h3>
+                    <div class="rarity-bar">
+                        <span>Rarity</span>
+                        <div class="rarity-fill" style="width: 90%; background: linear-gradient(90deg, #e74c3c, #8b0000);"></div>
+                    </div>
+                    <p>Equally rare as pink eyes. Difficult to see with the naked eye under normal lighting — <strong>you need to photograph them under bright light</strong> to confirm the red eye color.</p>
+                    <div class="known-combos">
+                        <span class="combo-label">Known color combinations:</span>
+                        <span class="combo-chip" style="border-color: #1a3a6b;">Blue Crest</span>
+                        <span class="combo-chip" style="border-color: #1a237e;">Navy Blue Purple</span>
+                        <span class="combo-chip" style="border-color: #27ae60;">Super Green &#11088; (by Takuma)</span>
+                    </div>
+                    <div class="eye-photo-examples">
+                        <img src="images/purplr red eyes.jpg" alt="Purple Red Eyes" loading="lazy" title="Purple + Red Eyes">
+                        <img src="images/supper green red eyes.jpg" alt="Super Green Red Eyes" loading="lazy" title="Super Green + Red Eyes">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Forms -->
+    <section id="special-forms" class="section section-special-forms">
+        <div class="container">
+            <h2 class="section-title">Special Forms</h2>
+            <p class="section-intro">
+                Beyond color and eye variations, rainbow stag beetles can also exhibit rare physical form mutations
+                that affect their body shape. These are separate from color traits and can appear in any color line.
+            </p>
+
+            <div class="form-card">
+                <div class="form-card-glow" style="--glow1: #daa520; --glow2: #b8860b"></div>
+                <div class="form-card-inner">
+                    <div class="form-visual">
+                        <div class="form-photos">
+                            <div class="morph-photo">
+                                <img src="images/navy blue purple pikal thick horn.jpg" alt="Thick horn form" loading="lazy">
+                                <span class="photo-caption">Navy Blue Purple Pikal — Thick Horn</span>
+                            </div>
+                            <div class="morph-photo">
+                                <img src="images/navy blue purple pikal thick horn close up 1.jpg" alt="Thick horn close up" loading="lazy">
+                                <span class="photo-caption">Thick Horn — Close Up</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-info">
+                        <span class="morph-badge form-badge">SPECIAL FORM — RARE</span>
+                        <h3>Thick Horn</h3>
+                        <p>A rare physical mutation where the mandibles (horns) of the male beetle grow noticeably thicker than normal. This trait is separate from color genetics and can potentially appear in any color line.</p>
+                        <div class="morph-traits">
+                            <div class="trait"><span class="trait-label">Trait Type</span> Physical form mutation</div>
+                            <div class="trait"><span class="trait-label">Affected Part</span> Male mandibles — thicker than standard</div>
+                            <div class="trait"><span class="trait-label">Combinable</span> Can appear in any color + pikal + eye combination</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evolution Tree -->
+    <section id="evolution-tree" class="section section-tree">
+        <div class="container">
+            <h2 class="section-title">Complete Evolution Tree</h2>
+            <p class="section-intro">Interactive map showing how all color lines branch from Normal and connect to each other. Click any node to jump to its section.</p>
+
+            <div class="tree-wrapper">
+                <div class="tree-container" id="treeContainer">
+                    <svg class="tree-lines" id="treeLines"></svg>
+
+                    <div class="tree-node tree-origin" id="node-normal" style="--node-x: 50%; --node-y: 0;">
+                        <div class="node-dot" style="background: linear-gradient(135deg, #c0392b, #27ae60);"></div>
+                        <span>Normal</span>
+                    </div>
+
+                    <div class="tree-node" id="node-red" style="--node-x: 20%; --node-y: 20%;">
+                        <div class="node-dot" style="background: #c0392b;"></div>
+                        <span>Red</span>
+                    </div>
+                    <div class="tree-node" id="node-super-red" style="--node-x: 12%; --node-y: 40%;">
+                        <div class="node-dot" style="background: #8b0000;"></div>
+                        <span>Super Red</span>
+                    </div>
+                    <div class="tree-node" id="node-amber" style="--node-x: 12%; --node-y: 60%;">
+                        <div class="node-dot" style="background: #722f37;"></div>
+                        <span>Amber</span>
+                    </div>
+
+                    <div class="tree-node" id="node-green" style="--node-x: 50%; --node-y: 20%;">
+                        <div class="node-dot" style="background: #27ae60;"></div>
+                        <span>Green</span>
+                    </div>
+                    <div class="tree-node" id="node-super-green" style="--node-x: 50%; --node-y: 40%;">
+                        <div class="node-dot" style="background: #1a7a3a;"></div>
+                        <span>Super Green</span>
+                    </div>
+                    <div class="tree-node" id="node-glaze" style="--node-x: 42%; --node-y: 60%;">
+                        <div class="node-dot" style="background: linear-gradient(135deg, #27ae60, #3498db);"></div>
+                        <span>Glaze</span>
+                    </div>
+
+                    <div class="tree-node" id="node-purple" style="--node-x: 70%; --node-y: 40%;">
+                        <div class="node-dot" style="background: #8e44ad;"></div>
+                        <span>Purple</span>
+                    </div>
+                    <div class="tree-node" id="node-navy-purple" style="--node-x: 70%; --node-y: 60%;">
+                        <div class="node-dot" style="background: linear-gradient(135deg, #1a237e, #8e44ad);"></div>
+                        <span>Navy Blue Purple</span>
+                    </div>
+
+                    <div class="tree-node" id="node-blue-crest" style="--node-x: 88%; --node-y: 30%;">
+                        <div class="node-dot" style="background: #1a3a6b;"></div>
+                        <span>Blue Crest</span>
+                    </div>
+
+                    <div class="tree-node tree-cross-result" id="node-aurora" style="--node-x: 56%; --node-y: 82%;">
+                        <div class="node-dot aurora-gradient"></div>
+                        <span>Aurora</span>
+                        <div class="cross-label">Cross: Glaze &times; Navy Purple</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breeding Guide -->
+    <section id="breeding-guide" class="section section-breeding">
+        <div class="container">
+            <h2 class="section-title">Breeding Strategy</h2>
+
+            <div class="breeding-rules">
+                <div class="rule-card">
+                    <div class="rule-icon">&#129516;</div>
+                    <h3>Same Line = High Success</h3>
+                    <p>Breeding within the same color line gives a very high percentage of offspring matching the parent color — even across different bloodlines. This is the safest approach.</p>
+                    <div class="rule-visual">
+                        <div class="rule-pair">
+                            <span class="rule-beetle" style="background: #8e44ad;">Purple &#9794;</span>
+                            <span class="rule-cross">&times;</span>
+                            <span class="rule-beetle" style="background: #8e44ad;">Purple &#9792;</span>
+                        </div>
+                        <div class="rule-result">
+                            <span class="rule-arrow">&rarr;</span>
+                            <span class="rule-beetle" style="background: #8e44ad;">~100% Purple</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-icon">&#9888;&#65039;</div>
+                    <h3>Cross Line = Normal Reversion</h3>
+                    <p>Crossing different color lines (e.g., Red &times; Purple) will produce a high percentage of Normal offspring in F1. But if you continue breeding to CBF2-3, the F0 colors will reappear.</p>
+                    <div class="rule-visual">
+                        <div class="rule-pair">
+                            <span class="rule-beetle" style="background: #c0392b;">Red &#9794;</span>
+                            <span class="rule-cross">&times;</span>
+                            <span class="rule-beetle" style="background: #8e44ad;">Purple &#9792;</span>
+                        </div>
+                        <div class="rule-result">
+                            <span class="rule-arrow">&rarr; F1:</span>
+                            <span class="rule-beetle" style="background: linear-gradient(135deg, #c0392b, #27ae60);">Mostly Normal</span>
+                        </div>
+                        <div class="rule-result">
+                            <span class="rule-arrow">&rarr; F2-3:</span>
+                            <span class="rule-beetle" style="background: #c0392b;">Red</span>
+                            <span class="rule-beetle" style="background: #8e44ad;">Purple</span>
+                            <span class="rule-note">colors return</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-icon">&#9878;&#65039;</div>
+                    <h3>Both Parents Matter Equally</h3>
+                    <p>Male and female contribute equally to offspring color. Neither sex has more influence — <strong>bloodline quality matters far more</strong> than which parent is which sex.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-icon">&#128202;</div>
+                    <h3>Stabilization Timeline</h3>
+                    <p><strong>2-3 generations</strong> to stabilize a color line (depends on bloodline compatibility). A line is considered starting to stabilize at <strong>50-60%</strong> offspring matching target color.</p>
+                    <div class="stability-bar-container">
+                        <div class="stability-bar">
+                            <div class="stability-fill" style="width: 30%;">F1</div>
+                            <div class="stability-fill" style="width: 55%;">F2</div>
+                            <div class="stability-fill" style="width: 85%;">F3+</div>
+                        </div>
+                        <div class="stability-labels">
+                            <span>Low match</span>
+                            <span>Stabilizing</span>
+                            <span>Stable</span>
+                        </div>
+                    </div>
+                    <p class="note">Note: Multi-color morphs like Aurora may always produce ~3 variations even when stable.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-icon">&#127777;&#65039;</div>
+                    <h3>Environment Matters (A Little)</h3>
+                    <p>Temperature, humidity, and substrate can shift colors slightly since rainbow stag beetle coloration is structural (not pigment-based). However, genetics and bloodline are by far the primary factors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="section section-gallery">
+        <div class="container">
+            <h2 class="section-title">Gallery</h2>
+            <p class="section-intro">JRN BEETLE collection — color variations and special combinations.</p>
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item">
+                    <img src="images/aurora pikal.jpg" alt="Aurora Pikal" loading="lazy">
+                    <span class="gallery-label">Aurora Pikal</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/aurora pink eyes.jpg" alt="Aurora Pink Eyes" loading="lazy">
+                    <span class="gallery-label">Aurora Pink Eyes</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/aurora pink eyes male close up.jpg" alt="Aurora Pink Eyes Male Close Up" loading="lazy">
+                    <span class="gallery-label">Aurora Pink Eyes &#9794;</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/aurora pink eyes female close up.jpg" alt="Aurora Pink Eyes Female Close Up" loading="lazy">
+                    <span class="gallery-label">Aurora Pink Eyes &#9792;</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/blue crest high grade.jpg" alt="Blue Crest High Grade" loading="lazy">
+                    <span class="gallery-label">Blue Crest (Lapis)</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/blue crest half color form.jpg" alt="Blue Crest Half Color Form" loading="lazy">
+                    <span class="gallery-label">Blue Crest Half Color</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/navy blue purple high grade but not highest.jpg" alt="Navy Blue Purple High Grade" loading="lazy">
+                    <span class="gallery-label">Navy Blue Purple</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/combination variation of navy blue purple.jpg" alt="Navy Blue Purple Combination" loading="lazy">
+                    <span class="gallery-label">Navy Blue Purple Variations</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/navy blue purplr pikal.jpg" alt="Navy Blue Purple Pikal" loading="lazy">
+                    <span class="gallery-label">Navy Blue Purple Pikal</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/navy blue purple pikal white eyes.jpg" alt="Navy Blue Purple Pikal White Eyes" loading="lazy">
+                    <span class="gallery-label">NBP Pikal White Eyes</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/navy blue purple pikal thick horn.jpg" alt="Navy Blue Purple Pikal Thick Horn" loading="lazy">
+                    <span class="gallery-label">NBP Pikal Thick Horn</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/navy blue purple pikal thick horn close up 1.jpg" alt="Thick Horn Close Up" loading="lazy">
+                    <span class="gallery-label">Thick Horn Close-up</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/red.jpg" alt="Red" loading="lazy">
+                    <span class="gallery-label">Red</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/red pikal white eyes female.jpg" alt="Red Pikal White Eyes Female" loading="lazy">
+                    <span class="gallery-label">Red Pikal WE &#9792;</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/supper red white eyes.jpg" alt="Super Red White Eyes" loading="lazy">
+                    <span class="gallery-label">Super Red White Eyes</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/supper red female.jpg" alt="Super Red Female" loading="lazy">
+                    <span class="gallery-label">Super Red &#9792;</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/supper green pikal.jpg" alt="Super Green Pikal" loading="lazy">
+                    <span class="gallery-label">Super Green Pikal</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/supper green red eyes.jpg" alt="Super Green Red Eyes" loading="lazy">
+                    <span class="gallery-label">Super Green Red Eyes</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/glaze white eyes.jpg" alt="Glaze White Eyes" loading="lazy">
+                    <span class="gallery-label">Glaze White Eyes</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/purplr red eyes.jpg" alt="Purple Red Eyes" loading="lazy">
+                    <span class="gallery-label">Purple Red Eyes</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/normal white eyes.jpg" alt="Normal White Eyes" loading="lazy">
+                    <span class="gallery-label">Normal White Eyes</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/amber white eyes.jpg" alt="Amber White Eyes" loading="lazy">
+                    <span class="gallery-label">Amber White Eyes</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <span class="logo-jrn">JRN</span>
+                <span class="logo-beetle">BEETLE</span>
+            </div>
+            <p class="footer-text">
+                Rainbow Stag Beetle (<em>Phalacrognathus muelleri</em>) Color Breeding Guide<br>
+                Knowledge compiled by JRN BEETLE — For the breeder community
+            </p>
+            <p class="footer-copy">&copy; 2026 JRN BEETLE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
