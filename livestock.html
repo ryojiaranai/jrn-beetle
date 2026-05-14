@@ -469,8 +469,11 @@
         .section-video__player {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%;
             background: #000;
+        }
+        .section-video__player video {
+            width: 100%;
+            display: block;
         }
         .section-video__player iframe {
             position: absolute;
@@ -662,7 +665,17 @@
 
         <!-- Beetle Jelly -->
         <div class="tab-content" id="tab-jelly">
-            <div class="section-video" id="video-jelly"></div>
+            <div class="section-video">
+                <div class="section-video__player">
+                    <video controls preload="metadata" poster="">
+                        <source src="video/beetle jelly ads.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="section-video__info">
+                    <div class="section-video__title">JRN Beetle Jelly</div>
+                    <div class="section-video__desc">Premium beetle jelly for breeding adults — high protein formula boosts egg production and longevity.</div>
+                </div>
+            </div>
             <div class="search-box">
                 <input type="text" placeholder="Search products..." data-search="jelly">
             </div>

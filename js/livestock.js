@@ -207,8 +207,7 @@
         renderGrid('grid-jelly', data.jelly || [], renderProductCard);
         renderGrid('grid-equipment', data.equipment || [], renderProductCard);
 
-        // Section featured videos
-        renderSectionVideo('video-jelly', data.jelly || []);
+        // Section featured video (equipment only — jelly video is hardcoded in HTML)
         renderSectionVideo('video-equipment', data.equipment || []);
 
         // Last updated
