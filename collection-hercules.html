@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRN BEETLE — Dynastes Hercules</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        #particleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; }
+        #navbar.scrolled { background: rgba(10,10,15,0.95); }
+
+        .article { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 80px 24px 60px; }
+        .article-back { display: inline-flex; align-items: center; gap: 6px; color: #daa520; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; transition: gap 0.3s; }
+        .article-back:hover { gap: 12px; }
+        .article h1 { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 12px; color: #e8e8f0; }
+        .article .subtitle { color: #8888a0; font-size: 1rem; margin-bottom: 40px; line-height: 1.7; }
+        .article h2 { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.15rem; color: #e8e8f0; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .article p { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; }
+        .article ul { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; padding-left: 24px; }
+        .article li { margin-bottom: 8px; }
+
+        .info-card { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
+        .info-card__title { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; color: #daa520; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-card__body { color: #b0b0c0; font-size: 0.9rem; line-height: 1.7; }
+
+        .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .spec-item { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 16px; text-align: center; }
+        .spec-item__value { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; color: #daa520; margin-bottom: 4px; }
+        .spec-item__label { font-size: 0.75rem; color: #8888a0; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .tip-box { background: rgba(39,174,96,0.08); border: 1px solid rgba(39,174,96,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .tip-box__label { font-size: 0.75rem; font-weight: 700; color: #2ecc71; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .tip-box p { color: #b0b0c0; font-size: 0.88rem; line-height: 1.7; margin: 0; }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-jrn">JRN</span>
+                <span class="logo-beetle">BEETLE</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="livestock.html">Livestock</a></li>
+                <li><a href="knowledge.html" class="active">Knowledge</a></li>
+                <li><a href="color-guide.html">Color Guide</a></li>
+                <li><a href="index.html#contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Article -->
+    <div class="article">
+        <a href="knowledge.html" class="article-back">&larr; Back to Knowledge Base</a>
+
+        <h1>Dynastes Hercules Hercules</h1>
+        <p class="subtitle">The King of Beetles — one of the largest beetles in the world, and part of our collection.</p>
+
+        <!-- Quick Info -->
+        <div class="info-card">
+            <div class="info-card__title">Quick Info</div>
+            <div class="info-card__body">
+                <ul style="padding-left: 20px; margin: 0;">
+                    <li><strong>Scientific Name:</strong> Dynastes hercules hercules (Linnaeus, 1758)</li>
+                    <li><strong>Family:</strong> Scarabaeidae (Dynastinae — Rhinoceros Beetles)</li>
+                    <li><strong>Origin:</strong> Guadeloupe Island, Lesser Antilles (nominate subspecies)</li>
+                    <li><strong>Size:</strong> Males up to 173mm total (including horn) — the longest beetle in the world</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- What Makes It Special -->
+        <h2>What Makes It Special</h2>
+        <p>If you've ever wanted to hold a beetle that feels like holding a small dinosaur, this is the one. Dynastes hercules is the real deal — the biggest, the baddest, the king.</p>
+        <ul>
+            <li>Males have massive thoracic and cephalic horns that form a pincer — they use it to flip rivals off branches like it's nothing.</li>
+            <li>The elytra actually change color depending on humidity — olive-green when dry, turning black when it's humid. It's like a built-in mood ring.</li>
+            <li>One of the strongest animals relative to body size. These guys can carry hundreds of times their own weight.</li>
+            <li>Larvae are absolute units — they can take 1 to 2 years to fully develop and weigh over 100 grams. Chunky boys.</li>
+        </ul>
+
+        <!-- Quick Care -->
+        <h2>Quick Care</h2>
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">22–26°C</div>
+                <div class="spec-item__label">Temperature</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">70–80%</div>
+                <div class="spec-item__label">Humidity</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">12–24 mo</div>
+                <div class="spec-item__label">Larval Period</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">Hardwood</div>
+                <div class="spec-item__label">Substrate</div>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Substrate Note</div>
+            <p>Larvae do best in well-decomposed hardwood compost — the darker and softer, the better. Keep it moist but not soggy. Big larvae need big containers, so don't cheap out on space.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <span class="logo-jrn">JRN</span>
+                <span class="logo-beetle">BEETLE</span>
+            </div>
+            <p class="footer-text">
+                Beetle Breeder &amp; Supplies<br>
+                Quality beetles, jelly, and equipment for the breeder community
+            </p>
+            <p class="footer-copy">&copy; 2026 JRN BEETLE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
