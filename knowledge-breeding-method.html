@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRN BEETLE — Breeding Methods</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        #particleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; }
+        #navbar.scrolled { background: rgba(10,10,15,0.95); }
+
+        .article { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 80px 24px 60px; }
+        .article-back { display: inline-flex; align-items: center; gap: 6px; color: #daa520; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; transition: gap 0.3s; }
+        .article-back:hover { gap: 12px; }
+        .article h1 { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 12px; color: #e8e8f0; }
+        .article .subtitle { color: #8888a0; font-size: 1rem; margin-bottom: 40px; line-height: 1.7; }
+        .article h2 { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.15rem; color: #e8e8f0; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .article h3 { font-weight: 700; font-size: 1rem; color: #daa520; margin: 28px 0 10px; }
+        .article p { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; }
+        .article ul, .article ol { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; padding-left: 24px; }
+        .article li { margin-bottom: 8px; }
+
+        .info-card { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
+        .info-card__title { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; color: #daa520; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-card__body { color: #b0b0c0; font-size: 0.9rem; line-height: 1.7; }
+
+        .tip-box { background: rgba(39,174,96,0.08); border: 1px solid rgba(39,174,96,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .tip-box__label { font-size: 0.75rem; font-weight: 700; color: #2ecc71; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .tip-box p { color: #b0b0c0; font-size: 0.88rem; line-height: 1.7; margin: 0; }
+
+        .warning-box { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .warning-box__label { font-size: 0.75rem; font-weight: 700; color: #e74c3c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .warning-box p { color: #b0b0c0; font-size: 0.88rem; line-height: 1.7; margin: 0; }
+
+        /* ===== TERMINOLOGY GRID ===== */
+        .term-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 20px 0 28px; }
+        .term-card { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 16px; }
+        .term-card__abbr { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; }
+        .term-card__abbr--cb { color: #2ecc71; }
+        .term-card__abbr--wd { color: #e67e22; }
+        .term-card__abbr--cbf { color: #3498db; }
+        .term-card__abbr--wf { color: #e74c3c; }
+        .term-card__abbr--in { color: #e74c3c; }
+        .term-card__abbr--cross { color: #2ecc71; }
+        .term-card__desc { color: #8888a0; font-size: 0.82rem; line-height: 1.6; }
+
+        /* ===== GROUP BADGES ===== */
+        .grp { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-family: 'Orbitron', monospace; font-weight: 700; font-size: 0.75rem; color: #fff; vertical-align: middle; }
+        .grp--a { background: #c0392b; }
+        .grp--b { background: #2980b9; }
+        .grp--c { background: #27ae60; }
+        .grp--x { background: #8e44ad; }
+        .grp--y { background: #d4ac0d; }
+        .grp--z { background: #e67e22; }
+        .grp--m { background: #555; font-size: 0.65rem; }
+        .grp-lg { width: 36px; height: 36px; font-size: 0.9rem; }
+
+        /* ===== BREEDING DIAGRAM ===== */
+        .breed-diagram { background: #0e0e16; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px 24px; margin: 24px 0; }
+        .breed-diagram__title { font-family: 'Orbitron', monospace; font-size: 0.8rem; font-weight: 700; color: #daa520; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; text-align: center; }
+
+        /* Line breeding setup */
+        .line-setup { text-align: center; margin-bottom: 24px; }
+        .line-setup__male { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px 16px; margin-bottom: 12px; color: #b0b0c0; font-size: 0.85rem; }
+        .line-setup__arrow { color: #daa520; font-size: 1.2rem; margin: 8px 0; }
+        .line-setup__females { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+        .line-setup__female { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px 12px; color: #b0b0c0; font-size: 0.85rem; }
+
+        /* Cross pattern */
+        .cross-pattern { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+        .cross-row { display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(255,255,255,0.03); border-radius: 10px; padding: 12px 16px; flex-wrap: wrap; }
+        .cross-row__num { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 0.75rem; color: #555; width: 20px; }
+        .cross-row__male { display: flex; align-items: center; gap: 6px; color: #b0b0c0; font-size: 0.85rem; }
+        .cross-row__x { color: #daa520; font-weight: 700; font-size: 0.9rem; margin: 0 4px; }
+        .cross-row__female { display: flex; align-items: center; gap: 6px; color: #b0b0c0; font-size: 0.85rem; }
+        .cross-row__arrow { color: #555; margin: 0 6px; }
+        .cross-row__result { display: flex; align-items: center; gap: 6px; color: #daa520; font-size: 0.85rem; font-weight: 600; }
+        .cross-row__label { font-size: 0.7rem; color: #555; }
+
+        /* Repeat indicator */
+        .repeat-indicator { text-align: center; margin: 20px 0 8px; padding: 12px; border: 1px dashed rgba(218,165,32,0.3); border-radius: 10px; }
+        .repeat-indicator__icon { font-size: 1.5rem; margin-bottom: 4px; }
+        .repeat-indicator__text { color: #daa520; font-size: 0.82rem; font-weight: 600; }
+        .repeat-indicator__sub { color: #8888a0; font-size: 0.75rem; margin-top: 2px; }
+
+        /* ===== ROUND BREEDING STEPS ===== */
+        .gen-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .gen-tab { padding: 8px 18px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #8888a0; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Orbitron', monospace; }
+        .gen-tab:hover { border-color: rgba(218,165,32,0.3); color: #b0b0c0; }
+        .gen-tab.active { background: rgba(218,165,32,0.15); border-color: rgba(218,165,32,0.4); color: #daa520; }
+
+        .gen-panel { display: none; }
+        .gen-panel.active { display: block; }
+
+        /* Bloodline weight bar */
+        .blood-bar { margin: 12px 0; }
+        .blood-bar__label { font-size: 0.75rem; color: #8888a0; margin-bottom: 6px; display: flex; justify-content: space-between; }
+        .blood-bar__track { height: 12px; border-radius: 6px; overflow: hidden; display: flex; background: #1a1a24; }
+        .blood-bar__a { background: linear-gradient(90deg, #c0392b, #e74c3c); transition: width 0.5s; border-radius: 6px 0 0 6px; }
+        .blood-bar__b { background: linear-gradient(90deg, #2980b9, #3498db); transition: width 0.5s; border-radius: 0 6px 6px 0; }
+        .blood-bar__ratio { text-align: center; font-family: 'Orbitron', monospace; font-size: 0.7rem; color: #8888a0; margin-top: 4px; }
+
+        /* Group result card */
+        .group-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 16px 0; }
+        .group-result { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px; }
+        .group-result__header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .group-result__name { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 0.9rem; color: #e8e8f0; }
+        .group-result__formula { font-size: 0.8rem; color: #8888a0; line-height: 1.6; margin-bottom: 10px; }
+        .group-result__purpose { font-size: 0.78rem; color: #daa520; font-style: italic; }
+
+        /* Core idea box */
+        .core-idea { background: linear-gradient(135deg, rgba(218,165,32,0.08), rgba(192,57,43,0.05)); border: 1px solid rgba(218,165,32,0.2); border-radius: 14px; padding: 24px; margin: 28px 0; text-align: center; }
+        .core-idea__title { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; color: #daa520; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .core-idea__text { color: #b0b0c0; font-size: 0.9rem; line-height: 1.8; max-width: 600px; margin: 0 auto; }
+
+        footer { text-align: center; padding: 48px 24px; border-top: 1px solid rgba(255,255,255,0.05); color: #8888a0; font-size: 0.8rem; }
+        footer .footer-brand { margin-bottom: 12px; }
+        footer .footer-copy { margin-top: 8px; opacity: 0.5; }
+
+        @media (max-width: 500px) {
+            .cross-row { padding: 10px 12px; gap: 6px; }
+            .group-results { grid-template-columns: 1fr; }
+            .term-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><span class="logo-jrn">JRN</span><span class="logo-beetle">BEETLE</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="livestock.html">Livestock</a></li>
+                <li><a href="knowledge.html" class="active">Knowledge</a></li>
+                <li><a href="color-guide.html">Color Guide</a></li>
+                <li><a href="index.html#contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <article class="article">
+        <a href="knowledge.html" class="article-back">&larr; Back to Knowledge Base</a>
+        <h1>Breeding Methods</h1>
+        <p class="subtitle">How to maintain stable bloodlines with minimal inbreeding effects. Learn line breeding and round breeding — two proven methods used by professional beetle breeders.</p>
+
+        <!-- ===== SECTION 1: TERMINOLOGY ===== -->
+        <h2>1. Breeding Terminology</h2>
+        <p>Before learning breeding methods, you need to understand these key terms:</p>
+
+        <div class="term-grid">
+            <div class="term-card">
+                <div class="term-card__abbr term-card__abbr--in">Inbreeding</div>
+                <div class="term-card__desc">Mating a male and female that came from the <strong>same parents</strong>. Can stabilize traits but increases risk of genetic problems.</div>
+            </div>
+            <div class="term-card">
+                <div class="term-card__abbr term-card__abbr--cross">Crossbreeding</div>
+                <div class="term-card__desc">Mating a male and female from <strong>different bloodlines</strong>. Adds genetic diversity and hybrid vigor.</div>
+            </div>
+            <div class="term-card">
+                <div class="term-card__abbr term-card__abbr--cb">CB</div>
+                <div class="term-card__desc"><strong>Captive Bred</strong> — beetles bred in captivity (not from the wild).</div>
+            </div>
+            <div class="term-card">
+                <div class="term-card__abbr term-card__abbr--wd">WD</div>
+                <div class="term-card__desc"><strong>Wild Caught</strong> — beetles collected directly from the wild.</div>
+            </div>
+            <div class="term-card">
+                <div class="term-card__abbr term-card__abbr--cbf">CBF1</div>
+                <div class="term-card__desc"><strong>Captive Bred F1</strong> — first generation born in captivity. CBF2 = second generation, and so on.</div>
+            </div>
+            <div class="term-card">
+                <div class="term-card__abbr term-card__abbr--wf">WF1</div>
+                <div class="term-card__desc"><strong>Wild F1</strong> — first generation offspring from wild-caught parents.</div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card__title">Important Rule — Generation Reset</div>
+            <div class="info-card__body">When you crossbreed a WF or WD beetle with a <strong>different bloodline</strong>, the offspring resets to <strong>CBF1</strong>. This is because you've created a new mixed bloodline — a new captive-bred line starts from that point.</div>
+        </div>
+
+        <!-- ===== SECTION 2: LINE BREEDING ===== -->
+        <h2>2. Line Breeding</h2>
+        <p>Line breeding is a method to keep your bloodline <strong>stable</strong> while avoiding the problems of direct inbreeding (brother x sister). The key idea: start with one male and multiple females, then <strong>rotate males between groups</strong> every generation.</p>
+
+        <h3>Step 1 — Start with 1 Male + 3 Females</h3>
+        <p>Mate one male with 3 (or more) different females. This creates 3 separate groups of offspring that all share the same father.</p>
+
+        <div class="breed-diagram">
+            <div class="breed-diagram__title">Starting Setup</div>
+            <div class="line-setup">
+                <div class="line-setup__male"><span class="grp grp--m">&#9794;</span> 1 Male</div>
+                <div class="line-setup__arrow">&#11015;</div>
+                <div class="line-setup__females">
+                    <div class="line-setup__female"><span class="grp grp--a">A</span> Female 1</div>
+                    <div class="line-setup__female"><span class="grp grp--b">B</span> Female 2</div>
+                    <div class="line-setup__female"><span class="grp grp--c">C</span> Female 3</div>
+                </div>
+            </div>
+            <p style="text-align:center; color:#8888a0; font-size:0.82rem; margin:0;">Result: 3 groups of CBF1 offspring &mdash; Group <span class="grp grp--a" style="width:22px;height:22px;font-size:0.65rem;">A</span> , Group <span class="grp grp--b" style="width:22px;height:22px;font-size:0.65rem;">B</span> , Group <span class="grp grp--c" style="width:22px;height:22px;font-size:0.65rem;">C</span></p>
+        </div>
+
+        <h3>Step 2 — Rotate Males Between Groups</h3>
+        <p>In the next generation, pick a male from each group and mate it with a female from a <strong>different group</strong>. Follow this rotation pattern:</p>
+
+        <div class="breed-diagram">
+            <div class="breed-diagram__title">Rotation Pattern (Every Generation)</div>
+            <div class="cross-pattern">
+                <div class="cross-row">
+                    <span class="cross-row__num">1</span>
+                    <span class="cross-row__male"><span class="grp grp--a">A</span> Male</span>
+                    <span class="cross-row__x">&times;</span>
+                    <span class="cross-row__female"><span class="grp grp--b">B</span> Female</span>
+                    <span class="cross-row__arrow">&rarr;</span>
+                    <span class="cross-row__result">New Group <span class="grp grp--a" style="width:22px;height:22px;font-size:0.6rem;">A</span></span>
+                </div>
+                <div class="cross-row">
+                    <span class="cross-row__num">2</span>
+                    <span class="cross-row__male"><span class="grp grp--b">B</span> Male</span>
+                    <span class="cross-row__x">&times;</span>
+                    <span class="cross-row__female"><span class="grp grp--c">C</span> Female</span>
+                    <span class="cross-row__arrow">&rarr;</span>
+                    <span class="cross-row__result">New Group <span class="grp grp--b" style="width:22px;height:22px;font-size:0.6rem;">B</span></span>
+                </div>
+                <div class="cross-row">
+                    <span class="cross-row__num">3</span>
+                    <span class="cross-row__male"><span class="grp grp--c">C</span> Male</span>
+                    <span class="cross-row__x">&times;</span>
+                    <span class="cross-row__female"><span class="grp grp--a">A</span> Female</span>
+                    <span class="cross-row__arrow">&rarr;</span>
+                    <span class="cross-row__result">New Group <span class="grp grp--c" style="width:22px;height:22px;font-size:0.6rem;">C</span></span>
+                </div>
+            </div>
+
+            <div class="repeat-indicator">
+                <div class="repeat-indicator__icon">&#128260;</div>
+                <div class="repeat-indicator__text">Repeat this rotation every generation</div>
+                <div class="repeat-indicator__sub">A&male; &times; B&female; &nbsp;|&nbsp; B&male; &times; C&female; &nbsp;|&nbsp; C&male; &times; A&female;</div>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Why This Works</div>
+            <p>Since the groups are never directly inbred (brother x sister), the bloodline stays healthier. But because they all started from the same male, the traits stay stable. The blood slowly gets closer over generations, but much slower than direct inbreeding. Technically it stays CBF1 each time, but some breeders count CBF2+ when mating within related lines.</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card__title">More Groups = Slower Blood Closing</div>
+            <div class="info-card__body">Starting with more females (4, 5, or even 6) creates more groups, which means the blood takes even longer to become close. But it also means more work and more space. 3 groups is the standard starting point for most breeders.</div>
+        </div>
+
+        <!-- ===== SECTION 3: ROUND BREEDING ===== -->
+        <h2>3. Round Breeding</h2>
+        <p>Round breeding is a more advanced method. It uses <strong>two original stable bloodlines</strong> (called Line A and Line B) and rotates crossbreeding with them across generations. This keeps the blood diverse while still developing the traits you want.</p>
+
+        <div class="warning-box">
+            <div class="warning-box__label">Requirement</div>
+            <p>Line <span class="grp grp--a" style="width:22px;height:22px;font-size:0.6rem;">A</span> and Line <span class="grp grp--b" style="width:22px;height:22px;font-size:0.6rem;">B</span> must be <strong>very stable bloodlines</strong>. You need to keep producing A and B throughout the entire process (using line breeding or buying from a breeder who maintains the same bloodline). They are your "foundation stock."</p>
+        </div>
+
+        <p>Click each generation tab to see the step-by-step process:</p>
+
+        <div class="gen-tabs">
+            <div class="gen-tab active" onclick="showGen(0)">Start</div>
+            <div class="gen-tab" onclick="showGen(1)">Gen 1</div>
+            <div class="gen-tab" onclick="showGen(2)">Gen 2</div>
+            <div class="gen-tab" onclick="showGen(3)">Gen 3+</div>
+        </div>
+
+        <!-- GEN 0: Starting -->
+        <div class="gen-panel active" id="gen0">
+            <h3>Starting Point — Cross A &times; B</h3>
+            <p>Crossbreed your two stable original lines for <strong>2 generations</strong> to create a mixed foundation. Then separate the offspring into 3 groups:</p>
+
+            <div class="breed-diagram">
+                <div class="breed-diagram__title">Create Foundation</div>
+                <div class="cross-pattern">
+                    <div class="cross-row">
+                        <span class="cross-row__male"><span class="grp grp--a grp-lg">A</span> Original Line</span>
+                        <span class="cross-row__x">&times;</span>
+                        <span class="cross-row__female"><span class="grp grp--b grp-lg">B</span> Original Line</span>
+                    </div>
+                </div>
+                <p style="text-align:center; color:#8888a0; font-size:0.82rem;">&#11015; breed for 2 generations &#11015;</p>
+                <div style="display:flex; justify-content:center; gap:20px; margin-top:12px; flex-wrap:wrap;">
+                    <div style="text-align:center;"><span class="grp grp--x grp-lg">X</span><br><span style="color:#8888a0;font-size:0.75rem;">Group X</span></div>
+                    <div style="text-align:center;"><span class="grp grp--y grp-lg">Y</span><br><span style="color:#8888a0;font-size:0.75rem;">Group Y</span></div>
+                    <div style="text-align:center;"><span class="grp grp--z grp-lg">Z</span><br><span style="color:#8888a0;font-size:0.75rem;">Group Z</span></div>
+                </div>
+            </div>
+
+            <div class="blood-bar">
+                <div class="blood-bar__label"><span>Line A</span><span>Line B</span></div>
+                <div class="blood-bar__track">
+                    <div class="blood-bar__a" style="width:50%;"></div>
+                    <div class="blood-bar__b" style="width:50%;"></div>
+                </div>
+                <div class="blood-bar__ratio">Groups X, Y, Z = 50% A / 50% B</div>
+            </div>
+        </div>
+
+        <!-- GEN 1 -->
+        <div class="gen-panel" id="gen1">
+            <h3>Generation 1 — Split Into 3 Directions</h3>
+            <p>Each group goes a different direction. This is where the strategy begins:</p>
+
+            <div class="group-results">
+                <div class="group-result">
+                    <div class="group-result__header">
+                        <span class="grp grp--x">X</span>
+                        <span class="group-result__name">&times; Line A &rarr; Group C</span>
+                    </div>
+                    <div class="group-result__formula"><span class="grp grp--x" style="width:18px;height:18px;font-size:0.55rem;">X</span> &times; <span class="grp grp--a" style="width:18px;height:18px;font-size:0.55rem;">A</span> = <strong style="color:#e8e8f0;">Group C</strong></div>
+                    <div class="blood-bar">
+                        <div class="blood-bar__track">
+                            <div class="blood-bar__a" style="width:70%;"></div>
+                            <div class="blood-bar__b" style="width:30%;"></div>
+                        </div>
+                        <div class="blood-bar__ratio">70% A / 30% B</div>
+                    </div>
+                    <div class="group-result__purpose">Pull traits from Line A stronger</div>
+                </div>
+
+                <div class="group-result">
+                    <div class="group-result__header">
+                        <span class="grp grp--y">Y</span>
+                        <span class="group-result__name">&times; Line B &rarr; Group D</span>
+                    </div>
+                    <div class="group-result__formula"><span class="grp grp--y" style="width:18px;height:18px;font-size:0.55rem;">Y</span> &times; <span class="grp grp--b" style="width:18px;height:18px;font-size:0.55rem;">B</span> = <strong style="color:#e8e8f0;">Group D</strong></div>
+                    <div class="blood-bar">
+                        <div class="blood-bar__track">
+                            <div class="blood-bar__a" style="width:30%;"></div>
+                            <div class="blood-bar__b" style="width:70%;"></div>
+                        </div>
+                        <div class="blood-bar__ratio">30% A / 70% B</div>
+                    </div>
+                    <div class="group-result__purpose">Pull traits from Line B stronger</div>
+                </div>
+
+                <div class="group-result">
+                    <div class="group-result__header">
+                        <span class="grp grp--z">Z</span>
+                        <span class="group-result__name">&times; Group Y &rarr; Group E</span>
+                    </div>
+                    <div class="group-result__formula"><span class="grp grp--z" style="width:18px;height:18px;font-size:0.55rem;">Z</span> &times; <span class="grp grp--y" style="width:18px;height:18px;font-size:0.55rem;">Y</span> = <strong style="color:#e8e8f0;">Group E</strong></div>
+                    <div class="blood-bar">
+                        <div class="blood-bar__track">
+                            <div class="blood-bar__a" style="width:50%;"></div>
+                            <div class="blood-bar__b" style="width:50%;"></div>
+                        </div>
+                        <div class="blood-bar__ratio">~50% A / ~50% B (line bred)</div>
+                    </div>
+                    <div class="group-result__purpose">Keep &amp; stabilize the strain you developed</div>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-box__label">What's Happening</div>
+                <p>Groups C and D are "weighted" — one side of the bloodline is heavier (~70/30). The offspring won't look hugely different, but the traits you want from A or B will show up more. Group E keeps the balanced 50/50 mix for strain preservation. This also helps you learn which traits are dominant vs. recessive.</p>
+            </div>
+        </div>
+
+        <!-- GEN 2 -->
+        <div class="gen-panel" id="gen2">
+            <h3>Generation 2 — Swap the Original Lines</h3>
+            <p>Now comes the key move: <strong>swap A and B</strong>. Cross Group C with Line B, and Group D with Line A. This brings the bloodline weight back toward balance — but not exactly 50/50, so it avoids true inbreeding.</p>
+
+            <div class="group-results">
+                <div class="group-result">
+                    <div class="group-result__header">
+                        <span style="color:#e8e8f0; font-family:'Orbitron',monospace; font-weight:700; font-size:0.9rem;">C</span>
+                        <span class="group-result__name">&times; Line B &rarr; Group F</span>
+                    </div>
+                    <div class="group-result__formula">Group C (70A/30B) &times; <span class="grp grp--b" style="width:18px;height:18px;font-size:0.55rem;">B</span> = <strong style="color:#e8e8f0;">Group F</strong></div>
+                    <div class="blood-bar">
+                        <div class="blood-bar__track">
+                            <div class="blood-bar__a" style="width:40%;"></div>
+                            <div class="blood-bar__b" style="width:60%;"></div>
+                        </div>
+                        <div class="blood-bar__ratio">~40% A / ~60% B — approaching balance</div>
+                    </div>
+                    <div class="group-result__purpose">Rebalancing toward center</div>
+                </div>
+
+                <div class="group-result">
+                    <div class="group-result__header">
+                        <span style="color:#e8e8f0; font-family:'Orbitron',monospace; font-weight:700; font-size:0.9rem;">D</span>
+                        <span class="group-result__name">&times; Line A &rarr; Group G</span>
+                    </div>
+                    <div class="group-result__formula">Group D (30A/70B) &times; <span class="grp grp--a" style="width:18px;height:18px;font-size:0.55rem;">A</span> = <strong style="color:#e8e8f0;">Group G</strong></div>
+                    <div class="blood-bar">
+                        <div class="blood-bar__track">
+                            <div class="blood-bar__a" style="width:60%;"></div>
+                            <div class="blood-bar__b" style="width:40%;"></div>
+                        </div>
+                        <div class="blood-bar__ratio">~60% A / ~40% B — approaching balance</div>
+                    </div>
+                    <div class="group-result__purpose">Rebalancing toward center</div>
+                </div>
+
+                <div class="group-result">
+                    <div class="group-result__header">
+                        <span style="color:#e8e8f0; font-family:'Orbitron',monospace; font-weight:700; font-size:0.9rem;">E</span>
+                        <span class="group-result__name">&rarr; Your Choice</span>
+                    </div>
+                    <div class="group-result__formula">Cross with C, D, or keep line breeding</div>
+                    <div class="blood-bar">
+                        <div class="blood-bar__track">
+                            <div class="blood-bar__a" style="width:50%;"></div>
+                            <div class="blood-bar__b" style="width:50%;"></div>
+                        </div>
+                        <div class="blood-bar__ratio">Flexible — depends on your goal</div>
+                    </div>
+                    <div class="group-result__purpose">Strain preservation or trait testing</div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card__title">The Goal of Swapping</div>
+                <div class="info-card__body">The closer the bloodline weight is to <strong>50/50, the stronger</strong> the offspring (hybrid vigor). But you're NOT inbreeding because each generation adds fresh genetics from the original lines. The blood is related but <strong>far from close</strong> — that's the power of round breeding.</div>
+            </div>
+        </div>
+
+        <!-- GEN 3+ -->
+        <div class="gen-panel" id="gen3">
+            <h3>Generation 3 and Beyond — Freedom to Choose</h3>
+            <p>By now you have many groups (C, D, E, F, G...) that are all related bloodlines but far from close blood. You have many options:</p>
+
+            <ul>
+                <li>Cross any group with Line <span class="grp grp--a" style="width:18px;height:18px;font-size:0.55rem;">A</span> or Line <span class="grp grp--b" style="width:18px;height:18px;font-size:0.55rem;">B</span> to weight traits</li>
+                <li>Cross groups with each other (e.g., F &times; G) for balanced offspring</li>
+                <li>Keep line breeding Group E to preserve your developed strain</li>
+                <li>Test specific trait combinations by crossing selected groups</li>
+            </ul>
+
+            <div class="core-idea">
+                <div class="core-idea__title">&#128161; Core Idea of Round Breeding</div>
+                <div class="core-idea__text">
+                    Always keep your original Lines <span class="grp grp--a" style="width:22px;height:22px;font-size:0.6rem;">A</span> and <span class="grp grp--b" style="width:22px;height:22px;font-size:0.6rem;">B</span> alive and producing.<br><br>
+                    Every generation, <strong>swap which original line you cross with</strong>:<br>
+                    If you used A last time &rarr; use B this time.<br>
+                    If you used B last time &rarr; use A this time.<br><br>
+                    This creates offspring that are always related but never too close — giving you <strong>stable traits with strong genetics</strong>.
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-box__label">Pro Tip</div>
+                <p>Round breeding also helps you learn about dominant and recessive genes in your beetles. By crossing weighted groups (70/30) with the opposite line, you can observe which traits persist and which disappear — revealing the genetic structure of your bloodline.</p>
+            </div>
+        </div>
+
+        <!-- COMPARISON -->
+        <h2>Line Breeding vs. Round Breeding</h2>
+        <div class="info-card">
+            <div class="info-card__title">When to Use Each Method</div>
+            <div class="info-card__body">
+                <strong>Line Breeding</strong> — simpler, good for maintaining one bloodline. Best when you have a single high-quality line you want to keep pure. Requires less space and fewer beetles.<br><br>
+                <strong>Round Breeding</strong> — more complex, but more powerful. Best when you want to develop new traits while keeping genetics strong. Requires two stable original lines and more groups. Used by advanced breeders developing rare color morphs.
+            </div>
+        </div>
+
+    </article>
+
+    <footer>
+        <div class="footer-brand"><span class="logo-jrn">JRN</span><span class="logo-beetle">BEETLE</span></div>
+        <p>Beetle Breeder &amp; Supplies — Thailand</p>
+        <p class="footer-copy">&copy; 2026 JRN BEETLE. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+    function showGen(n) {
+        var tabs = document.querySelectorAll('.gen-tab');
+        var panels = document.querySelectorAll('.gen-panel');
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove('active');
+            panels[i].classList.remove('active');
+        }
+        tabs[n].classList.add('active');
+        panels[n].classList.add('active');
+    }
+    </script>
+</body>
+</html>
