@@ -40,6 +40,37 @@
         .spec-item__value { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; color: #daa520; margin-bottom: 4px; }
         .spec-item__label { font-size: 0.75rem; color: #8888a0; text-transform: uppercase; letter-spacing: 0.5px; }
 
+        /* Weekly Schedule */
+        .week-schedule { margin: 24px 0 28px; overflow-x: auto; }
+        .week-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+        .week-table th { background: #16161f; font-family: 'Orbitron', monospace; font-size: 0.65rem; font-weight: 700; color: #8888a0; text-transform: uppercase; letter-spacing: 1px; padding: 12px 4px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .week-table th.day-highlight { color: #daa520; }
+        .week-table td { background: #12121a; text-align: center; padding: 10px 4px; vertical-align: middle; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .week-table tr:last-child td { border-bottom: none; }
+        .week-table .task-label { text-align: left; padding-left: 14px; font-size: 0.8rem; font-weight: 600; color: #b0b0c0; white-space: nowrap; min-width: 130px; }
+        .task-dot { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: 0.85rem; }
+        .task-dot--food { background: rgba(218,165,32,0.15); border: 1.5px solid rgba(218,165,32,0.4); }
+        .task-dot--mist { background: rgba(52,152,219,0.15); border: 1.5px solid rgba(52,152,219,0.4); }
+        .task-dot--clean { background: rgba(39,174,96,0.15); border: 1.5px solid rgba(39,174,96,0.4); }
+        .task-dot--check { background: rgba(142,68,173,0.15); border: 1.5px solid rgba(142,68,173,0.4); }
+        .task-dot--empty { opacity: 0; }
+        .schedule-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #8888a0; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .legend-dot--food { background: rgba(218,165,32,0.6); }
+        .legend-dot--mist { background: rgba(52,152,219,0.6); }
+        .legend-dot--clean { background: rgba(39,174,96,0.6); }
+        .legend-dot--check { background: rgba(142,68,173,0.6); }
+
+        @media (max-width: 500px) {
+            .week-table th { font-size: 0.55rem; padding: 10px 2px; letter-spacing: 0; }
+            .week-table .task-label { font-size: 0.7rem; padding-left: 8px; min-width: 90px; }
+            .task-dot { width: 22px; height: 22px; font-size: 0.7rem; }
+        }
+
+        .article-img { width: 100%; border-radius: 12px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.06); }
+        .article-img-caption { text-align: center; font-size: 0.78rem; color: #8888a0; margin: -12px 0 20px; font-style: italic; }
+
         footer { text-align: center; padding: 48px 24px; border-top: 1px solid rgba(255,255,255,0.05); color: #8888a0; font-size: 0.8rem; }
         footer .footer-brand { margin-bottom: 12px; }
         footer .footer-copy { margin-top: 8px; opacity: 0.5; }
@@ -85,6 +116,9 @@
                 <div class="spec-item__label">Lid Type</div>
             </div>
         </div>
+
+        <img src="images/knowledge part/example container.png" alt="Example beetle enclosure setup with substrate, bark, and food" class="article-img" loading="lazy">
+        <p class="article-img-caption">Example setup — container with substrate, climbing bark, hide spots, and food</p>
 
         <h3>What You Need</h3>
         <ul>
@@ -155,6 +189,9 @@
         <h2>Feeding</h2>
         <p>Adult beetles eat tree sap, honey, and fruit in the wild. In captivity, the best natural food is <strong>honey</strong> — it's nutritious and beetles love it. Fruit is a good second option, and <strong>beetle jelly</strong> is the most convenient choice for easy maintenance.</p>
 
+        <img src="images/knowledge part/example food.png" alt="Beetle food options — honey, beetle jelly, and fresh fruit" class="article-img" loading="lazy">
+        <p class="article-img-caption">Best food options — Honey (best natural food), Beetle Jelly (most convenient), Fresh Fruit (second option)</p>
+
         <h3>Best Foods</h3>
         <ul>
             <li><strong>Honey</strong> (best natural food) — high nutrition, natural, and beetles love it. Mix with a little water to thin it out and serve in a shallow dish.</li>
@@ -168,34 +205,103 @@
         </div>
 
         <!-- ROUTINE -->
-        <h2>Care Routine</h2>
+        <h2>Weekly Care Schedule</h2>
+        <p>Adult beetles are low-maintenance. Here's a simple weekly routine to keep them healthy:</p>
 
-        <h3>Twice a Week</h3>
-        <ol>
-            <li><strong>Change food</strong> — replace beetle jelly, honey dish, or fruit</li>
-            <li><strong>Check beetle</strong> — make sure it's not stuck on its back</li>
-            <li><strong>Mist if needed</strong> — if substrate looks dry, spray lightly</li>
-        </ol>
+        <div class="week-schedule">
+            <table class="week-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th class="day-highlight">Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th class="day-highlight">Sat</th>
+                        <th>Sun</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="task-label">&#127855; Change Food</td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="task-dot task-dot--food">&#10003;</span></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="task-dot task-dot--food">&#10003;</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="task-label">&#128065; Check Beetle</td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="task-dot task-dot--check">&#10003;</span></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="task-dot task-dot--check">&#10003;</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="task-label">&#128167; Mist Substrate</td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="task-dot task-dot--mist">&#10003;</span></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="task-dot task-dot--mist">&#10003;</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="task-label">&#9851; Change Substrate</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="task-dot task-dot--clean">&#10003;</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="task-label">&#128701; Clean Container</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="task-dot task-dot--clean">&#10003;</span></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="schedule-legend">
+                <div class="legend-item"><span class="legend-dot legend-dot--food"></span> Twice a week</div>
+                <div class="legend-item"><span class="legend-dot legend-dot--clean"></span> Once a week</div>
+            </div>
+        </div>
 
-        <h3>Once a Week</h3>
-        <ol>
-            <li><strong>Change substrate</strong> — replace wiping paper, sawdust, or moss with fresh material</li>
-            <li><strong>Clean container</strong> — remove any mold spots or waste</li>
-        </ol>
-
-        <p>That's it! Adult beetles are low-maintenance pets. Most of the time they rest during the day and become active at night.</p>
+        <div class="tip-box">
+            <div class="tip-box__label">Note</div>
+            <p>This schedule is just an example — you can pick any 2 days for food/misting and 1 day for cleaning. The important thing is consistency. Most beetles rest during the day and become active at night.</p>
+        </div>
 
         <!-- KEEPING MALES & FEMALES -->
         <h2>Keeping Males &amp; Females Together</h2>
         <p>In general, <strong>do not keep multiple males together</strong> — they will fight, especially stag beetles and rhino beetles. Males can injure or kill each other.</p>
 
+        <div class="warning-box">
+            <div class="warning-box__label">Warning — Don't Keep Pairs Together Too Long</div>
+            <p>Keeping a male and female together for a long time will <strong>shorten both their lifespans</strong> — the male will keep mating with the female repeatedly, exhausting both beetles. The best approach is to keep them together for only <strong>1-7 days</strong> (depending on species), then separate them.</p>
+        </div>
+
         <div class="info-card">
             <div class="info-card__title">Stag Beetles</div>
-            <div class="info-card__body">Keep males separate. Males fight aggressively with their mandibles and can seriously injure each other. One male + one female is okay temporarily for mating.</div>
+            <div class="info-card__body">Keep males separate. Males fight aggressively with their mandibles and can seriously injure each other. Pair with a female for 1-7 days for mating, then separate.</div>
         </div>
         <div class="info-card">
             <div class="info-card__title">Rhino Beetles</div>
-            <div class="info-card__body">Keep males separate. Males use their horns to flip rivals. One male + one female is fine for breeding.</div>
+            <div class="info-card__body">Keep males separate. Males use their horns to flip rivals. Pair with a female for 1-7 days for breeding, then separate.</div>
         </div>
         <div class="info-card">
             <div class="info-card__title">Flower Beetles</div>
