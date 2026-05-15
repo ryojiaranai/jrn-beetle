@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRN BEETLE — How to Breed Beetles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        #particleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; }
+        #navbar.scrolled { background: rgba(10,10,15,0.95); }
+
+        .article { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 80px 24px 60px; }
+        .article-back { display: inline-flex; align-items: center; gap: 6px; color: #daa520; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; transition: gap 0.3s; }
+        .article-back:hover { gap: 12px; }
+        .article h1 { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 12px; color: #e8e8f0; }
+        .article .subtitle { color: #8888a0; font-size: 1rem; margin-bottom: 40px; line-height: 1.7; }
+        .article h2 { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.15rem; color: #e8e8f0; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .article h3 { font-weight: 700; font-size: 1rem; color: #daa520; margin: 28px 0 10px; }
+        .article p { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; }
+        .article ul, .article ol { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; padding-left: 24px; }
+        .article li { margin-bottom: 8px; }
+
+        .info-card { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
+        .info-card__title { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; color: #daa520; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-card__body { color: #b0b0c0; font-size: 0.9rem; line-height: 1.7; }
+
+        .tip-box { background: rgba(39,174,96,0.08); border: 1px solid rgba(39,174,96,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .tip-box__label { font-size: 0.75rem; font-weight: 700; color: #2ecc71; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .tip-box p { color: #b0b0c0; font-size: 0.88rem; line-height: 1.7; margin: 0; }
+
+        .warning-box { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .warning-box__label { font-size: 0.75rem; font-weight: 700; color: #e74c3c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .warning-box p { color: #b0b0c0; font-size: 0.88rem; line-height: 1.7; margin: 0; }
+
+        .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .spec-item { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 16px; text-align: center; }
+        .spec-item__value { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; color: #daa520; margin-bottom: 4px; }
+        .spec-item__label { font-size: 0.75rem; color: #8888a0; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .type-divider { display: flex; align-items: center; gap: 16px; margin: 56px 0 24px; }
+        .type-divider__icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        .type-divider__icon--stag { background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.3); }
+        .type-divider__icon--rhino { background: rgba(218,165,32,0.15); border: 1px solid rgba(218,165,32,0.3); }
+        .type-divider__icon--flower { background: rgba(39,174,96,0.15); border: 1px solid rgba(39,174,96,0.3); }
+        .type-divider__text { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.3rem; color: #e8e8f0; }
+
+        footer { text-align: center; padding: 48px 24px; border-top: 1px solid rgba(255,255,255,0.05); color: #8888a0; font-size: 0.8rem; }
+        footer .footer-brand { margin-bottom: 12px; }
+        footer .footer-copy { margin-top: 8px; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><span class="logo-jrn">JRN</span><span class="logo-beetle">BEETLE</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="livestock.html">Livestock</a></li>
+                <li><a href="knowledge.html" class="active">Knowledge</a></li>
+                <li><a href="color-guide.html">Color Guide</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <article class="article">
+        <a href="knowledge.html" class="article-back">&larr; Back to Knowledge Base</a>
+        <h1>How to Breed Beetles</h1>
+        <p class="subtitle">A beginner-friendly guide to breeding stag beetles, rhino beetles, and flower beetles in captivity. Learn how to pair, mate, and collect eggs for each type.</p>
+
+        <!-- GENERAL INTRO -->
+        <h2>Before You Start</h2>
+        <p>Breeding beetles is one of the most rewarding parts of the hobby. The basic concept is the same for all types: pair a mature male and female, let them mate, then give the female the right environment to lay eggs. But each beetle type needs a different setup.</p>
+
+        <h3>Requirements for All Types</h3>
+        <ul>
+            <li><strong>Sexually mature adults</strong> — beetles need time after emerging from pupation before they can breed (this varies by species)</li>
+            <li><strong>Healthy, well-fed beetles</strong> — feed protein-rich beetle jelly for at least 2 weeks before pairing</li>
+            <li><strong>Correct substrate and container</strong> — the female needs the right material to lay eggs in</li>
+            <li><strong>Patience</strong> — egg laying takes time, and not every pairing is successful on the first try</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Tip</div>
+            <p>Feed both male and female high-protein beetle jelly (16g or larger cups) for 2-3 weeks before breeding. Well-fed females produce more eggs and healthier larvae.</p>
+        </div>
+
+        <!-- ==================== STAG BEETLES ==================== -->
+        <div class="type-divider">
+            <div class="type-divider__icon type-divider__icon--stag">🦌</div>
+            <div class="type-divider__text">Stag Beetles</div>
+        </div>
+
+        <h3>Sexual Maturity</h3>
+        <p>Stag beetles generally need <strong>1-3 months</strong> after emerging from the pupal cell before they are ready to breed. During this time, their exoskeleton hardens and their internal organs mature. Feed them well during this waiting period.</p>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">1-3 mo</div>
+                <div class="spec-item__label">Maturity Wait</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">24-26 &deg;C</div>
+                <div class="spec-item__label">Breeding Temp</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">~3 wk</div>
+                <div class="spec-item__label">Eggs Hatch In</div>
+            </div>
+        </div>
+
+        <h3>Mating Process</h3>
+        <ol>
+            <li><strong>Introduce the pair</strong> — place the female in the male's container (or a neutral breeding box). The male should approach and mount the female.</li>
+            <li><strong>Watch carefully</strong> — for aggressive species with large mandibles (like Dorcus, Prosopocoilus, or Hexarthrius), the male may injure or kill the female. If the male is aggressive, <strong>tie the mandibles</strong> with soft wire or tape before introducing.</li>
+            <li><strong>Mating duration</strong> — mating can last 10 minutes to several hours. Once you confirm mating has happened, you can separate them.</li>
+            <li><strong>One mating is enough</strong> — females can store sperm, so a single successful mating is usually sufficient.</li>
+        </ol>
+
+        <div class="warning-box">
+            <div class="warning-box__label">Warning — Aggressive Males</div>
+            <p>Species like Prosopocoilus, Hexarthrius, and some Dorcus have very strong mandibles that can cut the female in half. Always tie or tape the mandibles shut before introducing the pair. Use soft craft wire — tight enough that the male can't open them, but not so tight it damages the mandibles.</p>
+        </div>
+
+        <h3>Egg-Laying Setup</h3>
+        <p>After mating, move the female to a dedicated egg-laying container. Stag beetles lay eggs in <strong>rotten wood</strong> (soft decayed hardwood logs) or in the substrate around the wood, depending on species.</p>
+
+        <ul>
+            <li><strong>Container</strong> — medium to large box (at least 10-15 liters)</li>
+            <li><strong>Substrate</strong> — flake soil or well-fermented hardwood sawdust, packed firmly to about 10-15 cm deep</li>
+            <li><strong>Wood</strong> — 1-2 pieces of soft rotten hardwood (oak, beech, or similar), partially buried in the substrate. Soak the wood in water for 12-24 hours first, then let it drip-dry</li>
+            <li><strong>Food</strong> — beetle jelly for the female, replaced every few days</li>
+            <li><strong>Humidity</strong> — keep substrate moist (spray if needed)</li>
+        </ul>
+
+        <div class="info-card">
+            <div class="info-card__title">Wood-Laying vs. Substrate-Laying Species</div>
+            <div class="info-card__body">
+                <strong>Wood layers:</strong> Dorcus, Prosopocoilus, Hexarthrius, Cyclommatus — these prefer to lay eggs inside soft rotten wood. Always include wood pieces.<br><br>
+                <strong>Substrate layers:</strong> Phalacrognathus (rainbow stag), some Lamprima — these prefer to lay eggs in the substrate around the wood. Pack the substrate firmly and use fine-particle flake soil.
+            </div>
+        </div>
+
+        <h3>Collecting Eggs</h3>
+        <p>Leave the female undisturbed for <strong>4-6 weeks</strong>. Then carefully break apart the wood and sift through the substrate. You should find either eggs or tiny L1 larvae. Eggs are small (2-4mm), oval, and white/cream colored. They hatch in approximately 3 weeks.</p>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Tip</div>
+            <p>Don't rush to check for eggs. Disturbing the female too early causes stress and she may stop laying. Wait at least 4 weeks. If you see the female eating a lot and staying buried in the substrate, that's a good sign she's laying.</p>
+        </div>
+
+        <!-- ==================== RHINO BEETLES ==================== -->
+        <div class="type-divider">
+            <div class="type-divider__icon type-divider__icon--rhino">🪲</div>
+            <div class="type-divider__text">Rhino Beetles</div>
+        </div>
+
+        <h3>Sexual Maturity</h3>
+        <p>Rhino beetles have a longer maturity period than stag beetles. After emerging from the pupal cell, they need <strong>1-4 months</strong> before they're ready to breed. Larger species (like Dynastes hercules) tend to take longer. During this time, feed them high-protein beetle jelly.</p>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">1-4 mo</div>
+                <div class="spec-item__label">Maturity Wait</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">23-27 &deg;C</div>
+                <div class="spec-item__label">Breeding Temp</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">3-4 wk</div>
+                <div class="spec-item__label">Eggs Hatch In</div>
+            </div>
+        </div>
+
+        <h3>Mating Process</h3>
+        <ol>
+            <li><strong>Introduce the pair</strong> — place the female into the male's container or a large breeding box.</li>
+            <li><strong>Males are generally safe</strong> — rhino beetle males use horns for leverage (flipping rivals), not cutting. They rarely injure females, so you don't usually need to restrain them.</li>
+            <li><strong>Mating signs</strong> — the male climbs on top of the female. You may hear a squeaking or chirping sound during mating. Mating can last from 10 minutes to over an hour.</li>
+            <li><strong>Separate after mating</strong> — once confirmed, return the male to his own container.</li>
+        </ol>
+
+        <h3>Egg-Laying Setup</h3>
+        <p>Rhino beetles lay eggs in <strong>substrate only</strong> — they do not need wood. The key is a large, deep container with tightly packed substrate.</p>
+
+        <ul>
+            <li><strong>Container</strong> — large box, at least 30-50 liters for bigger species. Bigger is better for rhino beetles.</li>
+            <li><strong>Substrate</strong> — a mix of fermented hardwood flake soil and organic compost. Some breeders use a 50/50 mix of flake soil and leaf mulch.</li>
+            <li><strong>Depth</strong> — fill to at least <strong>20-30 cm</strong> deep. Pack the bottom half firmly by hand.</li>
+            <li><strong>Humidity</strong> — substrate should be moist but not dripping. Squeeze test: a few drops should come out.</li>
+            <li><strong>Food</strong> — beetle jelly on top for the female.</li>
+        </ul>
+
+        <div class="info-card">
+            <div class="info-card__title">Why Pack the Substrate?</div>
+            <div class="info-card__body">Female rhino beetles prefer to dig down into firmly packed substrate to lay their eggs. If the substrate is too loose, they may not lay. Pack the bottom 50% of the container tightly by pressing down with your hands. Leave the top layer loose so she can easily dig in.</div>
+        </div>
+
+        <h3>Collecting Eggs</h3>
+        <p>Wait <strong>4-6 weeks</strong> after introducing the female to the breeding box. Then carefully dump out the substrate in small portions and sift through it. Rhino beetle eggs are round, white, and about 3-5mm in size. They swell larger as they develop. Eggs hatch in 3-4 weeks.</p>
+
+        <div class="warning-box">
+            <div class="warning-box__label">Warning</div>
+            <p>Handle eggs very carefully — they are fragile. Use a small spoon (plastic spoon works great) to move them. Never squeeze or press on them. Place each egg in a small cup with moist substrate and keep at 24-26°C.</p>
+        </div>
+
+        <!-- ==================== FLOWER BEETLES ==================== -->
+        <div class="type-divider">
+            <div class="type-divider__icon type-divider__icon--flower">🌸</div>
+            <div class="type-divider__text">Flower Beetles</div>
+        </div>
+
+        <h3>Sexual Maturity</h3>
+        <p>Flower beetles (Cetoniinae) have the <strong>shortest maturity wait</strong> of the three types. Many species are ready to breed within <strong>2-4 weeks</strong> of emerging. Some are even ready within days. This, combined with their peaceful nature, makes them the easiest beetles to breed.</p>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">2-4 wk</div>
+                <div class="spec-item__label">Maturity Wait</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">24-28 &deg;C</div>
+                <div class="spec-item__label">Breeding Temp</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">2-3 wk</div>
+                <div class="spec-item__label">Eggs Hatch In</div>
+            </div>
+        </div>
+
+        <h3>Mating Process</h3>
+        <ol>
+            <li><strong>Communal breeding</strong> — unlike stag and rhino beetles, most flower beetles can be kept together in groups. You can house multiple males and females in one large container.</li>
+            <li><strong>No aggression</strong> — males rarely fight seriously. You don't need to supervise mating or restrain males.</li>
+            <li><strong>Mating happens naturally</strong> — just keep a healthy group together with food, and they will mate on their own. You'll often see pairs mating on top of beetle jelly cups.</li>
+        </ol>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Why Flower Beetles Are Great for Beginners</div>
+            <p>Flower beetles are the easiest to breed because: (1) they're peaceful and can live together, (2) they mature fast, (3) they breed readily without special setup, and (4) their entire life cycle is short (4-6 months egg to adult for many species).</p>
+        </div>
+
+        <h3>Egg-Laying Setup</h3>
+        <p>Flower beetles lay eggs in <strong>substrate</strong> — specifically in flake soil or a mix of flake soil and organic compost. No wood is needed.</p>
+
+        <ul>
+            <li><strong>Container</strong> — medium box (10-20 liters is fine for a small group)</li>
+            <li><strong>Substrate</strong> — flake soil mixed with peat moss or coconut fiber. Some breeders add crumbled leaf litter.</li>
+            <li><strong>Depth</strong> — at least <strong>15 cm</strong> of substrate. Lightly pack the bottom portion.</li>
+            <li><strong>Humidity</strong> — keep moist. Flower beetles tend to like slightly higher humidity than stag beetles.</li>
+            <li><strong>Food</strong> — beetle jelly. In a communal setup, provide multiple jelly cups so all beetles can eat.</li>
+        </ul>
+
+        <h3>Collecting Eggs</h3>
+        <p>In a communal setup, females will continuously lay eggs in the substrate while the adults are alive. You can either:</p>
+
+        <ul>
+            <li><strong>Option A — Leave eggs in place:</strong> Let eggs hatch and larvae grow in the same container. Move adults out when they die. This is the easiest method but gives less control over larva count.</li>
+            <li><strong>Option B — Sift and separate:</strong> Every 4-6 weeks, gently sift through the substrate to collect eggs or tiny larvae. Move them to separate rearing containers.</li>
+        </ul>
+
+        <div class="info-card">
+            <div class="info-card__title">Flower Beetle Egg Numbers</div>
+            <div class="info-card__body">Flower beetles are prolific layers. A single female can produce 30-80+ eggs over her lifetime, depending on species and conditions. Mecynorrhina and Goliathus species tend to lay fewer but larger eggs, while smaller species like Pachnoda can lay many more.</div>
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <h2>Quick Comparison</h2>
+
+        <div class="info-card">
+            <div class="info-card__title">Stag vs. Rhino vs. Flower — Breeding at a Glance</div>
+            <div class="info-card__body">
+                <strong>Easiest to breed:</strong> Flower beetles (communal, fast, no supervision needed)<br><br>
+                <strong>Most care needed:</strong> Stag beetles (aggressive males, need wood for egg-laying)<br><br>
+                <strong>Biggest setup:</strong> Rhino beetles (need large containers with deep substrate)<br><br>
+                <strong>Egg-laying material:</strong> Stag = rotten wood + substrate | Rhino = substrate only | Flower = substrate only<br><br>
+                <strong>Typical egg count:</strong> Stag = 10-30 | Rhino = 20-50 | Flower = 30-80+
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Final Tip</div>
+            <p>Patience is the most important skill in beetle breeding. Don't disturb the female too often, keep conditions stable, and always have extra substrate and containers ready for when the eggs hatch. Good luck!</p>
+        </div>
+
+    </article>
+
+    <footer>
+        <div class="footer-brand"><span class="logo-jrn">JRN</span><span class="logo-beetle">BEETLE</span></div>
+        <p>Beetle Breeder &amp; Supplies — Thailand</p>
+        <p class="footer-copy">&copy; 2026 JRN BEETLE. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

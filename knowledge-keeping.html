@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRN BEETLE — How to Keep Adult Beetles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        #particleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; }
+        #navbar.scrolled { background: rgba(10,10,15,0.95); }
+
+        .article { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 80px 24px 60px; }
+        .article-back { display: inline-flex; align-items: center; gap: 6px; color: #daa520; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; transition: gap 0.3s; }
+        .article-back:hover { gap: 12px; }
+        .article h1 { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 12px; color: #e8e8f0; }
+        .article .subtitle { color: #8888a0; font-size: 1rem; margin-bottom: 40px; line-height: 1.7; }
+        .article h2 { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.15rem; color: #e8e8f0; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .article h3 { font-weight: 700; font-size: 1rem; color: #daa520; margin: 28px 0 10px; }
+        .article p { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; }
+        .article ul, .article ol { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; padding-left: 24px; }
+        .article li { margin-bottom: 8px; }
+
+        .info-card { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
+        .info-card__title { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; color: #daa520; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-card__body { color: #b0b0c0; font-size: 0.9rem; line-height: 1.7; }
+
+        .tip-box { background: rgba(39,174,96,0.08); border: 1px solid rgba(39,174,96,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .tip-box__label { font-size: 0.75rem; font-weight: 700; color: #2ecc71; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .tip-box p { color: #b0b0c0; font-size: 0.88rem; line-height: 1.7; margin: 0; }
+
+        .warning-box { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .warning-box__label { font-size: 0.75rem; font-weight: 700; color: #e74c3c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .warning-box p { color: #b0b0c0; font-size: 0.88rem; line-height: 1.7; margin: 0; }
+
+        .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .spec-item { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 16px; text-align: center; }
+        .spec-item__value { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; color: #daa520; margin-bottom: 4px; }
+        .spec-item__label { font-size: 0.75rem; color: #8888a0; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        footer { text-align: center; padding: 48px 24px; border-top: 1px solid rgba(255,255,255,0.05); color: #8888a0; font-size: 0.8rem; }
+        footer .footer-brand { margin-bottom: 12px; }
+        footer .footer-copy { margin-top: 8px; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><span class="logo-jrn">JRN</span><span class="logo-beetle">BEETLE</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="livestock.html">Livestock</a></li>
+                <li><a href="knowledge.html" class="active">Knowledge</a></li>
+                <li><a href="color-guide.html">Color Guide</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <article class="article">
+        <a href="knowledge.html" class="article-back">&larr; Back to Knowledge Base</a>
+        <h1>How to Keep Adult Beetles</h1>
+        <p class="subtitle">Everything you need to know about housing, feeding, and caring for adult beetles — stag beetles, rhino beetles, and flower beetles. A complete beginner's guide.</p>
+
+        <!-- HOUSING -->
+        <h2>Housing &amp; Enclosure</h2>
+        <p>Adult beetles need a simple setup — a container with substrate, something to climb on, and food. The container should be at least <strong>3 times the beetle's body length</strong> in width, length, and height.</p>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">3x</div>
+                <div class="spec-item__label">Min. Container Size</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">5-8 cm</div>
+                <div class="spec-item__label">Substrate Depth</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">Ventilated</div>
+                <div class="spec-item__label">Lid Type</div>
+            </div>
+        </div>
+
+        <h3>What You Need</h3>
+        <ul>
+            <li><strong>Container</strong> — plastic box or glass tank with ventilation holes. Clear is better so you can observe.</li>
+            <li><strong>Substrate</strong> — coconut fiber (coco coir), or a mix of coco coir and organic soil. 5-8 cm deep.</li>
+            <li><strong>Climbing objects</strong> — bark, sticks, or small branches. Beetles can die if they flip over and can't right themselves.</li>
+            <li><strong>Hide spots</strong> — pieces of bark or cork bark for beetles to hide under during the day.</li>
+            <li><strong>Food dish</strong> — a small shallow dish or beetle jelly cup holder.</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Tip</div>
+            <p>Always add climbing objects like sticks and bark. If a beetle flips on its back and can't grab anything to turn over, it will exhaust itself and die.</p>
+        </div>
+
+        <!-- TEMPERATURE & HUMIDITY -->
+        <h2>Temperature &amp; Humidity</h2>
+        <p>Most tropical beetle species (stag, rhino, flower) do best at room temperature. Avoid direct sunlight — beetles cannot regulate their body temperature and will overheat.</p>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">21-26 &deg;C</div>
+                <div class="spec-item__label">Temperature</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">60-80%</div>
+                <div class="spec-item__label">Humidity</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">No Sun</div>
+                <div class="spec-item__label">Direct Light</div>
+            </div>
+        </div>
+
+        <h3>Temperature Guide by Type</h3>
+        <div class="info-card">
+            <div class="info-card__title">Tropical Species (most stag &amp; rhino beetles)</div>
+            <div class="info-card__body">23-27 &deg;C (73-80 &deg;F). This includes rainbow stag beetles, Dynastes hercules, Chalcosoma, Japanese rhino beetles, and most flower beetles.</div>
+        </div>
+        <div class="info-card">
+            <div class="info-card__title">Temperate Species</div>
+            <div class="info-card__body">18-22 &deg;C (64-72 &deg;F). European stag beetles (Lucanus cervus), some highland species. These prefer cooler conditions.</div>
+        </div>
+
+        <h3>How to Maintain Humidity</h3>
+        <p>Mist the substrate with a spray bottle every 1-2 days. The substrate should feel slightly damp but not wet or muddy. A simple test: squeeze a handful of substrate — if a few drops come out, the moisture is perfect. If water streams out, it's too wet.</p>
+
+        <div class="warning-box">
+            <div class="warning-box__label">Warning</div>
+            <p>Too wet = mold and bacteria growth, which can harm your beetle. Too dry = beetle dehydrates. Aim for "damp sponge" level moisture.</p>
+        </div>
+
+        <!-- FEEDING -->
+        <h2>Feeding</h2>
+        <p>Adult beetles eat fruit and tree sap in the wild. In captivity, the easiest and best option is <strong>beetle jelly</strong> — a specially formulated gel food that provides all the nutrition beetles need.</p>
+
+        <h3>Best Foods</h3>
+        <ul>
+            <li><strong>Beetle jelly</strong> (recommended) — balanced nutrition, long lasting, doesn't attract fruit flies</li>
+            <li><strong>Banana</strong> — the most popular natural fruit for beetles, high energy</li>
+            <li><strong>Apple</strong> — good alternative, lasts longer than banana</li>
+            <li><strong>Grape</strong> — accepted by most species</li>
+        </ul>
+
+        <h3>Foods to Avoid</h3>
+        <ul>
+            <li><strong>Watermelon</strong> — too watery, can make substrate too wet</li>
+            <li><strong>Citrus fruits</strong> (orange, lemon) — most beetles reject these</li>
+            <li><strong>Processed food</strong> — sugar, honey, or anything artificial</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Tip</div>
+            <p>Replace fruit every 2-3 days to prevent mold and fruit flies. Beetle jelly cups can last 3-5 days. You do NOT need to provide water — beetles get all the moisture they need from food and substrate.</p>
+        </div>
+
+        <!-- DAILY CARE -->
+        <h2>Daily Care Routine</h2>
+        <ol>
+            <li><strong>Check food</strong> — replace jelly or fruit if empty or moldy</li>
+            <li><strong>Mist substrate</strong> — if it looks dry, spray lightly</li>
+            <li><strong>Check beetle</strong> — make sure it's not stuck on its back</li>
+            <li><strong>Remove waste</strong> — clean up any mold spots or old food</li>
+        </ol>
+
+        <p>That's it! Adult beetles are low-maintenance pets. Most of the time they rest during the day and become active at night.</p>
+
+        <!-- LIFESPAN -->
+        <h2>Lifespan</h2>
+        <p>Adult beetle lifespan varies by species. Once a beetle reaches adult form, it will not grow larger — its size is determined during the larval stage.</p>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">3-12 mo</div>
+                <div class="spec-item__label">Stag Beetles</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">3-6 mo</div>
+                <div class="spec-item__label">Rhino Beetles</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">2-6 mo</div>
+                <div class="spec-item__label">Flower Beetles</div>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Important</div>
+            <p>Good food (protein beetle jelly), proper temperature, and correct humidity can significantly extend your beetle's lifespan. Stress, poor food, and temperature extremes shorten it.</p>
+        </div>
+
+        <!-- KEEPING MALES & FEMALES -->
+        <h2>Keeping Males &amp; Females Together</h2>
+        <p>In general, <strong>do not keep multiple males together</strong> — they will fight, especially stag beetles and rhino beetles. Males can injure or kill each other.</p>
+
+        <div class="info-card">
+            <div class="info-card__title">Stag Beetles</div>
+            <div class="info-card__body">Keep males separate. Males fight aggressively with their mandibles and can seriously injure each other. One male + one female is okay temporarily for mating.</div>
+        </div>
+        <div class="info-card">
+            <div class="info-card__title">Rhino Beetles</div>
+            <div class="info-card__body">Keep males separate. Males use their horns to flip rivals. One male + one female is fine for breeding.</div>
+        </div>
+        <div class="info-card">
+            <div class="info-card__title">Flower Beetles</div>
+            <div class="info-card__body">Most flower beetles can be kept communally — multiple males and females in one large container. They are generally peaceful. This is one reason flower beetles are great for beginners.</div>
+        </div>
+
+        <!-- COMMON MISTAKES -->
+        <h2>Common Mistakes</h2>
+        <ul>
+            <li><strong>No climbing objects</strong> — beetle flips over and dies</li>
+            <li><strong>Direct sunlight</strong> — overheats and kills the beetle</li>
+            <li><strong>Substrate too wet</strong> — causes mold, bacteria, and mites</li>
+            <li><strong>Substrate too dry</strong> — beetle dehydrates</li>
+            <li><strong>No ventilation</strong> — stale air causes health problems</li>
+            <li><strong>Keeping aggressive males together</strong> — fights and injuries</li>
+            <li><strong>Using pine or cedar substrate</strong> — toxic to beetles. Use coconut fiber, aspen, or flake soil only</li>
+        </ul>
+
+    </article>
+
+    <footer>
+        <div class="footer-brand"><span class="logo-jrn">JRN</span><span class="logo-beetle">BEETLE</span></div>
+        <p>Beetle Breeder &amp; Supplies — Thailand</p>
+        <p class="footer-copy">&copy; 2026 JRN BEETLE. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

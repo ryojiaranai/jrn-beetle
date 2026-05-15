@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRN BEETLE — How to Raise Larvae</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        #particleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; }
+        #navbar.scrolled { background: rgba(10,10,15,0.95); }
+
+        .article { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 80px 24px 60px; }
+        .article-back { display: inline-flex; align-items: center; gap: 6px; color: #daa520; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; transition: gap 0.3s; }
+        .article-back:hover { gap: 12px; }
+        .article h1 { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 12px; color: #e8e8f0; }
+        .article .subtitle { color: #8888a0; font-size: 1rem; margin-bottom: 40px; line-height: 1.7; }
+        .article h2 { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.15rem; color: #e8e8f0; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .article h3 { font-weight: 700; font-size: 1rem; color: #daa520; margin: 28px 0 10px; }
+        .article p { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; }
+        .article ul, .article ol { color: #b0b0c0; font-size: 0.92rem; line-height: 1.85; margin-bottom: 16px; padding-left: 24px; }
+        .article li { margin-bottom: 8px; }
+
+        .info-card { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
+        .info-card__title { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; color: #daa520; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-card__body { color: #b0b0c0; font-size: 0.9rem; line-height: 1.7; }
+
+        .tip-box { background: rgba(39,174,96,0.08); border: 1px solid rgba(39,174,96,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .tip-box__label { font-size: 0.75rem; font-weight: 700; color: #2ecc71; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .tip-box p { color: #b0b0c0; font-size: 0.88rem; line-height: 1.7; margin: 0; }
+
+        .warning-box { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .warning-box__label { font-size: 0.75rem; font-weight: 700; color: #e74c3c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .warning-box p { color: #b0b0c0; font-size: 0.88rem; line-height: 1.7; margin: 0; }
+
+        .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .spec-item { background: #12121a; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 16px; text-align: center; }
+        .spec-item__value { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; color: #daa520; margin-bottom: 4px; }
+        .spec-item__label { font-size: 0.75rem; color: #8888a0; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .type-divider { display: flex; align-items: center; gap: 16px; margin: 56px 0 24px; }
+        .type-divider__icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        .type-divider__icon--stag { background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.3); }
+        .type-divider__icon--rhino { background: rgba(218,165,32,0.15); border: 1px solid rgba(218,165,32,0.3); }
+        .type-divider__icon--flower { background: rgba(39,174,96,0.15); border: 1px solid rgba(39,174,96,0.3); }
+        .type-divider__text { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.3rem; color: #e8e8f0; }
+
+        footer { text-align: center; padding: 48px 24px; border-top: 1px solid rgba(255,255,255,0.05); color: #8888a0; font-size: 0.8rem; }
+        footer .footer-brand { margin-bottom: 12px; }
+        footer .footer-copy { margin-top: 8px; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><span class="logo-jrn">JRN</span><span class="logo-beetle">BEETLE</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="livestock.html">Livestock</a></li>
+                <li><a href="knowledge.html" class="active">Knowledge</a></li>
+                <li><a href="color-guide.html">Color Guide</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <article class="article">
+        <a href="knowledge.html" class="article-back">&larr; Back to Knowledge Base</a>
+        <h1>How to Raise Larvae</h1>
+        <p class="subtitle">Everything you need to know about raising beetle larvae (grubs) from egg to adult. Covers substrate, feeding, temperature, container sizes, and the pupation process for stag, rhino, and flower beetles.</p>
+
+        <!-- GENERAL INTRO -->
+        <h2>Understanding Beetle Larvae</h2>
+        <p>Beetle larvae (also called grubs) look like white or cream-colored C-shaped worms. All beetle larvae go through <strong>3 stages</strong> called instars: L1 (tiny, just hatched), L2 (medium), and L3 (large, final stage before pupation). The larval stage is when the beetle does all its growing — the size of the adult is entirely determined by how well you raise the larva.</p>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">L1</div>
+                <div class="spec-item__label">1st Instar (Small)</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">L2</div>
+                <div class="spec-item__label">2nd Instar (Medium)</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">L3</div>
+                <div class="spec-item__label">3rd Instar (Large)</div>
+            </div>
+        </div>
+
+        <h3>Key Principles (All Types)</h3>
+        <ul>
+            <li><strong>Substrate = food</strong> — larvae eat the substrate they live in. The quality of substrate directly determines adult size.</li>
+            <li><strong>Don't disturb too often</strong> — check larvae once every 2-4 weeks at most. Stress reduces growth.</li>
+            <li><strong>Temperature matters</strong> — cooler temperatures generally produce larger adults (within the safe range for each species).</li>
+            <li><strong>Container size affects growth</strong> — larger containers give larvae more food and room to grow bigger.</li>
+            <li><strong>Individual housing recommended</strong> — especially for stag beetle larvae, which can be cannibalistic.</li>
+        </ul>
+
+        <div class="warning-box">
+            <div class="warning-box__label">Important</div>
+            <p>Never use pine, cedar, or conifer-based wood products for larvae. These contain natural oils (terpenes) that are toxic to beetle larvae. Always use hardwood-based substrates — oak, beech, maple, or similar deciduous trees.</p>
+        </div>
+
+        <!-- ==================== STAG BEETLES ==================== -->
+        <div class="type-divider">
+            <div class="type-divider__icon type-divider__icon--stag">🦌</div>
+            <div class="type-divider__text">Stag Beetle Larvae</div>
+        </div>
+
+        <h3>What They Eat</h3>
+        <p>Stag beetle larvae are <strong>wood eaters</strong>. In nature, they live inside and eat decaying hardwood. In captivity, you feed them <strong>flake soil</strong> (fermented hardwood sawdust) — this is the #1 most important supply for raising stag beetles.</p>
+
+        <div class="info-card">
+            <div class="info-card__title">What is Flake Soil?</div>
+            <div class="info-card__body">Flake soil (also called "kunekune mat" in Japanese hobby) is hardwood sawdust that has been fermented by bacteria over several months. This breaks down the wood fibers and makes the nutrients accessible to larvae. You can buy it ready-made or make your own (but making it takes 3-6 months). Good flake soil is dark brown, smells earthy (not sour), and has a soft, fluffy texture.</div>
+        </div>
+
+        <h3>Container Sizes</h3>
+        <ul>
+            <li><strong>L1 larvae</strong> — 200ml cup or small container. Tiny larvae don't need much space.</li>
+            <li><strong>L2 larvae</strong> — 500ml-800ml container. Move up when the larva outgrows the small cup.</li>
+            <li><strong>L3 larvae</strong> — 800ml-1500ml container for most species. Large species (Dorcus titanus, Hexarthrius) benefit from 1500ml-2000ml.</li>
+        </ul>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">6-18 mo</div>
+                <div class="spec-item__label">Larval Period</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">20-24 &deg;C</div>
+                <div class="spec-item__label">Optimal Temp</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">Flake Soil</div>
+                <div class="spec-item__label">Substrate Type</div>
+            </div>
+        </div>
+
+        <h3>Substrate Changes</h3>
+        <p>Replace the substrate when it turns into fine, dark frass (larva poop) — usually every <strong>2-3 months</strong>. You'll notice the substrate changes from fluffy brown to grainy dark brown/black. When more than 70% looks like frass, it's time to change.</p>
+
+        <ol>
+            <li>Prepare new flake soil in the container (moisten it — squeeze test: a few drops when squeezed)</li>
+            <li>Gently dig out the larva from the old substrate</li>
+            <li>Make a small hole in the new substrate and place the larva in</li>
+            <li>The larva will burrow down on its own — don't push it in</li>
+        </ol>
+
+        <h3>Temperature Guide</h3>
+        <p>Stag beetles generally prefer cooler temperatures than rhino or flower beetles. Keeping larvae at the lower end of the safe range (while still within species requirements) tends to produce <strong>larger adults</strong> — but it also means a longer larval period.</p>
+
+        <div class="info-card">
+            <div class="info-card__title">Phalacrognathus (Rainbow Stag)</div>
+            <div class="info-card__body">22-25°C is ideal. Can tolerate 20-27°C. Larval period: 6-10 months. Use high-quality flake soil. Males can reach 50-65mm with good care. This species is a substrate layer — larvae do best in fine-particle flake soil rather than inside wood.</div>
+        </div>
+        <div class="info-card">
+            <div class="info-card__title">Dorcus (Large Stags)</div>
+            <div class="info-card__body">20-24°C is ideal. Dorcus titanus larvae can take 8-18 months depending on temperature. Males can exceed 80mm with premium flake soil and low temperatures. Some Dorcus also accept kinshi (mushroom bottle substrate) which can produce even larger adults.</div>
+        </div>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Pro Tip — Kinshi Bottles</div>
+            <p>For advanced stag beetle rearing, "kinshi" (mushroom mycelium substrate in bottles) can produce larger adults than regular flake soil. The mycelium pre-digests the wood, making nutrients even more available. However, kinshi is more expensive and less forgiving — it can go bad if temperature is too high. Stick with flake soil if you're a beginner.</p>
+        </div>
+
+        <h3>Pupation</h3>
+        <p>When the L3 larva is ready to pupate, it stops eating, shrinks slightly, and turns yellowish. It will build a <strong>pupal cell</strong> — a smooth, oval chamber in the substrate. This is critical: <strong>do NOT disturb a larva that is building or inside a pupal cell</strong>.</p>
+
+        <ul>
+            <li>Pupation takes about <strong>3-6 weeks</strong></li>
+            <li>After pupating, the new adult stays in the cell for another <strong>2-6 weeks</strong> while the exoskeleton hardens</li>
+            <li>Do not dig up the beetle until it has fully colored up and started moving around</li>
+        </ul>
+
+        <div class="warning-box">
+            <div class="warning-box__label">Warning — Pupal Cell</div>
+            <p>If you accidentally break a pupal cell, you need to make an artificial one immediately. Use a piece of wet floral foam (oasis) and carve an oval chamber slightly larger than the pupa. Place the pupa inside gently. Without a pupal cell, the beetle may emerge deformed.</p>
+        </div>
+
+        <!-- ==================== RHINO BEETLES ==================== -->
+        <div class="type-divider">
+            <div class="type-divider__icon type-divider__icon--rhino">🪲</div>
+            <div class="type-divider__text">Rhino Beetle Larvae</div>
+        </div>
+
+        <h3>What They Eat</h3>
+        <p>Rhino beetle larvae eat <strong>decomposed organic matter</strong> — primarily leaf mulch, compost, and fermented wood. They are less picky than stag beetle larvae and will eat a wider range of substrates. A good mix is flake soil + leaf litter compost + organic soil.</p>
+
+        <h3>Container Sizes</h3>
+        <p>Rhino beetle larvae grow <strong>much larger</strong> than stag beetle larvae — some species (Dynastes, Megasoma) produce larvae that weigh over 100 grams. They need significantly bigger containers.</p>
+
+        <ul>
+            <li><strong>L1 larvae</strong> — 500ml container</li>
+            <li><strong>L2 larvae</strong> — 1-2 liter container</li>
+            <li><strong>L3 larvae</strong> — 3-8 liters for medium species, 8-16+ liters for large species (Dynastes hercules, Megasoma)</li>
+        </ul>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">8-24 mo</div>
+                <div class="spec-item__label">Larval Period</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">22-26 &deg;C</div>
+                <div class="spec-item__label">Optimal Temp</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">Flake + Compost</div>
+                <div class="spec-item__label">Substrate Type</div>
+            </div>
+        </div>
+
+        <h3>Substrate Recipe</h3>
+        <p>A proven substrate mix for rhino beetle larvae:</p>
+        <ul>
+            <li><strong>50%</strong> fermented hardwood flake soil</li>
+            <li><strong>30%</strong> leaf litter compost (decomposed oak or beech leaves)</li>
+            <li><strong>20%</strong> organic potting soil (no fertilizer or chemicals!)</li>
+        </ul>
+        <p>Mix well and moisten to the squeeze test level. Some breeders add crushed dried leaves on top as extra food.</p>
+
+        <h3>Substrate Changes</h3>
+        <p>Rhino beetle larvae produce a <strong>lot</strong> of frass because they eat a lot. Change substrate every <strong>2-3 months</strong> or whenever more than 60% has turned to frass. For large species in the final L3 stage, you may need to change more frequently.</p>
+
+        <div class="info-card">
+            <div class="info-card__title">Japanese Rhino Beetle (Allomyrina / Trypoxylus)</div>
+            <div class="info-card__body">One of the easiest rhino beetles to raise. Larval period: 8-12 months. Accepts a wide range of substrates including basic compost. Keep at 20-25°C. Great beginner species for rhino beetles.</div>
+        </div>
+        <div class="info-card">
+            <div class="info-card__title">Dynastes hercules</div>
+            <div class="info-card__body">The king of rhino beetles. Larval period: 12-24 months (males often take longer). L3 larvae can weigh 100-130g. Need very large containers (10-16L) and lots of high-quality substrate. Keep at 20-24°C for best results. Higher temperatures speed development but may reduce adult size.</div>
+        </div>
+
+        <h3>Pupation</h3>
+        <p>Rhino beetle larvae build <strong>large pupal cells</strong> deep in the substrate. For large species, the pupal cell can be the size of a fist or larger. The larva uses its own frass mixed with substrate to build a hard-walled chamber.</p>
+
+        <ul>
+            <li>Pre-pupa stage (stops eating, shrinks) lasts <strong>2-4 weeks</strong></li>
+            <li>Pupation lasts <strong>4-8 weeks</strong> depending on species and temperature</li>
+            <li>New adult stays in pupal cell for <strong>3-8 weeks</strong> while hardening</li>
+            <li>Total time from pre-pupa to adult emergence: <strong>2-4 months</strong></li>
+        </ul>
+
+        <div class="warning-box">
+            <div class="warning-box__label">Warning</div>
+            <p>Large rhino beetle larvae need enough substrate depth to build their pupal cell. If the container is too small or shallow, the larva may fail to pupate properly or build a deformed cell, resulting in a deformed adult. For Dynastes hercules, ensure at least 20cm substrate depth for pupation.</p>
+        </div>
+
+        <!-- ==================== FLOWER BEETLES ==================== -->
+        <div class="type-divider">
+            <div class="type-divider__icon type-divider__icon--flower">🌸</div>
+            <div class="type-divider__text">Flower Beetle Larvae</div>
+        </div>
+
+        <h3>What They Eat</h3>
+        <p>Flower beetle larvae (Cetoniinae) eat a mix of <strong>flake soil and leaf litter</strong>, similar to rhino beetles but they tend to prefer finer-textured substrate. Many species also accept plain compost. They are the least picky of all three beetle types.</p>
+
+        <h3>Container Sizes</h3>
+        <p>Flower beetle larvae are smaller than stag or rhino larvae, and many species can be raised communally (multiple larvae in one container) without cannibalism issues.</p>
+
+        <ul>
+            <li><strong>Individual rearing</strong> — 200-500ml cups for most species</li>
+            <li><strong>Communal rearing</strong> — 5-10 liter box for 5-10 larvae of the same species</li>
+            <li><strong>Large species</strong> (Mecynorrhina, Goliathus) — 1-2 liters per larva individually</li>
+        </ul>
+
+        <div class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-item__value">3-8 mo</div>
+                <div class="spec-item__label">Larval Period</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">24-28 &deg;C</div>
+                <div class="spec-item__label">Optimal Temp</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-item__value">Flake + Leaf</div>
+                <div class="spec-item__label">Substrate Type</div>
+            </div>
+        </div>
+
+        <h3>Substrate Recipe</h3>
+        <ul>
+            <li><strong>40%</strong> flake soil (fine grade)</li>
+            <li><strong>40%</strong> leaf litter compost</li>
+            <li><strong>20%</strong> coconut fiber or peat moss for moisture retention</li>
+        </ul>
+        <p>Some breeders add <strong>protein supplements</strong> for large flower beetle species — dog food pellets (crushed) or fish flakes mixed into the substrate can boost larval growth, especially for Goliathus and Mecynorrhina larvae.</p>
+
+        <div class="info-card">
+            <div class="info-card__title">Protein Supplement for Large Flower Beetles</div>
+            <div class="info-card__body">Goliathus, Mecynorrhina, and some other large Cetoniinae larvae benefit from added protein. Mix a small amount of crushed high-protein dog food or fish flakes into the substrate — about 1-2 tablespoons per liter of substrate. This mimics the animal protein they would encounter in wild compost heaps. Do NOT overdo it — too much protein causes mold and bacteria.</div>
+        </div>
+
+        <h3>Communal Rearing</h3>
+        <p>Unlike stag beetles, most flower beetle larvae can be raised together without fighting or cannibalism. This makes them much easier to manage in large numbers.</p>
+
+        <ul>
+            <li>Group larvae by size (don't mix L1 with L3)</li>
+            <li>Don't overcrowd — about 500ml-1L of substrate per larva</li>
+            <li>If you notice larvae disappearing, the species may be cannibalistic — switch to individual cups</li>
+        </ul>
+
+        <h3>Pupation</h3>
+        <p>Flower beetle larvae build a special pupal cell called a <strong>cocoon</strong> — they use substrate particles mixed with a secretion to create a hard, round shell. This cocoon is much tougher than stag or rhino beetle pupal cells.</p>
+
+        <ul>
+            <li>Pupation takes <strong>3-5 weeks</strong></li>
+            <li>The cocoon is sealed and should NOT be opened</li>
+            <li>New adult breaks out of the cocoon on its own when ready</li>
+            <li>Total cycle (egg to adult): <strong>4-8 months</strong> for most species — the fastest of all three types</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Tip</div>
+            <p>If you find cocoons while changing substrate, do NOT break them open. Move them carefully to a separate container lined with moist substrate. The beetle will emerge on its own in 4-8 weeks. You can gently shake the cocoon near your ear — if you hear movement inside, the beetle is almost ready.</p>
+        </div>
+
+        <!-- GENERAL TROUBLESHOOTING -->
+        <h2>Common Problems &amp; Solutions</h2>
+
+        <div class="info-card">
+            <div class="info-card__title">Larva Stopped Eating / Turned Yellow</div>
+            <div class="info-card__body">This is normal! The larva is entering the <strong>pre-pupa stage</strong>. It will stop eating, shrink slightly, and turn yellowish. Do NOT change substrate or disturb it. It's preparing to build its pupal cell. Leave it alone.</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card__title">Mold on Substrate</div>
+            <div class="info-card__body">Small patches of white mold are usually harmless — larvae often eat it. Green or black mold is a problem. If you see a lot of mold: (1) reduce moisture, (2) improve ventilation, (3) change substrate if it's severe. Avoid overly wet conditions.</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card__title">Mites on Larvae</div>
+            <div class="info-card__body">Small white or brown mites can appear in substrate. A few mites are normal and usually harmless. If there's a mite explosion: (1) change substrate completely, (2) gently wipe visible mites off the larva with a soft brush or damp cloth, (3) reduce fruit/food scraps in the container (mites feed on rotting food). Do NOT use pesticides.</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card__title">Larva on Surface / Crawling Out</div>
+            <div class="info-card__body">If a larva keeps coming to the surface, something is wrong with the substrate: (1) substrate may be too hot (fermentation), (2) too wet, (3) too old/exhausted, or (4) contaminated. Change the substrate immediately and ensure proper temperature and moisture.</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card__title">Deformed Adult After Pupation</div>
+            <div class="info-card__body">Usually caused by a damaged or too-small pupal cell. Prevention: use large enough containers, don't disturb pre-pupa or pupa larvae, and maintain stable humidity. If you accidentally break a pupal cell, make an artificial one from floral foam (see stag beetle pupation section above).</div>
+        </div>
+
+        <!-- QUICK COMPARISON -->
+        <h2>Quick Comparison</h2>
+
+        <div class="info-card">
+            <div class="info-card__title">Stag vs. Rhino vs. Flower — Larvae at a Glance</div>
+            <div class="info-card__body">
+                <strong>Fastest to raise:</strong> Flower beetles (3-8 months, some species under 5 months)<br><br>
+                <strong>Longest to raise:</strong> Rhino beetles (8-24 months for large species)<br><br>
+                <strong>Best substrate:</strong> Stag = flake soil (or kinshi) | Rhino = flake soil + compost | Flower = flake soil + leaf litter<br><br>
+                <strong>Can raise communally:</strong> Flower beetles = yes | Stag beetles = no (cannibalism risk) | Rhino beetles = sometimes (separate if aggressive)<br><br>
+                <strong>Container size (L3):</strong> Stag = 800ml-2L | Rhino = 3-16L | Flower = 500ml-2L
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <div class="tip-box__label">Final Advice</div>
+            <p>The #1 factor for growing large, healthy beetles is <strong>substrate quality</strong>. Invest in good flake soil, change it regularly, keep temperature stable, and don't disturb larvae unnecessarily. The larval stage is where all the magic happens — a well-raised larva becomes a spectacular adult.</p>
+        </div>
+
+    </article>
+
+    <footer>
+        <div class="footer-brand"><span class="logo-jrn">JRN</span><span class="logo-beetle">BEETLE</span></div>
+        <p>Beetle Breeder &amp; Supplies — Thailand</p>
+        <p class="footer-copy">&copy; 2026 JRN BEETLE. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
