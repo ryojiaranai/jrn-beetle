@@ -131,6 +131,7 @@ function renderTable(category) {
                 <td>${esc(item.sex || '')}</td>
                 <td>${item.quantity}</td>
                 <td>${formatPrice(item.price)}</td>
+                <td>${item.promoPrice ? formatPrice(item.promoPrice) : '—'}</td>
                 <td>${statusBadge(item.status)}</td>
                 <td>
                     <button class="btn-icon edit" title="Edit" onclick="openEditModal('${category}', ${item.id})">&#9998;</button>
@@ -148,6 +149,7 @@ function renderTable(category) {
                 <td>${esc(item.variation || '')}</td>
                 <td>${item.quantity}</td>
                 <td>${formatPrice(item.price)}</td>
+                <td>${item.promoPrice ? formatPrice(item.promoPrice) : '—'}</td>
                 <td>${statusBadge(item.status)}</td>
                 <td>
                     <button class="btn-icon edit" title="Edit" onclick="openEditModal('${category}', ${item.id})">&#9998;</button>
@@ -168,6 +170,7 @@ function renderTable(category) {
                 <td>${esc(item.description || '')}</td>
                 <td>${item.quantity}</td>
                 <td>${formatPrice(item.price)}</td>
+                <td>${item.promoPrice ? formatPrice(item.promoPrice) : '—'}</td>
                 <td>${videoCell}</td>
                 <td>
                     <button class="btn-icon edit" title="Edit" onclick="openEditModal('${category}', ${item.id})">&#9998;</button>
@@ -245,6 +248,7 @@ function clearForm() {
     document.getElementById('f-sex').value = 'Male';
     document.getElementById('f-quantity').value = '1';
     document.getElementById('f-price').value = '';
+    document.getElementById('f-promoPrice').value = '';
     document.getElementById('f-status').value = 'available';
     document.getElementById('f-videoUrl').value = '';
 }
@@ -288,6 +292,7 @@ function openEditModal(category, id) {
 
     document.getElementById('f-quantity').value = item.quantity ?? 0;
     document.getElementById('f-price').value = item.price ?? '';
+    document.getElementById('f-promoPrice').value = item.promoPrice || '';
 
     if (category === 'adultBeetles' || category === 'larvae') {
         document.getElementById('f-status').value = item.status || 'available';
@@ -387,6 +392,9 @@ function saveItem(e) {
 
     item.quantity = parseInt(document.getElementById('f-quantity').value, 10) || 0;
     item.price = parseInt(document.getElementById('f-price').value, 10) || 0;
+
+    var promoPriceVal = document.getElementById('f-promoPrice').value.trim();
+    item.promoPrice = promoPriceVal !== '' ? parseInt(promoPriceVal, 10) : null;
 
     if (category === 'adultBeetles' || category === 'larvae') {
         item.status = document.getElementById('f-status').value;

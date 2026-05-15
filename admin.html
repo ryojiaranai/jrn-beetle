@@ -521,6 +521,7 @@
                             <th>Sex</th>
                             <th>Qty</th>
                             <th>Price (THB)</th>
+                            <th>Promo</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -545,6 +546,7 @@
                             <th>Variation</th>
                             <th>Qty</th>
                             <th>Price (THB)</th>
+                            <th>Promo</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -568,6 +570,7 @@
                             <th>Description</th>
                             <th>Qty</th>
                             <th>Price (THB)</th>
+                            <th>Promo</th>
                             <th>Video</th>
                             <th>Actions</th>
                         </tr>
@@ -591,6 +594,7 @@
                             <th>Description</th>
                             <th>Qty</th>
                             <th>Price (THB)</th>
+                            <th>Promo</th>
                             <th>Video</th>
                             <th>Actions</th>
                         </tr>
@@ -662,6 +666,12 @@
                             <label for="f-price">Price (THB) *</label>
                             <input type="number" id="f-price" min="0" step="1" placeholder="0">
                         </div>
+                    </div>
+
+                    <!-- Promotion price (optional) -->
+                    <div class="form-group">
+                        <label for="f-promoPrice">Promotion Price (THB) <span style="color:#8888a0;font-weight:400;text-transform:none;">— leave empty if no discount</span></label>
+                        <input type="number" id="f-promoPrice" min="0" step="1" placeholder="Optional">
                     </div>
 
                     <!-- Status (beetles/larvae only) -->

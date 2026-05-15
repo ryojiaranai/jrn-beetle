@@ -109,7 +109,9 @@
                     : `<span class="out-of-stock">Sold Out</span>`}</div>
             </div>
             <div class="ls-card__row">
-                <div class="ls-card__price">${formatPrice(item.price)}</div>
+                <div class="ls-card__price">${item.promoPrice
+                    ? '<span class="price-original">' + formatPrice(item.price) + '</span> <span class="price-promo">' + formatPrice(item.promoPrice) + '</span>'
+                    : formatPrice(item.price)}</div>
             </div>
         </div>`;
     }
@@ -128,7 +130,9 @@
                 <div class="ls-card__qty">${item.quantity > 0
                     ? `<span class="in-stock">${item.quantity} In Stock</span>`
                     : `<span class="out-of-stock">Sold Out</span>`}</div>
-                <div class="ls-card__price">${formatPrice(item.price)}</div>
+                <div class="ls-card__price">${item.promoPrice
+                    ? '<span class="price-original">' + formatPrice(item.price) + '</span> <span class="price-promo">' + formatPrice(item.promoPrice) + '</span>'
+                    : formatPrice(item.price)}</div>
             </div>
         </div>`;
     }
@@ -146,7 +150,9 @@
                 <div class="ls-card__qty">${item.quantity > 0
                     ? `<span class="in-stock">${item.quantity} In Stock</span>`
                     : `<span class="out-of-stock">Sold Out</span>`}</div>
-                <div class="ls-card__price">${formatPrice(item.price)}</div>
+                <div class="ls-card__price">${item.promoPrice
+                    ? '<span class="price-original">' + formatPrice(item.price) + '</span> <span class="price-promo">' + formatPrice(item.promoPrice) + '</span>'
+                    : formatPrice(item.price)}</div>
             </div>
         </div>`;
     }
@@ -336,6 +342,7 @@
             sex:        row.sex || '',
             quantity:   parseInt(row.quantity, 10) || 0,
             price:      parseInt(row.price, 10) || 0,
+            promoPrice: row.promoPrice ? parseInt(row.promoPrice, 10) : null,
             status:     normalizeStatus(row.status),
             image:      row.image || ''
         };
@@ -354,6 +361,7 @@
             stage:      row.stage || '',
             quantity:   parseInt(row.quantity, 10) || 0,
             price:      parseInt(row.price, 10) || 0,
+            promoPrice: row.promoPrice ? parseInt(row.promoPrice, 10) : null,
             status:     normalizeStatus(row.status),
             image:      row.image || ''
         };
@@ -378,6 +386,7 @@
             name:        row.name || '',
             description: row.description || '',
             price:       parseInt(row.price, 10) || 0,
+            promoPrice:  row.promoPrice ? parseInt(row.promoPrice, 10) : null,
             quantity:    parseInt(row.quantity, 10) || 0,
             status:      normalizeStatus(row.status),
             videoUrl:    row.videoUrl || '',

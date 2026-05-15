@@ -8,6 +8,7 @@
       "sex": "pair",
       "quantity": 2,
       "price": 15000,
+      "promoPrice": null,
       "status": "available"
     },
     {
@@ -17,6 +18,7 @@
       "sex": "male",
       "quantity": 3,
       "price": 8500,
+      "promoPrice": null,
       "status": "available"
     },
     {
@@ -26,6 +28,7 @@
       "sex": "female",
       "quantity": 1,
       "price": 6000,
+      "promoPrice": null,
       "status": "available"
     },
     {
@@ -35,6 +38,7 @@
       "sex": "male",
       "quantity": 0,
       "price": 12000,
+      "promoPrice": null,
       "status": "sold"
     },
     {
@@ -44,6 +48,7 @@
       "sex": "pair",
       "quantity": 1,
       "price": 9000,
+      "promoPrice": null,
       "status": "reserved"
     },
     {
@@ -53,6 +58,7 @@
       "sex": "male",
       "quantity": 2,
       "price": 7500,
+      "promoPrice": null,
       "status": "breeding"
     },
     {
@@ -62,6 +68,7 @@
       "sex": "female",
       "quantity": 4,
       "price": 3500,
+      "promoPrice": 2800,
       "status": "available"
     },
     {
@@ -71,6 +78,7 @@
       "sex": "pair",
       "quantity": 5,
       "price": 1500,
+      "promoPrice": 1200,
       "status": "available"
     }
   ],
@@ -82,6 +90,7 @@
       "stage": "L2",
       "quantity": 10,
       "price": 800,
+      "promoPrice": null,
       "status": "available"
     },
     {
@@ -91,6 +100,7 @@
       "stage": "L3",
       "quantity": 6,
       "price": 600,
+      "promoPrice": null,
       "status": "available"
     },
     {
@@ -100,6 +110,7 @@
       "stage": "L1",
       "quantity": 0,
       "price": 500,
+      "promoPrice": null,
       "status": "sold"
     },
     {
@@ -109,6 +120,7 @@
       "stage": "L2",
       "quantity": 15,
       "price": 350,
+      "promoPrice": null,
       "status": "available"
     }
   ],
@@ -117,6 +129,7 @@
       "name": "JRN Premium Beetle Jelly — Protein Plus",
       "description": "High-protein beetle jelly for breeding adults. Boosts egg production and longevity.",
       "price": 250,
+      "promoPrice": null,
       "quantity": 50,
       "status": "available",
       "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -125,6 +138,7 @@
       "name": "JRN Beetle Jelly — Standard Mix",
       "description": "Balanced nutrition jelly suitable for all life stages. Pack of 30 cups.",
       "price": 150,
+      "promoPrice": 120,
       "quantity": 100,
       "status": "available",
       "videoUrl": ""
@@ -135,6 +149,7 @@
       "name": "Premium Flake Soil — 10L Bag",
       "description": "Fermented oak flake soil ideal for Phalacrognathus muelleri larvae. Ready to use.",
       "price": 350,
+      "promoPrice": null,
       "quantity": 20,
       "status": "available",
       "videoUrl": ""
@@ -143,6 +158,7 @@
       "name": "Breeding Container Set — Large",
       "description": "Clear acrylic breeding container with ventilation. Includes substrate separator.",
       "price": 450,
+      "promoPrice": null,
       "quantity": 8,
       "status": "available",
       "videoUrl": "https://youtu.be/example123"
