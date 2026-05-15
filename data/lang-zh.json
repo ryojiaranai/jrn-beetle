@@ -1,0 +1,80 @@
+{
+  "nav.home": "首页",
+  "nav.livestock": "库存",
+  "nav.knowledge": "知识库",
+  "nav.colorguide": "颜色指南",
+  "nav.contact": "联系我们",
+
+  "home.subtitle": "甲虫繁殖者 &amp; 用品",
+  "home.tagline": "繁育高品质稀有色彩甲虫。甲虫果冻、饲养用品，为繁殖者社区提供一切所需。",
+  "home.btn.livestock": "🪲 查看库存",
+  "home.btn.colorguide": "🌈 颜色指南",
+
+  "feature.livestock.title": "库存",
+  "feature.livestock.desc": "浏览我们的成虫和幼虫库存。彩虹锹甲、犀角金龟、锹甲等——含价格和供应状态。",
+  "feature.livestock.link": "查看库存 →",
+  "feature.jelly.title": "甲虫果冻 &amp; 设备",
+  "feature.jelly.desc": "高品质甲虫果冻和繁殖设备。观看视频评测，找到您所需的一切。",
+  "feature.jelly.link": "查看产品 →",
+  "feature.knowledge.title": "知识库",
+  "feature.knowledge.desc": "完整的甲虫繁殖指南——从入门基础到高级繁殖技术。",
+  "feature.knowledge.link": "了解更多 →",
+  "feature.color.title": "颜色变异指南",
+  "feature.color.desc": "彩虹锹甲颜色繁殖权威指南。颜色线、进化树、眼色变异、Pikal及繁殖策略。",
+  "feature.color.link": "探索颜色 →",
+
+  "highlight.title": "彩虹锹甲颜色指南",
+  "highlight.desc": "深入的互动指南，涵盖 Phalacrognathus muelleri 的每种颜色变异——从Normal到Aurora，从Pikal到Blue Crest Lapis。",
+  "highlight.link": "探索完整指南 →",
+
+  "contact.title": "联系我们",
+  "contact.subtitle": "有兴趣购买？通过任何平台联系我们！",
+
+  "footer.desc": "甲虫繁殖者 &amp; 用品",
+  "footer.tagline": "优质甲虫、果冻和设备，服务繁殖者社区",
+  "footer.copy": "© 2026 JRN BEETLE. 版权所有。",
+
+  "livestock.title": "全部库存",
+  "livestock.subtitle": "浏览我们的成虫、幼虫、甲虫果冻和设备库存。",
+  "livestock.tab.beetles": "成虫",
+  "livestock.tab.larvae": "幼虫",
+  "livestock.tab.jelly": "甲虫果冻",
+  "livestock.tab.equipment": "设备",
+  "livestock.search": "搜索...",
+  "livestock.nostock": "此类别暂无库存",
+
+  "knowledge.title": "知识库",
+  "knowledge.subtitle": "完整的甲虫繁殖指南——从入门基础到高级技术。",
+  "knowledge.cat1": "类别1：入门",
+  "knowledge.cat1.desc": "新手入门甲虫饲养指南",
+  "knowledge.cat2": "类别2：进阶",
+  "knowledge.cat2.desc": "专业繁殖者的高级技术",
+  "knowledge.keeping.title": "如何饲养成虫",
+  "knowledge.keeping.desc": "成虫护理指南——住所、食物、温度和每周护理日程。",
+  "knowledge.breeding.title": "如何繁殖甲虫",
+  "knowledge.breeding.desc": "完整的甲虫繁殖指南——配对、基质和卵的护理。",
+  "knowledge.larvae.title": "如何饲养幼虫",
+  "knowledge.larvae.desc": "从L1到成虫的幼虫饲养指南——食物、容器、温度和化蛹。",
+  "knowledge.method.title": "繁殖方法",
+  "knowledge.method.desc": "Line Breeding和Round Breeding——专业繁殖者用来建立稳定血统的技术。",
+  "knowledge.colorguide.title": "彩虹锹甲颜色指南",
+  "knowledge.colorguide.desc": "Phalacrognathus muelleri 的颜色线、进化、特殊眼色和Pikal完整指南。",
+  "knowledge.status.available": "可阅读",
+  "knowledge.status.review": "审核中",
+  "knowledge.status.soon": "即将推出",
+
+  "keeping.title": "如何饲养成虫",
+  "keeping.intro": "让成虫保持健康快乐所需的一切知识。",
+
+  "breeding.title": "如何繁殖甲虫",
+  "breeding.intro": "完整的甲虫繁殖指南——从配对、基质准备到卵的护理。",
+
+  "larvae.title": "如何饲养幼虫",
+  "larvae.intro": "从L1到成虫的幼虫饲养指南，包含食物配方、容器大小和化蛹技术。",
+
+  "method.title": "繁殖方法",
+  "method.intro": "如何在最小近亲繁殖影响下维持稳定血统。学习Line Breeding和Round Breeding——专业甲虫繁殖者使用的两种方法。",
+
+  "colorguide.title": "彩虹锹甲颜色指南",
+  "colorguide.subtitle": "繁殖和发展每种颜色变异的完整指南"
+}
