@@ -89,7 +89,7 @@
     // ---------- Card Renderers ----------
 
     function renderImage(imageUrl) {
-        if (!imageUrl) return '';
+        if (!imageUrl) return '<div class="ls-card__img ls-card__img--empty"><span class="img-placeholder">&#129430;</span></div>';
         return `<div class="ls-card__img"><img src="${escapeHtml(imageUrl)}" alt="Product photo" loading="lazy"></div>`;
     }
 
