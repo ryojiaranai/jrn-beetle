@@ -866,3 +866,11 @@ input, select, textarea {
   color: #e74c3c;
   font-weight: 700;
 }
+
+.origin-badge {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #daa520;
+  letter-spacing: 0.5px;
+}

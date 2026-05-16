@@ -103,7 +103,7 @@
             <div class="ls-card__common">${escapeHtml(item.commonName)}</div>
             ${item.variation ? `<div class="variation-badge">${escapeHtml(item.variation)}</div>` : ''}
             <div class="ls-card__row">
-                <div>${sexLabel(item.sex)}</div>
+                <div>${sexLabel(item.sex)}${item.origin ? ' · <span class="origin-badge">' + escapeHtml(item.origin) + '</span>' : ''}</div>
                 <div class="ls-card__qty">${item.quantity > 0
                     ? `<span class="in-stock">${item.quantity} In Stock</span>`
                     : `<span class="out-of-stock">Sold Out</span>`}</div>
@@ -330,7 +330,7 @@
 
     /**
      * Convert a row from the Adults sheet into the expected object.
-     * Expected columns: species, commonName, variation, sex, quantity, price, status
+     * Expected columns: species, commonName, variation, sex, origin, quantity, price, status
      */
     function parseAdult(row) {
         // Skip rows with no species (empty template rows)
@@ -340,6 +340,7 @@
             commonName: row.commonName || '',
             variation:  row.variation || '',
             sex:        row.sex || '',
+            origin:     row.origin || '',
             quantity:   parseInt(row.quantity, 10) || 0,
             price:      parseInt(row.price, 10) || 0,
             promoPrice: row.promoPrice ? parseInt(row.promoPrice, 10) : null,

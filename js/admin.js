@@ -129,6 +129,7 @@ function renderTable(category) {
                 <td>${esc(item.commonName || '')}</td>
                 <td>${esc(item.variation || '')}</td>
                 <td>${esc(item.sex || '')}</td>
+                <td>${esc(item.origin || '')}</td>
                 <td>${item.quantity}</td>
                 <td>${formatPrice(item.price)}</td>
                 <td>${item.promoPrice ? formatPrice(item.promoPrice) : '—'}</td>
@@ -218,6 +219,7 @@ function configureFormFields(category) {
     document.getElementById('fields-species').style.display = isSpecies ? '' : 'none';
     document.getElementById('fields-product').style.display = isProduct ? '' : 'none';
     document.getElementById('fields-sex').style.display = isAdult ? '' : 'none';
+    document.getElementById('fields-origin').style.display = isAdult ? '' : 'none';
     document.getElementById('fields-status').style.display = hasStatus ? '' : 'none';
     document.getElementById('fields-video').style.display = isProduct ? '' : 'none';
 
@@ -246,6 +248,7 @@ function clearForm() {
     document.getElementById('f-name').value = '';
     document.getElementById('f-description').value = '';
     document.getElementById('f-sex').value = 'Male';
+    document.getElementById('f-origin').value = '';
     document.getElementById('f-quantity').value = '1';
     document.getElementById('f-price').value = '';
     document.getElementById('f-promoPrice').value = '';
@@ -288,6 +291,7 @@ function openEditModal(category, id) {
 
     if (category === 'adultBeetles') {
         document.getElementById('f-sex').value = item.sex || 'Male';
+        document.getElementById('f-origin').value = item.origin || '';
     }
 
     document.getElementById('f-quantity').value = item.quantity ?? 0;
@@ -388,6 +392,7 @@ function saveItem(e) {
 
     if (category === 'adultBeetles') {
         item.sex = document.getElementById('f-sex').value;
+        item.origin = document.getElementById('f-origin').value.trim();
     }
 
     item.quantity = parseInt(document.getElementById('f-quantity').value, 10) || 0;
