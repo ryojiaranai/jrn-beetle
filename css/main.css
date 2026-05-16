@@ -874,3 +874,48 @@ input, select, textarea {
   color: #daa520;
   letter-spacing: 0.5px;
 }
+
+/* Prev / Next collection navigation */
+.collection-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  gap: 16px;
+}
+.collection-nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #b0b0c0;
+  font-size: 0.85rem;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: #12121a;
+  transition: border-color 0.3s, color 0.3s, transform 0.3s;
+}
+.collection-nav a:hover {
+  border-color: #daa520;
+  color: #daa520;
+}
+.collection-nav a.nav-prev:hover { transform: translateX(-4px); }
+.collection-nav a.nav-next:hover { transform: translateX(4px); }
+.collection-nav a .nav-label {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #8888a0;
+  display: block;
+}
+.collection-nav a .nav-title {
+  display: block;
+}
+.collection-nav .nav-next {
+  margin-left: auto;
+  text-align: right;
+}
+.collection-nav .nav-spacer { flex: 1; }
